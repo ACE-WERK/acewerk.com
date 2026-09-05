@@ -73,3 +73,20 @@ When pulling or syncing from another design repo:
 - If a task says “use this HTML as the new page”:
   - Diff it against the current version.
   - Keep CTA, SEO, and core configs unless explicitly told to drop them.
+
+## 6. Dev/Production workflow
+
+Two repos under the ACE-WERK GitHub org:
+
+| Repo | Branch | URL | Purpose |
+|---|---|---|---|
+| `ACE-WERK/acewerk.com` | `main` | `https://acewerk.com/` | Production |
+| `ACE-WERK/acewerk-dev` | `main` | `https://dev.acewerk.com/` | Staging |
+
+Rules:
+- **New features go to `ACE-WERK/acewerk-dev` first** (deploys to `dev.acewerk.com`).
+- QA validates on `dev.acewerk.com` before any prod merge.
+- On merge to prod: remove `noindex` meta tags and `robots.txt` Disallow so prod pages are searchable.
+- Never push feature work directly to `ACE-WERK/acewerk.com` without dev staging.
+- Internal links: relative paths only (`href="/"`) — works on both environments.
+- Git push: `git -c credential.helper="/usr/bin/gh auth git-credential" push`

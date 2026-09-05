@@ -50,3 +50,21 @@ If in doubt, keep it.
 
 - Every meaningful change must be committed with a clear message.
 - Include which page(s) you changed and why.
+
+## 5. Dev/Production pipeline
+
+Two repos under the ACE-WERK GitHub org:
+
+| Repo | Branch | URL | Purpose |
+|---|---|---|---|
+| `ACE-WERK/acewerk.com` | `main` | `https://acewerk.com/` | Production |
+| `ACE-WERK/acewerk-dev` | `main` | `https://dev.acewerk.com/` | Staging |
+
+Rules:
+- **All feature work goes to the dev repo first** (`ACE-WERK/acewerk-dev`).
+- QA validates on `dev.acewerk.com` before any prod merge.
+- **Dev repo**: `noindex` meta tags on all pages, `robots.txt` with `Disallow: /`, canonicals point to `acewerk.com` (production).
+- **Prod repo**: NO `noindex` tags, NO `robots.txt` Disallow. All pages searchable.
+- **Merge to prod**: strip `noindex` meta tags and `robots.txt` Disallow. Verify canonicals stay `acewerk.com`.
+- **Internal links**: use relative paths only (`href="/"`, `href="/services/"`). Works on both environments without rewriting.
+- **Git push**: use `git -c credential.helper="/usr/bin/gh auth git-credential" push` (fine-grained PAT fails with plain `git push`).

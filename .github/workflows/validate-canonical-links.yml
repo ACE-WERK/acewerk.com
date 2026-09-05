@@ -26,13 +26,16 @@ jobs:
             FAIL=1
           }
 
-          # ---------- determine base URL based on branch ----------
+          # ---------- canonical expectations ----------
+          # On dev branch, canonicals should still point to production (acewerk.com)
+          # so search engines know the staging pages aren't the real content.
+          # We only validate that canonicals exist and match production URLs.
           if [ "${GITHUB_REF_NAME}" = "dev" ]; then
-            BASE="https://vancouvervibes.github.io/acewerk.com"
+            BASE="https://acewerk.com"
           else
             BASE="https://acewerk.com"
           fi
-          echo "Validating against base: ${BASE}"
+          echo "Validating canonicals against base: ${BASE}"
 
           # ---------- canonical expectations ----------
           declare -A CANONICAL_EXPECTED=(

@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
 
-Sitemap: https://vancouvervibes.github.io/acewerk.com/sitemap.xml
+Sitemap: https://acewerk.com/sitemap.xml

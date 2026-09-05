@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <script defer src="https://x.acewerk.com/tessera.js" data-website-id="15435e6c-c2e0-4995-bd8e-db662d4474f3"></script>
-  <link rel="canonical" href="https://acewerk.com/our-team/">
+  <meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://acewerk.com/our-team/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Our Team — The Operators Behind Ace Werk</title>
@@ -138,6 +139,9 @@
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.3s ease-out;
       --max-width: 1100px;
+      --breakpoint-nav: 768px;
+      --nav-height: 52px;
+      --nav-height-mobile: 44px;
 
       /* ── Type scale — marketing weight, fluid across screens ── */
       --fs-label:         clamp(11px, 0.6vw + 8px, 12px);   /* eyebrows, tags, stat labels */
@@ -548,6 +552,74 @@
   justify-content: space-between;
 }
 
+/* ══════ NAV — Blog item + mobile hamburger (blog parity) ══════ */
+.nav-links a.nav-blog::before {
+  content: "";
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
+  margin-right: 7px;
+  vertical-align: middle;
+  transition: opacity var(--transition-fast);
+}
+.nav-links a.nav-blog:hover::before,
+.nav-links a.nav-blog.active::before {
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(212,154,46,0.6);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px;
+  width: 44px; height: 44px;
+  margin-left: auto;
+  background: transparent; border: none;
+  cursor: pointer; padding: 0;
+}
+.nav-toggle-bar {
+  width: 20px; height: 2px;
+  background: var(--ink-muted);
+  transition: transform var(--transition-med), opacity var(--transition-med), background var(--transition-med);
+}
+.nav-toggle:hover .nav-toggle-bar { background: var(--ink); }
+.nav-toggle.open .nav-toggle-bar { background: var(--accent); }
+.nav-toggle.open .nav-toggle-bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.nav-toggle.open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle.open .nav-toggle-bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+body.nav-open { overflow: hidden; }
+
+@media (max-width: 768px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-links {
+    position: fixed; top: var(--nav-height-mobile); left: 0; right: 0; z-index: 49;
+    display: none;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: rgba(6,9,18,0.94);
+    backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 12px 20px 20px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a {
+    display: flex; align-items: center;
+    min-height: 48px;
+    font-weight: 400; font-size: 16px;
+    border-top: 1px solid var(--rule-soft);
+    padding: 0;
+  }
+  .nav-links a:first-child { border-top: 0; }
+  .nav-links a.active { color: var(--accent-soft); }
+  .nav-links a::after { display: none; }
+}
+@media (min-width: 769px) {
+  .nav-toggle { display: none; }
+}
 </style>
 </head>
 <body>
@@ -561,10 +633,17 @@
   <header class="nav-bar" role="banner">
     <div class="header-inner-wrapper site-container">
       <a href="/" class="nav-logo" aria-label="Ace Werk home">Ace Werk</a>
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"
+              aria-label="Open menu" type="button">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <nav class="nav-links" id="site-nav" role="navigation" aria-label="Main navigation">
         <a href="/services/">Services</a>
         <a href="/our-team/" class="active" aria-current="page">Our Team</a>
         <a href="/contact/">Contact</a>
+        <a href="/blog/" class="nav-blog">Blog</a>
       </nav>
     </div>
   </header>
@@ -1047,6 +1126,62 @@ makeBand({
   drive:true,
   shootEvery:14000
 });
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('site-nav');
+  if (!toggle || !nav) return;
+  var links = nav.querySelectorAll('a');
+  var first = links[0];
+  var last = links[links.length - 1];
+  var logo = document.querySelector('.nav-logo');
+
+  function isOpen(){ return toggle.classList.contains('open'); }
+  function openMenu(){
+    toggle.classList.add('open');
+    nav.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+    document.body.classList.add('nav-open');
+    if (logo) logo.setAttribute('tabindex', '-1');
+    if (first) first.focus();
+  }
+  function closeMenu(){
+    toggle.classList.remove('open');
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    document.body.classList.remove('nav-open');
+    if (logo) logo.removeAttribute('tabindex');
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', function(){ isOpen() ? closeMenu() : openMenu(); });
+
+  document.addEventListener('keydown', function(e){
+    if (!isOpen()) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeMenu(); return; }
+    if (e.key === 'Tab') {
+      if (e.shiftKey && (document.activeElement === toggle || document.activeElement === first)) {
+        e.preventDefault(); if (last) last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); toggle.focus();
+      }
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (!isOpen()) return;
+    if (nav.contains(e.target) || toggle.contains(e.target)) return;
+    closeMenu();
+  });
+
+  nav.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('a')) closeMenu();
+  });
 })();
 </script>
 </body>

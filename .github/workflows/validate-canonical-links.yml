@@ -2,9 +2,9 @@ name: "Validate canonicals and internal links"
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   validate:
@@ -27,11 +27,22 @@ jobs:
           }
 
           # ---------- canonical expectations ----------
+          # On dev branch, canonicals should still point to production (acewerk.com)
+          # so search engines know the staging pages aren't the real content.
+          # We only validate that canonicals exist and match production URLs.
+          if [ "${GITHUB_REF_NAME}" = "dev" ]; then
+            BASE="https://acewerk.com"
+          else
+            BASE="https://acewerk.com"
+          fi
+          echo "Validating canonicals against base: ${BASE}"
+
+          # ---------- canonical expectations ----------
           declare -A CANONICAL_EXPECTED=(
-            ["index.html"]="https://acewerk.com/"
-            ["services/index.html"]="https://acewerk.com/services/"
-            ["our-team/index.html"]="https://acewerk.com/our-team/"
-            ["contact/index.html"]="https://acewerk.com/contact/"
+            ["index.html"]="${BASE}/"
+            ["services/index.html"]="${BASE}/services/"
+            ["our-team/index.html"]="${BASE}/our-team/"
+            ["contact/index.html"]="${BASE}/contact/"
           )
 
           for FILE in "${!CANONICAL_EXPECTED[@]}"; do

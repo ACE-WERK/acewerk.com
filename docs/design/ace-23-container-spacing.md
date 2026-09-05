@@ -6,7 +6,7 @@
 - Source of truth: repo `ACE-WERK/acewerk-dev` `main` @ `b718d7d` (`~/projects/acewerk.com`, remote `dev-origin`) + **live** `dev.acewerk.com`, re-measured independently by Design with Playwright headless Chromium at 1440/768/390 on 2026-09-05 (raw data: `ace23_measure.json` in the design workspace).
 - Downstream: Dev (`t_ac437bbd`) implements → QA (`t_0a77c351`) validates → Release.
 
-Status: **CONFIRMED** — Design concurs with BA D1–D5, locks the exact CSS form, answers BA's two flagged questions (§2.4, §3.3), and adds **one correction** to a BA acceptance target: A4's 768px post-page shell-top (92.95 → **84.95**; §3.4). Nothing else is re-decided.
+Status: **CONFIRMED** — Design concurs with BA D1–D5, locks the exact CSS form, answers BA's two flagged questions (§1.5 header alignment, §2.4 naming), and adds **one correction** to a BA acceptance target: A4's 768px post-page shell-top (92.95 → **84.95**; §4). Nothing else is re-decided.
 
 ---
 
@@ -199,14 +199,14 @@ Add the existing `hero-shell` class to the post article shell:
 
 ### 2.3 Expected shell-top numbers (locked for Dev + QA)
 
-Post pages run the **blog nav** (44px at ≤768, 52px ≥769 — see §3.4), so post
+Post pages run the **blog nav** (44px at ≤768, 52px ≥769 — see §4), so post
 shell-top == blog-index shell-top at every viewport. `margin-top` resolves:
 24px floor @≤600vh · 4vh @600–1100vh · 44px cap @≥1100vh.
 
 | Viewport | post shell y (after) | margin-top | == blog index y | == non-blog hero y |
 |---|---|---|---|---|
 | 1440×900 | **88.0** | 36px | 88.0 ✓ | 88.0 ✓ (52+36) |
-| 768×1024 | **84.95** | 40.96px | 84.95 ✓ | **92.95** ✗ (52+40.96) — see §3.4 |
+| 768×1024 | **84.95** | 40.96px | 84.95 ✓ | **92.95** ✗ (52+40.96) — see §4 |
 | 390×844 | **77.75** | 33.76px | 77.75 ✓ | 77.75 ✓ (44+33.76) |
 
 Pre-fix post shell y: 52 / 44 / 44 (flush under the nav) → the fix lifts it to

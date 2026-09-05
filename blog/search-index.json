@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "title": "A Quiet First Post",
+    "excerpt": "A short sample post used to verify the blog index, card rendering, and the single-post reading flow on staging.",
+    "author": "Ace Werk",
+    "date": "2026-09-02",
+    "slug": "dev-fixture-short",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit. Donec ullamcorper nulla non metus auctor fringilla. Cras justo odio, dapibus ac facilisis in, egestas eget quam. This is a developer fixture: a short sample post for staging QA. It is not published content."
+  },
+  {
+    "title": "A Field Guide to the Markdown We Support",
+    "excerpt": "Headings, lists, blockquotes, inline links, and fenced code — a long-form sample that exercises every block and inline rule the build step understands.",
+    "author": "The Editorial Team",
+    "date": "2026-08-18",
+    "slug": "dev-fixture-long",
+    "body": "Introduction Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. This paragraph demonstrates strong and emphasis, plus an inline link to the Ace Werk studio and a code span. What we render Cras mattis consectetur purus sit amet fermentum. The build step understands a bounded subset of Markdown, which is enough for real writing without pulling in a parser dependency. Block elements Donec sed odio dui. The supported block elements are: Unordered list item one Unordered list item two Nested item two-a Nested item two-b with inline code Unordered list item three Ordered list item one Ordered list item two Nested ordered item two-a Nested ordered item two-b Ordered list item three Quotes and code Maecenas faucibus mollis interdum. Sed posuere consectetur est at lobortis. Read more in our services — the link works inside a blockquote. Closing notes Nullam quis risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum nulla sed consectetur. Developer fixture — a long sample post for staging QA. Not published content."
+  },
+  {
+    "title": "An Exceptionally Long Post Title That Is Deliberately Written to Exceed the Two-Line Clamp and Verify That the Card and Post Header Truncate Gracefully Without Breaking the Layout at Any Viewport",
+    "excerpt": "A deliberately extreme title and author name to exercise the truncation rules: two-line title clamp, single-line author ellipsis, and the 200-character excerpt cap.",
+    "author": "Dr. Alexandra Serafina Konstantinova-Montgomery, Senior Principal Editorial Strategist",
+    "date": "2026-07-30",
+    "slug": "dev-fixture-truncation",
+    "body": "Why this fixture exists Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. The title and byline above are intentionally oversized to confirm the design system's truncation behaviour — the title clamps to two lines, the author ellipsizes to a single line, and nothing pushes the layout out of alignment. Developer fixture — a truncation test for staging QA. Not published content."
+  }
+]

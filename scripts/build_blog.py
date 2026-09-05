@@ -956,7 +956,6 @@ def render_head(title):
         "<head>\n",
         '  <meta charset="utf-8">\n',
         '  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n',
-        '  <meta name="robots" content="noindex, nofollow">\n',
         "  <title>" + html.escape(title) + "</title>\n",
         '  <link rel="preload" href="/assets/fonts/orbitron-500-latin.woff2" as="font" type="font/woff2" crossorigin>\n',
         '  <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>\n',
@@ -1503,6 +1502,10 @@ def main():
     # lazy-fetch path with a real build; default is ~200KB).
     threshold = INLINE_INDEX_THRESHOLD_BYTES
     args = sys.argv[1:]
+    # --keep-fixtures: include fixture posts (dev staging default behavior on
+    # the dev repo). The prod repo strips fixtures by default so a rebuild
+    # after adding real posts never re-emits the dev sample pages.
+    keep_fixtures = "--keep-fixtures" in args
     if "--inline-threshold" in args:
         try:
             threshold = int(args[args.index("--inline-threshold") + 1])
@@ -1510,6 +1513,8 @@ def main():
             threshold = INLINE_INDEX_THRESHOLD_BYTES
 
     posts = load_posts()
+    if not keep_fixtures:
+        posts = [p for p in posts if not p.get("fixture")]
 
     # enrich with derived fields
     for p in posts:

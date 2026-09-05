@@ -783,8 +783,6 @@ CSS = r"""
 
     /* ══════ LONG-FORM PROSE ══════ */
     .post-body {
-      max-width: var(--measure-prose);
-      margin: 0 auto;
       color: var(--ink);
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 300;

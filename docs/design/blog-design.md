@@ -48,6 +48,12 @@ Type scale
 Fonts (`assets/fonts/fonts.css`) — Space Grotesk 300/400/500 (body), Orbitron 500
 (brand), Inter 400/500, JetBrains Mono 400/500 (code/labels), Rajdhani 400/500.
 
+**Cross-page container spec (ACE-23):** the gutter, shell, and hero top-margin
+rules for `site-container` / `content-wrap` / `content-shell` / `hero-shell`
+apply to **all** pages (blog and non-blog), not just blog. Their canonical form
+and the unified values live in `docs/design/ace-23-container-spacing.md` §1.3 —
+this document's container values match it and are not re-decided locally.
+
 ### 1.2 New tokens (deliverable 7)
 
 Add these to the blog pages' `:root`. Names follow the existing `--breakpoint-*`,

@@ -27,10 +27,11 @@ jobs:
           }
 
           # ---------- canonical expectations ----------
-          # Production (main) uses https://acewerk.com; the dev branch uses the
-          # GitHub Pages default URL (https://vancouvervibes.github.io/acewerk.com).
+          # On dev branch, canonicals should still point to production (acewerk.com)
+          # so search engines know the staging pages aren't the real content.
+          # We only validate that canonicals exist and match production URLs.
           if [ "${GITHUB_REF_NAME}" = "dev" ]; then
-            BASE="https://vancouvervibes.github.io/acewerk.com"
+            BASE="https://acewerk.com"
           else
             BASE="https://acewerk.com"
           fi

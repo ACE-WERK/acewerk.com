@@ -28,7 +28,7 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Configuration — edit this list to add / remove pages.
 # ---------------------------------------------------------------------------
-BASE_URL: str = "https://acewerk.com"
+BASE_URL: str = "https://vancouvervibes.github.io/acewerk.com"
 OUTPUT: str = "sitemap.xml"
 
 PAGES: list[dict[str, str]] = [

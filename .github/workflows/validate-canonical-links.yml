@@ -2,9 +2,9 @@ name: "Validate canonicals and internal links"
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   validate:
@@ -26,12 +26,20 @@ jobs:
             FAIL=1
           }
 
+          # ---------- determine base URL based on branch ----------
+          if [ "${GITHUB_REF_NAME}" = "dev" ]; then
+            BASE="https://vancouvervibes.github.io/acewerk.com"
+          else
+            BASE="https://acewerk.com"
+          fi
+          echo "Validating against base: ${BASE}"
+
           # ---------- canonical expectations ----------
           declare -A CANONICAL_EXPECTED=(
-            ["index.html"]="https://acewerk.com/"
-            ["services/index.html"]="https://acewerk.com/services/"
-            ["our-team/index.html"]="https://acewerk.com/our-team/"
-            ["contact/index.html"]="https://acewerk.com/contact/"
+            ["index.html"]="${BASE}/"
+            ["services/index.html"]="${BASE}/services/"
+            ["our-team/index.html"]="${BASE}/our-team/"
+            ["contact/index.html"]="${BASE}/contact/"
           )
 
           for FILE in "${!CANONICAL_EXPECTED[@]}"; do

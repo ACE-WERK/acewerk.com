@@ -1242,7 +1242,7 @@ def build_post_page(post):
         '  <div class="page-wrapper">\n',
         "    <main>\n",
         '      <div class="content-wrap site-container">\n',
-        '        <div class="content-shell reveal">\n',
+        '        <div class="content-shell hero-shell reveal">\n',
         "          <article>\n",
         '            <header class="post-header">\n',
         '              <a class="post-back" href="/blog/">&larr; Blog</a>\n',

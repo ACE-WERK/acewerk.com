@@ -386,17 +386,18 @@
       overflow: hidden;
     }
     .post-card-meta {
-      display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px;
+      display: flex; align-items: baseline; justify-content: space-between; flex-wrap: nowrap; gap: 14px;
       font-family: 'JetBrains Mono', monospace; font-weight: 400;
       font-size: var(--fs-label); letter-spacing: 0.06em;
     }
     .post-card-date { color: var(--accent); }
-    .post-card-read { color: var(--ink-muted); }
+    .post-card-read { color: var(--ink-muted); white-space: nowrap; }
     .post-card-author {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
       color: var(--ink-muted);
-      margin-left: auto;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      max-width: 140px;
+      max-width: 100%;
     }
     .post-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .post-card-tag {
@@ -697,43 +698,43 @@
     <div class="post-grid" id="post-grid">
     <article class="post-card">
       <span class="post-card-glyph" aria-hidden="true">&#9670;</span>
+      <div class="post-card-meta">
+        <span class="post-card-date"><time datetime="2026-09-02">Sep 2, 2026</time></span>
+        <span class="post-card-read">1 min read</span>
+      </div>
       <h3 class="post-card-title">
         <a class="post-card-link" href="/blog/dev-fixture-short/">A Quiet First Post</a>
       </h3>
       <p class="post-card-excerpt">A short sample post used to verify the blog index, card rendering, and the single-post reading flow on staging.</p>
-      <div class="post-card-meta">
-        <span class="post-card-date"><time datetime="2026-09-02">Sep 2, 2026</time></span>
-        <span class="post-card-read">1 min read</span>
-        <span class="post-card-author">Ace Werk</span>
-      </div>
+      <div class="post-card-author">By Ace Werk</div>
     
         <div class="post-card-tags"><span class="post-card-tag">studio</span> <span class="post-card-tag">announcement</span> <span class="post-card-tag post-card-fixture">Fixture</span></div>
     </article>
     <article class="post-card">
       <span class="post-card-glyph" aria-hidden="true">&#9670;</span>
+      <div class="post-card-meta">
+        <span class="post-card-date"><time datetime="2026-08-18">Aug 18, 2026</time></span>
+        <span class="post-card-read">2 min read</span>
+      </div>
       <h3 class="post-card-title">
         <a class="post-card-link" href="/blog/dev-fixture-long/">A Field Guide to the Markdown We Support</a>
       </h3>
       <p class="post-card-excerpt">Headings, lists, blockquotes, inline links, and fenced code — a long-form sample that exercises every block and inline rule the build step understands.</p>
-      <div class="post-card-meta">
-        <span class="post-card-date"><time datetime="2026-08-18">Aug 18, 2026</time></span>
-        <span class="post-card-read">2 min read</span>
-        <span class="post-card-author">The Editorial Team</span>
-      </div>
+      <div class="post-card-author">By The Editorial Team</div>
     
         <div class="post-card-tags"><span class="post-card-tag">docs</span> <span class="post-card-tag">markdown</span> <span class="post-card-tag">engineering</span> <span class="post-card-tag post-card-fixture">Fixture</span></div>
     </article>
     <article class="post-card">
       <span class="post-card-glyph" aria-hidden="true">&#9670;</span>
+      <div class="post-card-meta">
+        <span class="post-card-date"><time datetime="2026-07-30">Jul 30, 2026</time></span>
+        <span class="post-card-read">1 min read</span>
+      </div>
       <h3 class="post-card-title">
         <a class="post-card-link" href="/blog/dev-fixture-truncation/">An Exceptionally Long Post Title That Is Deliberately Written to Exceed the Two-Line Clamp and Verify That the Card and Post Header Truncate Gracefully Without Breaking the Layout at Any Viewport</a>
       </h3>
       <p class="post-card-excerpt">A deliberately extreme title and author name to exercise the truncation rules: two-line title clamp, single-line author ellipsis, and the 200-character excerpt cap.</p>
-      <div class="post-card-meta">
-        <span class="post-card-date"><time datetime="2026-07-30">Jul 30, 2026</time></span>
-        <span class="post-card-read">1 min read</span>
-        <span class="post-card-author">Dr. Alexandra Serafina Konstantinova-Montgomery, Senior Principal Editorial Strategist</span>
-      </div>
+      <div class="post-card-author">By Dr. Alexandra Serafina Konstantinova-Montgomery, Senior Principal Editorial Strategist</div>
     
         <div class="post-card-tags"><span class="post-card-tag">qa</span> <span class="post-card-tag">truncation</span> <span class="post-card-tag">layout</span> <span class="post-card-tag post-card-fixture">Fixture</span></div>
     </article>
@@ -780,6 +781,7 @@
   "use strict";
   var toolbar = document.querySelector('.blog-toolbar');
   var pagination = document.querySelector('.pagination');
+  var pageSizeWrap = document.querySelector('.page-size-wrap');
   var searchForm = document.querySelector('.blog-search');
   var searchInput = document.getElementById('blog-search-input');
   var searchClear = document.querySelector('.blog-search-clear');
@@ -788,8 +790,10 @@
   var grid = document.getElementById('post-grid');
   var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.post-card')) : [];
 
-  if (toolbar) toolbar.hidden = false;
-  if (pagination) pagination.hidden = false;
+  if (toolbar) toolbar.hidden = false;          // toolbar stays visible (search lives here)
+  var showControls = cards.length > 5;
+  if (pageSizeWrap) { pageSizeWrap.hidden = !showControls; pageSizeWrap.style.display = showControls ? '' : 'none'; }
+  if (pagination) { pagination.hidden = !showControls; pagination.style.display = showControls ? '' : 'none'; }
 
   // ---- search index: inline when small, lazy on first focus when large ----
   var INDEX = [];

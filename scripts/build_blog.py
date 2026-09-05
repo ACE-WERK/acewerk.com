@@ -690,17 +690,18 @@ CSS = r"""
       overflow: hidden;
     }
     .post-card-meta {
-      display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px;
+      display: flex; align-items: baseline; justify-content: space-between; flex-wrap: nowrap; gap: 14px;
       font-family: 'JetBrains Mono', monospace; font-weight: 400;
       font-size: var(--fs-label); letter-spacing: 0.06em;
     }
     .post-card-date { color: var(--accent); }
-    .post-card-read { color: var(--ink-muted); }
+    .post-card-read { color: var(--ink-muted); white-space: nowrap; }
     .post-card-author {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
       color: var(--ink-muted);
-      margin-left: auto;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      max-width: 140px;
+      max-width: 100%;
     }
     .post-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .post-card-tag {
@@ -914,7 +915,7 @@ CSS = r"""
         position: fixed; top: var(--nav-height-mobile); left: 0; right: 0; z-index: 49;
         display: none;
         flex-direction: column; align-items: stretch; gap: 0;
-        background: rgba(6,9,18,0.98);
+        background: #060912;
         backdrop-filter: blur(14px) saturate(1.15);
         -webkit-backdrop-filter: blur(14px) saturate(1.15);
         border-bottom: 1px solid var(--glass-border);
@@ -1114,15 +1115,15 @@ def render_card(post):
     parts = [
         '<article class="post-card">\n',
         '  <span class="post-card-glyph" aria-hidden="true">&#9670;</span>\n',
+        '  <div class="post-card-meta">\n',
+        '    <span class="post-card-date"><time datetime="' + dt + '">' + dstr + "</time></span>\n",
+        '    <span class="post-card-read">' + str(read_time) + " min read</span>\n",
+        "  </div>\n",
         '  <h3 class="post-card-title">\n',
         '    <a class="post-card-link" href="/blog/' + slug + '/">' + title + "</a>\n",
         "  </h3>\n",
         '  <p class="post-card-excerpt">' + excerpt + "</p>\n",
-        '  <div class="post-card-meta">\n',
-        '    <span class="post-card-date"><time datetime="' + dt + '">' + dstr + "</time></span>\n",
-        '    <span class="post-card-read">' + str(read_time) + " min read</span>\n",
-        '    <span class="post-card-author">' + author + "</span>\n",
-        "  </div>\n",
+        '  <div class="post-card-author">By ' + author + "</div>\n",
         (tags_html + "\n") if tags_html else "",
         "</article>",
     ]
@@ -1297,6 +1298,7 @@ INDEX_JS = r"""
   "use strict";
   var toolbar = document.querySelector('.blog-toolbar');
   var pagination = document.querySelector('.pagination');
+  var pageSizeWrap = document.querySelector('.page-size-wrap');
   var searchForm = document.querySelector('.blog-search');
   var searchInput = document.getElementById('blog-search-input');
   var searchClear = document.querySelector('.blog-search-clear');
@@ -1305,8 +1307,10 @@ INDEX_JS = r"""
   var grid = document.getElementById('post-grid');
   var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.post-card')) : [];
 
-  if (toolbar) toolbar.hidden = false;
-  if (pagination) pagination.hidden = false;
+  if (toolbar) toolbar.hidden = false;          // toolbar stays visible (search lives here)
+  var showControls = cards.length > 5;
+  if (pageSizeWrap) { pageSizeWrap.hidden = !showControls; pageSizeWrap.style.display = showControls ? '' : 'none'; }
+  if (pagination) { pagination.hidden = !showControls; pagination.style.display = showControls ? '' : 'none'; }
 
   // ---- search index: inline when small, lazy on first focus when large ----
   var INDEX = [];

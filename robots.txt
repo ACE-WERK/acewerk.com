@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-<<<<<<< Updated upstream
 
 Sitemap: https://acewerk.com/sitemap.xml
-=======
->>>>>>> Stashed changes

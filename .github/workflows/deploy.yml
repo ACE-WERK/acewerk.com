@@ -17,20 +17,23 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Production environment: no blog, strict guards.
+      ACEWERK_ENV: "prod"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # full history needed for accurate per-file git log lastmod
+          fetch-depth: 0  # full history for lastmod
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Generate sitemap.xml
-        run: python scripts/generate_sitemap.py
+      - name: Build site (env-aware, with guards)
+        run: python scripts/build.py
 
       - name: Validate sitemap.xml against sitemap 0.9 XSD
         run: |

@@ -37,23 +37,26 @@ def file_text(rel):
 
 # ── PROD TESTS ──
 
-def test_prod_no_blog_directory():
+def test_prod_blog_only_published_posts():
     if ENV != "prod":
         return
-    blog = ROOT / "blog"
-    assert not (blog.exists() and blog.is_dir()), (
-        "Production build must not include /blog/ directory."
-    )
-
-def test_prod_nav_no_blog_link():
-    if ENV != "prod":
-        return
-    pages = ["services/index.html", "our-team/index.html", "contact/index.html"]
-    for rel in pages:
-        t = file_text(rel)
-        assert '/blog/' not in t, (
-            f"Production {rel} must not link to /blog/."
+    for p in (ROOT / "blog").glob("*/index.html"):
+        slug = p.parent.name
+        src = ROOT / "content" / "posts" / f"{slug}.md"
+        assert src.is_file(), f"blog/{slug}/ has no source post."
+        assert not re.search(r"^fixture:\s*(true|1|yes)\s*$", src.read_text(encoding="utf-8"), re.M | re.I), (
+            f"blog/{slug}/ is a fixture and must not ship to production."
         )
+
+def test_prod_blog_pages_indexable_with_analytics():
+    if ENV != "prod":
+        return
+    for p in (ROOT / "blog").rglob("index.html"):
+        t = p.read_text(encoding="utf-8", errors="ignore")
+        rel = p.relative_to(ROOT)
+        assert "noindex" not in t.lower(), f"Production {rel} must not contain 'noindex'."
+        assert PROD_ANALYTICS_ID in t, f"Production {rel} must load the production analytics ID."
+        assert "dev-fixture" not in t, f"Production {rel} must not reference dev fixtures."
 
 def test_prod_sitemap_hostname():
     if ENV != "prod":
@@ -74,9 +77,6 @@ def test_prod_sitemap_hostname():
         )
         assert "dev.acewerk.com" not in loc, (
             "Production sitemap must not include dev.acewerk.com."
-        )
-        assert "/blog/" not in loc, (
-            "Production sitemap must not include /blog/ URLs."
         )
 
 def test_prod_no_noindex_on_main_pages():

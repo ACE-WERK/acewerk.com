@@ -11,12 +11,13 @@ Usage:
 
 This script:
 - Runs generate_sitemap.py
-- Optionally runs build_blog.py (only for dev)
+- Runs build_blog.py (prod: indexable, prod analytics, no fixtures)
 - Enforces environment-specific invariants so blog / meta / sitemap / analytics
   cannot leak between prod and dev.
 """
 
 import os
+import re
 import sys
 import subprocess
 from pathlib import Path
@@ -71,13 +72,9 @@ def read_htmls(patterns):
 def build_sitemap():
     run(["python", "scripts/generate_sitemap.py"])
 
-# ── 2. Blog build: DEV ONLY ──
+# ── 2. Blog build (ACEWERK_ENV is inherited; prod mode drops noindex and fixtures) ──
 
 def build_blog():
-    if ENV != "dev":
-        # build_blog.py itself should raise if incorrectly invoked in prod.
-        # We also refuse to call it here.
-        return
     run(["python", "scripts/build_blog.py"] + (["--keep-fixtures"] if KEEP_FIXTURES else []))
 
 # ── 3. Prods-only guards ──
@@ -89,22 +86,33 @@ def guard_prod():
     sitemap = ROOT / "sitemap.xml"
     errors = []
 
-    # - No blog/ directory in build output.
+    # - Every blog page belongs to a published (non-fixture) post.
     blog_dir = ROOT / "blog"
-    if blog_dir.exists() and blog_dir.is_dir():
-        errors.append(
-            "Prod build must not include /blog/ directory. "
-            "Remove it from the repo or exclude from deployment."
-        )
+    posts_dir = ROOT / "content" / "posts"
+    blog_pages = sorted(blog_dir.glob("*/index.html")) if blog_dir.is_dir() else []
+    for page in blog_pages:
+        slug = page.parent.name
+        src = posts_dir / f"{slug}.md"
+        if not src.is_file():
+            errors.append(f"blog/{slug}/ has no source post content/posts/{slug}.md.")
+        elif re.search(r"^fixture:\s*(true|1|yes)\s*$", src.read_text(encoding="utf-8"), re.M | re.I):
+            errors.append(f"blog/{slug}/ is a fixture and must not ship to production.")
 
-    # - No main page links to /blog/
-    nav_pages = ["services/index.html", "our-team/index.html", "contact/index.html"]
-    for rel in nav_pages:
-        path = ROOT / rel
-        if path.is_file() and file_contains(path, '/blog/'):
-            errors.append(f"{rel} must not link to /blog/ in production.")
+    # - Blog pages are indexable, load prod analytics, carry no fixture text.
+    prod_analytics_id = "15435e6c-c2e0-4995-bd8e-db662d4474f3"
+    for page in ([blog_dir / "index.html"] if blog_dir.is_dir() else []) + blog_pages:
+        rel = page.relative_to(ROOT)
+        text = page.read_text(encoding="utf-8", errors="ignore")
+        if "noindex" in text.lower():
+            errors.append(f"Production page {rel} must not contain 'noindex'.")
+        if prod_analytics_id not in text:
+            errors.append(f"Production page {rel} must load the production analytics ID.")
+        for phrase in ("dev-fixture", "developer fixtures", "sample post for staging qa"):
+            if phrase in text.lower():
+                errors.append(f"Production file {rel} must not contain fixture text: {phrase!r}")
+                break
 
-    # - Sitemap must not contain github.io, dev.acewerk.com, or /blog/
+    # - Sitemap must not contain github.io or dev.acewerk.com
     if sitemap.is_file():
         text = sitemap.read_text(encoding="utf-8", errors="ignore")
         if "github.io" in text:
@@ -115,12 +123,7 @@ def guard_prod():
             errors.append(
                 "Production sitemap must not contain 'dev.acewerk.com'."
             )
-        if "/blog/" in text:
-            errors.append(
-                "Production sitemap must not include /blog/ URLs."
-            )
         # Check that all loc values use acewerk.com only
-        import re
         locs = re.findall(r"<loc>(.*?)</loc>", text)
         for loc in locs:
             if not loc.startswith("https://acewerk.com"):
@@ -146,8 +149,7 @@ def guard_prod():
         "dev-fixture",
         "developer fixtures",
     ]
-    all_html = read_htmls(["services/", "our-team/", "contact/", "index.html"])
-    for rel in all_html:
+    for rel in main_pages:
         path = ROOT / rel
         if not path.is_file():
             continue

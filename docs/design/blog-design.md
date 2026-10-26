@@ -324,7 +324,6 @@ stretched-link overlay on the title anchor (semantic link + full-card hit area).
 
 ```html
 <article class="post-card">
-  <span class="post-card-glyph" aria-hidden="true">◆</span>
   <h3 class="post-card-title">
     <a class="post-card-link" href="/blog/<slug>/">Post title</a>
   </h3>
@@ -341,12 +340,9 @@ stretched-link overlay on the title anchor (semantic link + full-card hit area).
 </article>
 ```
 
-- **Glyph** (top-left): JetBrains Mono `◆` (U+25C6), `font-size 14px`,
-  `color: var(--accent)`, `text-shadow: 0 0 12px rgba(233,168,60,0.45)`,
-  `display: block; margin-bottom: 14px;`. Mirrors the `.svc-card-glyph` language.
 - **Title**: Rajdhani 500, `font-size: var(--fs-item-title)`, `line-height: 1.25`,
   `color: #ffffff`. Truncated to **2 lines** (§5.3). No thumbnail image — the content
-  model has no image field; the glyph is the visual anchor.
+  model has no image field.
 - **Excerpt**: Space Grotesk 300, `font-size: var(--fs-body)`,
   `color: var(--ink-muted)`, `line-height: 1.7`. Truncated to **3 lines** (§5.3).
 - **Meta row**: single flex row, JetBrains Mono 400 `var(--fs-label)`, `letter-spacing 0.06em`:
@@ -668,6 +664,77 @@ In-page back control (above the title, inside the header):
 ```
 
 A real `<a href="/blog/">` — never `history.back()`.
+
+#### Post dates (all articles)
+
+Each date appears once. The builder (`scripts/build_blog.py`) renders both dates from
+front matter; posts never type them into the markdown body.
+
+- **Publish date (`date`)** goes in the header top row, right-aligned opposite the back
+  link: `<time class="post-date" datetime="YYYY-MM-DD">Mon DD, YYYY</time>`. It is the only
+  date in the header. Never put an "Updated …" `<time>` in `.post-header-top`.
+- **Update date (`updated`, optional)** is the first element of `.post-body`, and is shown
+  only when the front matter sets it:
+
+```html
+<div class="post-body">
+  <p class="post-updated">Last updated <time datetime="2026-10-21">Oct 21, 2026</time></p>
+  …
+```
+
+  It uses the normal `.post-body p` style. The line never repeats the publish date
+  (no "Oct 13, 2026 · Updated …").
+- JSON-LD keeps `datePublished` = `date` and `dateModified` = `updated`.
+
+### 6.11 Comparison table meta line (`.rampx-meta`)
+
+Payment-rail comparison articles (the `.rampx` component) show one meta line per country
+panel, inside `.rampx-keybar` next to the status key. It carries only the coverage count
+and the link to the reading guide:
+
+```html
+<p class="rampx-meta">6 of 13 product entries · <a href="#rampx-howto">How to read this</a></p>
+```
+
+- **No "Checked <date>"** segment. The check date lives in the post's update date
+  (§6.10) and the table `<caption>`; the meta line does not repeat it.
+- **No "<n> rows"** segment. Row counts are an implementation detail, not reader-facing.
+- Segments are separated by ` · `. Style: mono, 11px (`--fs-min`), uppercase,
+  `letter-spacing: 0.1em`, `--rampx-head-ink`; the link uses `--rampx-accent-soft`.
+
+### 6.12 Data tables: grouped rows and hover (all tables, site-wide)
+
+Applies to every data table on the site where one cell in the first column spans several
+rows (`rowspan`), e.g. a provider spanning its payment rails in `.rampx-table`.
+
+**Markup.** Each spanning group is its own `<tbody>`. The spanning cell is the first cell
+of the group's first row, `<th scope="rowgroup" rowspan="n">`. Never put two groups in one
+`<tbody>`; the hover rules below depend on the `<tbody>` boundary.
+
+**Hover behaviour.**
+
+| Pointer is over | Highlighted |
+|---|---|
+| Any cell of a row except the spanning cell | That row only. The spanning cell stays unhighlighted, even on the group's first row. |
+| The spanning cell | Every row in the group, plus the spanning cell. |
+
+Highlight fill is the table's shell-hover token (`--rampx-shell-hover` for `.rampx`).
+Reference CSS (swap class names per table):
+
+```css
+.rampx-tr:hover:not(:has(> .rampx-prov:hover)) > :not(.rampx-prov),
+.rampx-tbody:has(> .rampx-tr > .rampx-prov:hover) > .rampx-tr > * {
+  background: var(--rampx-shell-hover);
+}
+/* Browsers without :has(): row-only hover, spanning cell never lit. */
+@supports not selector(:has(*)) {
+  .rampx-tr:hover > :not(.rampx-prov) { background: var(--rampx-shell-hover); }
+}
+```
+
+- Pure CSS, no JS. Hover is a pointer affordance only and carries no information.
+- In the stacked mobile card layout, where each group is a card, row hover is off:
+  override all of the above selectors with `background: none`.
 
 ---
 

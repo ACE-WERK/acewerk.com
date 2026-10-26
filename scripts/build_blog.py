@@ -17,6 +17,7 @@ import html
 import json
 import math
 import re
+import os
 import sys
 from pathlib import Path
 
@@ -40,6 +41,14 @@ MONTHS = [
 
 SITE_URL = "https://acewerk.com"
 
+# ACEWERK_ENV=prod builds indexable pages with production analytics and never
+# includes fixtures. Any other value (or unset) is a dev/staging build.
+PROD = (os.environ.get("ACEWERK_ENV") or "").strip().lower() == "prod"
+PROD_ANALYTICS = (
+    '  <script defer src="https://x.acewerk.com/tessera.js" '
+    'data-website-id="15435e6c-c2e0-4995-bd8e-db662d4474f3"></script>\n'
+)
+
 # Required + optional front matter fields.
 REQUIRED_FIELDS = ("title", "slug", "date", "author", "excerpt")
 
@@ -53,7 +62,8 @@ _INLINE_TOKEN = re.compile(
     r"|\*\*([^*]+)\*\*"                                 # 5 strong **
     r"|__([^_]+)__"                                     # 6 strong __
     r"|(?<!\*)\*([^*\s][^*]*)\*(?!\*)"                  # 7 em *
-    r"|(?<!_)_([^_\s][^_]*)_(?!_)"                      # 8 em _
+    r"|(?<![\w])_([^_\s][^_]*)_(?!_)"                  # 8 em _
+    r"|(?<!\]\()(https?://[^\s<>)\]]+)"          # 9 bare url
 )
 
 
@@ -75,6 +85,11 @@ def render_inline(text):
         elif g[4] is not None or g[5] is not None:
             inner = g[4] if g[4] is not None else g[5]
             out.append("<strong>" + render_inline(inner) + "</strong>")
+        elif g[8] is not None:  # bare url
+            url = g[8]
+            out.append(
+                '<a href="%s">%s</a>' % (html.escape(url, quote=True), html.escape(url))
+            )
         else:  # em (g[6] or g[7])
             inner = g[6] if g[6] is not None else g[7]
             out.append("<em>" + render_inline(inner) + "</em>")
@@ -86,10 +101,56 @@ def render_inline(text):
 _HEADING_RE = re.compile(r"^(#{2,4})\s+(.*)$")
 _FENCE_RE = re.compile(r"^(`{3,}|~{3,})")
 _LIST_ITEM_RE = re.compile(r"^([ \t]*)([-*+]|\d+\.)\s+(.*)$")
+_TABLE_ROW_RE = re.compile(r"^\|.*\|$")
+_TABLE_SEP_CELL_RE = re.compile(r"^\s*:?-{1,}:?\s*$")
 
 
-def parse_blocks(md_text):
-    """Split markdown body into typed blocks."""
+def _is_table_separator_row(line):
+    """True if the line is a GFM header/body separator (|---|:---:|... )."""
+    if not _TABLE_ROW_RE.match(line):
+        return False
+    cells = [c for c in line.strip().strip("|").split("|")]
+    if not cells:
+        return False
+    return all(_TABLE_SEP_CELL_RE.match(c) for c in cells)
+
+
+def render_table(header_cells, body_rows):
+    """Render a GFM table to accessible HTML: real <table> with <thead>/<tbody>,
+    <th scope="col"> headers, <th scope="row"> first column, wrapped in a
+    horizontal-scroll container for narrow viewports. Cell text is preserved
+    verbatim (unicode markers, em-dashes, condition text)."""
+    out = [
+        '<div class="table-wrap" style="overflow-x:auto;">\n',
+        "<table>\n",
+        "  <thead>\n    <tr>\n",
+    ]
+    for c in header_cells:
+        out.append('      <th scope="col">%s</th>\n' % render_inline(c.strip()))
+    out.append("    </tr>\n  </thead>\n")
+    out.append("  <tbody>\n")
+    for row in body_rows:
+        out.append("    <tr>\n")
+        for idx, c in enumerate(row):
+            cell = render_inline(c.strip())
+            if idx == 0:
+                out.append('      <th scope="row">%s</th>\n' % cell)
+            else:
+                out.append("      <td>%s</td>\n" % cell)
+        out.append("    </tr>\n")
+    out.append("  </tbody>\n")
+    out.append("</table>\n")
+    out.append("</div>\n")
+    return "".join(out)
+
+
+def parse_blocks(md_text, raw_html=False):
+    """Split markdown body into typed blocks.
+
+    raw_html=True (set when the post's front matter has raw_html: true)
+    enables the `<!-- html -->` ... `<!-- /html -->` passthrough fence;
+    without it the fence markers are ordinary paragraph text (escaped).
+    """
     lines = md_text.split("\n")
     blocks = []
     i = 0
@@ -99,6 +160,20 @@ def parse_blocks(md_text):
         if not stripped:
             i += 1
             continue
+
+        # Raw HTML block (opt-in via front matter flag)
+        if raw_html and stripped == "<!-- html -->":
+            raw_lines = []
+            i += 1
+            while i < n and lines[i].strip() != "<!-- /html -->":
+                raw_lines.append(lines[i])
+                i += 1
+            if i < n:  # closing fence found
+                i += 1
+                blocks.append(("rawhtml", "\n".join(raw_lines)))
+                continue
+            # Unclosed fence: emit what we have (defensive; well-formed
+            # posts always close the fence).
 
         # Fenced code block
         fence = _FENCE_RE.match(stripped)
@@ -128,7 +203,7 @@ def parse_blocks(md_text):
         if stripped.startswith(">"):
             parts = []
             cur = []
-            while i < n and lines[i].strip().startswith(">"):
+            while i < n and lines[i].strip().startswith(">") and not _TABLE_ROW_RE.match(lines[i].strip()):
                 q = re.sub(r"^>\s?", "", lines[i].strip())
                 if q == "":
                     if cur:
@@ -140,6 +215,21 @@ def parse_blocks(md_text):
             if cur:
                 parts.append(" ".join(cur))
             blocks.append(("blockquote", parts))
+            continue
+
+        # GFM table (header row + separator row)
+        if (
+            _TABLE_ROW_RE.match(stripped)
+            and i + 1 < n
+            and _is_table_separator_row(lines[i + 1])
+        ):
+            header_cells = [c for c in stripped.strip("|").split("|")]
+            i += 2
+            body_rows = []
+            while i < n and _TABLE_ROW_RE.match(lines[i].strip()) and not _is_table_separator_row(lines[i]):
+                body_rows.append([c for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            blocks.append(("table", header_cells, body_rows))
             continue
 
         # List (consecutive list-item lines, nesting via indentation)
@@ -160,6 +250,7 @@ def parse_blocks(md_text):
                 or s.startswith(">")
                 or _LIST_ITEM_RE.match(s)
                 or _FENCE_RE.match(s)
+                or _TABLE_ROW_RE.match(s)
             ):
                 break
             para.append(s)
@@ -200,10 +291,10 @@ def render_list(lines):
     return "".join(out)
 
 
-def render_body(md_text):
+def render_body(md_text, raw_html=False):
     """Render the markdown body (already front-matter-stripped) to HTML."""
     parts = []
-    for block in parse_blocks(md_text):
+    for block in parse_blocks(md_text, raw_html=raw_html):
         kind = block[0]
         if kind == "para":
             parts.append("<p>" + render_inline(block[1]) + "</p>")
@@ -212,6 +303,8 @@ def render_body(md_text):
             parts.append("<h%d>%s</h%d>" % (level, render_inline(block[2]), level))
         elif kind == "list":
             parts.append(render_list(block[1]))
+        elif kind == "table":
+            parts.append(render_table(block[1], block[2]))
         elif kind == "blockquote":
             inner = "".join("<p>%s</p>" % render_inline(p) for p in block[1])
             parts.append("<blockquote>" + inner + "</blockquote>")
@@ -221,12 +314,19 @@ def render_body(md_text):
             parts.append(
                 "<pre><code%s>%s</code></pre>" % (lang_attr, html.escape(code))
             )
+        elif kind == "rawhtml":
+            # Pass through verbatim (flagged posts only).
+            parts.append(block[1])
     return "\n".join(parts)
 
 
 def body_plain_text(md_text):
     """Markdown body stripped of markup, for the search index body field."""
     text = re.sub(r"```.*?```", " ", md_text, flags=re.DOTALL)
+    # Raw-HTML posts: drop CSS/JS and comments, keep only the text between tags.
+    text = re.sub(r"<(style|script)\b.*?</\1\s*>", " ", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<!--.*?-->", " ", text, flags=re.DOTALL)
+    text = html.unescape(re.sub(r"<[^>]+>", " ", text))
     text = re.sub(r"^#{2,4}\s+", "", text, flags=re.MULTILINE)
     text = re.sub(r"^>\s?", "", text, flags=re.MULTILINE)
     text = re.sub(r"^[ \t]*([-*+]|\d+\.)\s+", "", text, flags=re.MULTILINE)
@@ -276,6 +376,11 @@ def load_posts():
         meta["body_md"] = body.strip()
         meta["tags"] = _parse_tags(meta.get("tags", ""))
         meta["fixture"] = str(meta.get("fixture", "")).lower() in ("true", "1", "yes")
+        if meta["fixture"] and (PROD or not os.environ.get("ACEWERK_DEV")):
+            print("SKIP: %s is a fixture (set ACEWERK_DEV=1 to include)" % path.name, file=sys.stderr)
+            continue
+        meta["raw_html"] = str(meta.get("raw_html", "")).lower() in ("true", "1", "yes")
+        meta["updated"] = (meta.get("updated") or "").strip() or None
         meta["_source"] = path.name
         posts.append(meta)
     posts.sort(key=lambda p: (p["date"], p["slug"]), reverse=True)
@@ -299,8 +404,48 @@ def format_date(iso):
         return iso
 
 
+# Reading time counts prose only. The `<!-- html -->` … `<!-- /html -->` fence
+# carries table markup, CSS and JS (never prose), and the trailing sections below
+# are reference material rather than article prose. Posts without these sections
+# are unaffected.
+READ_TIME_SKIPPED_SECTIONS = ("sources", "references", "notes", "faq")
+
+
+def _prose_only(body_md):
+    """Body markdown minus the parts that are not prose (reading-time input).
+
+    Uses the same fence markers as parse_blocks: everything between
+    `<!-- html -->` and `<!-- /html -->` is dropped, and so is every heading
+    section named in READ_TIME_SKIPPED_SECTIONS, up to the next `## ` heading.
+    """
+    kept = []
+    in_html = False
+    skipping = False
+    for line in body_md.split("\n"):
+        stripped = line.strip()
+        if in_html:
+            if stripped == "<!-- /html -->":
+                in_html = False
+            continue
+        if stripped == "<!-- html -->":
+            in_html = True
+            continue
+        if skipping:
+            if re.match(r"^##\s", line):
+                skipping = False
+            else:
+                continue
+        if re.match(r"^##\s+", line):
+            heading = stripped.lstrip("#").strip().rstrip(":").strip().lower()
+            if heading in READ_TIME_SKIPPED_SECTIONS:
+                skipping = True
+                continue
+        kept.append(line)
+    return "\n".join(kept)
+
+
 def read_time_minutes(body_md):
-    words = len(re.findall(r"\S+", body_md))
+    words = len(re.findall(r"\S+", _prose_only(body_md)))
     return max(1, math.ceil(words / 200))
 
 
@@ -335,6 +480,8 @@ CSS = r"""
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.3s ease-out;
       --max-width: 1100px;
+      --fs-min: 11px;
+      --fs-footnote: 10px;
 
       /* type scale */
       --fs-label:         clamp(11px, 0.6vw + 8px, 12px);
@@ -656,13 +803,6 @@ CSS = r"""
       transform: translateY(0);
       box-shadow: 0 2px 4px rgba(0,0,0,0.35), inset 0 2px 4px rgba(0,0,0,0.3);
     }
-    .post-card-glyph {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--accent);
-      text-shadow: 0 0 12px rgba(233,168,60,0.45);
-      display: block; margin-bottom: 14px;
-    }
     .post-card-title {
       font-family: 'Rajdhani', sans-serif; font-weight: 500;
       font-size: var(--fs-item-title);
@@ -748,13 +888,23 @@ CSS = r"""
 
     /* ══════ POST PAGE ══════ */
     .post-header { margin-bottom: 2em; }
+    .post-header-top {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: nowrap; gap: 12px; margin-bottom: 0.5em; min-width: 0;
+    }
     .post-back {
-      display: inline-block; margin-bottom: 1.25em;
+      display: inline-block; flex: 0 0 auto;
       font-family: 'JetBrains Mono', monospace; font-weight: 400;
       font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--accent); text-decoration: none;
+      color: var(--accent); text-decoration: none; white-space: nowrap;
     }
     .post-back:hover { color: var(--accent-soft); }
+    .post-date {
+      flex: 0 0 auto;
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--accent); white-space: nowrap;
+    }
     .post-title {
       font-family: 'Rajdhani', sans-serif; font-weight: 500;
       font-size: var(--fs-post-title);
@@ -763,12 +913,13 @@ CSS = r"""
       margin: 0 0 0.5em;
     }
     .post-byline {
-      display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline;
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: nowrap; gap: 12px;
       font-family: 'JetBrains Mono', monospace; font-weight: 400;
       font-size: var(--fs-label); letter-spacing: 0.06em;
       color: var(--ink-muted);
     }
-    .post-byline time { color: var(--accent); }
+    .post-read { white-space: nowrap; }
 
     .fixture-note {
       margin: 0 0 2em;
@@ -874,6 +1025,53 @@ CSS = r"""
       text-align: center; letter-spacing: 0.04em;
     }
     .post-body hr { border: none; border-top: 1px solid var(--rule); margin: 2.5em 0; }
+    /* ══════ COVERAGE TABLES (GFM) ══════ */
+    .table-wrap {
+      margin: 1.75em 0;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      -webkit-overflow-scrolling: touch;
+    }
+    .table-wrap table {
+      border-collapse: collapse;
+      width: max-content;
+      min-width: 100%;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 300;
+      font-size: 0.92em;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .table-wrap th, .table-wrap td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--rule-soft);
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    .table-wrap thead th {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+      font-size: 0.95em;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      background: var(--surface-plus);
+      border-bottom: 1px solid var(--accent-border);
+    }
+    .table-wrap th[scope="row"] {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400;
+      font-size: 0.85em;
+      letter-spacing: 0.02em;
+      color: var(--accent-soft);
+      background: var(--surface);
+      white-space: normal;
+      min-width: 180px;
+    }
+    .table-wrap tbody tr:last-child th,
+    .table-wrap tbody tr:last-child td { border-bottom: none; }
+    .table-wrap tbody tr:hover td, .table-wrap tbody tr:hover th { background: rgba(255,255,255,0.025); }
 
     /* ══════ FOOTER ══════ */
     .site-footer {
@@ -946,17 +1144,48 @@ CSS = r"""
       .nav-toggle-bar { transition: none; }
       .nav-links { transition: none; }
     }
+
+    /* ══════ THE BACKDROP — nebula field, full page, fixed ══════
+       Same DNA as /services/ and /contact/: identical tile pitch,
+       crystal-facet shader and colour grade. Only the baked art and
+       the motion recipe differ — quiet, edge-weighted, dark centre. */
+    .mosaic-backdrop {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(120% 120% at 50% 50%, #08101f 0%, #060a16 55%, #04060c 100%);
+      pointer-events: none;   /* pointer is read at window level */
+    }
+    .mosaic-backdrop canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    /* reading scrim: the centre lane stays calm under the copy */
+    .mosaic-backdrop::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(60% 70% at 50% 50%, rgba(6,9,18,0.34) 0%, rgba(6,9,18,0.10) 55%, rgba(6,9,18,0) 100%);
+    }
+    @media print { .mosaic-backdrop { display: none; } }
 """
 
 
-def render_head(title):
+def render_head(title, canonical=None, description=None, jsonld=""):
     parts = [
         "<!doctype html>\n",
         '<html lang="en">\n',
         "<head>\n",
         '  <meta charset="utf-8">\n',
         '  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n',
+        PROD_ANALYTICS if PROD else '  <meta name="robots" content="noindex, nofollow">\n',
         "  <title>" + html.escape(title) + "</title>\n",
+    ]
+    if description:
+        parts.append(
+            '  <meta name="description" content="' + html.escape(description, quote=True) + '">\n'
+        )
+        parts.append(
+            '  <meta property="og:type" content="article">\n'
+            '  <meta property="og:title" content="' + html.escape(title, quote=True) + '">\n'
+            '  <meta property="og:description" content="' + html.escape(description, quote=True) + '">\n'
+        )
+    if canonical:
+        parts.append('  <link rel="canonical" href="' + canonical + '">\n')
+    parts += [
         '  <link rel="preload" href="/assets/fonts/orbitron-500-latin.woff2" as="font" type="font/woff2" crossorigin>\n',
         '  <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>\n',
         '  <link rel="preload" href="/assets/fonts/rajdhani-500-latin.woff2" as="font" type="font/woff2" crossorigin>\n',
@@ -965,6 +1194,7 @@ def render_head(title):
         "  <style>\n",
         CSS,
         "  </style>\n",
+        jsonld,
         "</head>\n",
     ]
     return "".join(parts)
@@ -1111,7 +1341,6 @@ def render_card(post):
 
     parts = [
         '<article class="post-card">\n',
-        '  <span class="post-card-glyph" aria-hidden="true">&#9670;</span>\n',
         '  <div class="post-card-meta">\n',
         '    <span class="post-card-date"><time datetime="' + dt + '">' + dstr + "</time></span>\n",
         '    <span class="post-card-read">' + str(read_time) + " min read</span>\n",
@@ -1157,7 +1386,7 @@ def build_index_page(posts, index_json, inline_index):
     if inline_index:
         inline_script = (
             '  <script type="application/json" id="search-index">'
-            + index_json
+            + index_json.replace("</", "<\\/")   # never close the script early
             + "</script>\n"
         )
     else:
@@ -1185,9 +1414,9 @@ def build_index_page(posts, index_json, inline_index):
     ])
 
     page = (
-        render_head(title)
+        render_head(title, canonical="https://acewerk.com/blog/")
         + "<body>\n"
-        '  <div class="blog-backdrop" aria-hidden="true"></div>\n'
+        '  <div class="mosaic-backdrop" aria-hidden="true"><canvas id="mosaic-blog"></canvas></div>\n'
         + render_nav("blog")
         + '  <div class="page-wrapper">\n'
         "    <main>\n"
@@ -1215,18 +1444,69 @@ def build_index_page(posts, index_json, inline_index):
         + inline_script
         + INDEX_JS
         + NAV_JS
+        + '<script src="/blog/assets/tessera-blog.js"></script>\n'
         + "</body>\n</html>\n"
     )
     return page
 
 
+def _post_jsonld(post):
+    """Post-scoped JSON-LD (Article + Person + BreadcrumbList) for posts that opt in
+    via the optional 'description' front-matter field. Other pages stay byte-identical."""
+    if not (post.get("description") or "").strip():
+        return ""
+    base = "https://acewerk.com/blog/" + post["slug"] + "/"
+    article = {
+        "@type": "Article",
+        "headline": post["title"],
+        "description": post["description"],
+        "mainEntityOfPage": base,
+        "datePublished": post["date"],
+    }
+    if post.get("updated"):
+        article["dateModified"] = post["updated"]
+    article["author"] = {"@type": "Person", "name": post["author"]}
+    data = {
+        "@context": "https://schema.org",
+        "@graph": [
+            article,
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://acewerk.com/"},
+                    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://acewerk.com/blog/"},
+                    {"@type": "ListItem", "position": 3, "name": post["title"], "item": base},
+                ],
+            },
+        ],
+    }
+    return (
+        '  <script type="application/ld+json">\n'
+        "  " + json.dumps(data, ensure_ascii=False)
+        + "\n  </script>\n"
+    )
+
+
 def build_post_page(post):
     title = "%s — Blog | Ace Werk" % post["title"]
-    body_html = render_body(post["body_md"])
+    body_html = render_body(post["body_md"], raw_html=post.get("raw_html", False))
+    description = (post.get("description") or "").strip() or None
+    jsonld = _post_jsonld(post)
     title_esc = html.escape(post["title"])
     author_esc = html.escape(post["author"])
     date_esc = html.escape(post["date"])
     dstr = html.escape(format_date(post["date"]))
+    # Header shows the publish date only; the update date opens the post body.
+    if post.get("updated"):
+        updated_html = (
+            '              <p class="post-updated">Last updated <time datetime="'
+            + html.escape(post["updated"])
+            + '">'
+            + html.escape(format_date(post["updated"]))
+            + "</time></p>\n"
+        )
+    else:
+        updated_html = ""
     read_time = post["read_time"]
     fixture_note = (
         '    <div class="fixture-note">Fixture &mdash; sample post for staging QA. Not published content.</div>\n'
@@ -1234,9 +1514,9 @@ def build_post_page(post):
         else ""
     )
     parts = [
-        render_head(title),
+        render_head(title, canonical="https://acewerk.com/blog/" + post["slug"] + "/", description=description, jsonld=jsonld),
         "<body>\n",
-        '  <div class="blog-backdrop" aria-hidden="true"></div>\n',
+        '  <div class="mosaic-backdrop" aria-hidden="true"><canvas id="mosaic-blog"></canvas></div>\n',
         render_nav("blog"),
         '  <div class="page-wrapper">\n',
         "    <main>\n",
@@ -1244,16 +1524,19 @@ def build_post_page(post):
         '        <div class="content-shell hero-shell reveal">\n',
         "          <article>\n",
         '            <header class="post-header">\n',
-        '              <a class="post-back" href="/blog/">&larr; Blog</a>\n',
+        '              <div class="post-header-top">\n',
+        '                <a class="post-back" href="/blog/">&larr; Blog</a>\n',
+        '                <time class="post-date" datetime="' + date_esc + '">' + dstr + "</time>\n",
+        "              </div>\n",
         "              <h1 class=\"post-title\">" + title_esc + "</h1>\n",
         '              <div class="post-byline">\n',
         "                <span>By " + author_esc + "</span>\n",
-        '                <time datetime="' + date_esc + '">' + dstr + "</time>\n",
-        "                <span>" + str(read_time) + " min read</span>\n",
+        "                <span class=\"post-read\">" + str(read_time) + " min read</span>\n",
         "              </div>\n",
         "            </header>\n",
         fixture_note,
         '            <div class="post-body">\n',
+        updated_html,
         body_html,
         "\n",
         "            </div>\n",
@@ -1264,6 +1547,7 @@ def build_post_page(post):
         FOOTER,
         "  </div>\n",
         NAV_JS,
+        '<script src="/blog/assets/tessera-blog.js"></script>\n',
         "</body>\n</html>\n",
     ]
     return "".join(parts)
@@ -1345,7 +1629,7 @@ INDEX_JS = r"""
   function writeState(s) {
     var p = new URLSearchParams();
     if (s.q) p.set('q', s.q);
-    p.set('size', String(s.size));
+    if (s.size !== 5) p.set('size', String(s.size));
     if (s.page > 1) p.set('page', String(s.page));
     var qs = p.toString();
     history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
@@ -1502,10 +1786,6 @@ def main():
     # lazy-fetch path with a real build; default is ~200KB).
     threshold = INLINE_INDEX_THRESHOLD_BYTES
     args = sys.argv[1:]
-    # --keep-fixtures: include fixture posts (dev staging default behavior on
-    # the dev repo). The prod repo strips fixtures by default so a rebuild
-    # after adding real posts never re-emits the dev sample pages.
-    keep_fixtures = "--keep-fixtures" in args
     if "--inline-threshold" in args:
         try:
             threshold = int(args[args.index("--inline-threshold") + 1])
@@ -1513,8 +1793,6 @@ def main():
             threshold = INLINE_INDEX_THRESHOLD_BYTES
 
     posts = load_posts()
-    if not keep_fixtures:
-        posts = [p for p in posts if not p.get("fixture")]
 
     # enrich with derived fields
     for p in posts:

@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script defer src="https://x.acewerk.com/tessera.js" data-website-id="15435e6c-c2e0-4995-bd8e-db662d4474f3"></script>
+  <title>Blog — Journal | Ace Werk</title>
+  <link rel="canonical" href="https://acewerk.com/blog/">
+  <link rel="preload" href="/assets/fonts/orbitron-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/rajdhani-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+  <style>
+
+    :root {
+      /* canonical tokens (reused) */
+      --canvas: #060912;
+      --surface: #0c1122;
+      --surface-plus: #11182b;
+      --accent: #d49a2e;
+      --accent-soft: #f4d39e;
+      --ink: #e5e7f0;
+      --ink-muted: rgba(190,200,220,0.88);
+      --border: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.11);
+      --rule: rgba(255,255,255,0.09);
+      --rule-soft: rgba(255,255,255,0.055);
+      --radius-sm: 6px;
+      --radius-md: 9px;
+      --radius-lg: 14px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.3s ease-out;
+      --max-width: 1100px;
+      --fs-min: 11px;
+      --fs-footnote: 10px;
+
+      /* type scale */
+      --fs-label:         clamp(11px, 0.6vw + 8px, 12px);
+      --fs-body:          clamp(16px, 0.35vw + 14px, 18px);
+      --fs-item-title:    clamp(19px, 0.5vw + 16px, 22px);
+      --fs-lead:          clamp(22px, 1.2vw + 14px, 30px);
+      --fs-section-title: clamp(26px, 1.6vw + 15px, 38px);
+
+      /* blog additions */
+      --breakpoint-nav: 768px;
+      --nav-height: 52px;
+      --nav-height-mobile: 44px;
+      --measure-prose: 720px;
+      --fs-post-title: clamp(26px, 2.6vw + 14px, 40px);
+      --accent-tint: rgba(212,154,46,0.16);
+      --accent-border: rgba(212,154,46,0.42);
+      --code-bg: rgba(4,6,12,0.55);
+      --code-inline-bg: rgba(255,255,255,0.07);
+
+      /* static backdrop */
+      --backdrop-base: radial-gradient(140% 160% at 50% 46%, #0a111f 0%, #060a14 55%, #04060c 100%);
+      --backdrop-glow-warm-1: rgba(212,154,46,0.10);
+      --backdrop-glow-warm-2: rgba(212,154,46,0.07);
+      --backdrop-glow-cool: rgba(56,74,120,0.14);
+      --backdrop-dots: rgba(255,255,255,0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 15px; scroll-behavior: smooth; }
+    body {
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      margin: -1px; padding: 0; overflow: hidden;
+      clip: rect(0 0 0 0); clip-path: inset(50%);
+      white-space: nowrap; border: 0;
+    }
+
+    /* ══════ STATIC BACKDROP (no canvas, no WebGL) ══════ */
+    .blog-backdrop {
+      position: fixed; inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--backdrop-base);
+    }
+    .blog-backdrop::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(60% 45% at 78% 8%,  var(--backdrop-glow-warm-1) 0%, rgba(212,154,46,0) 60%),
+        radial-gradient(55% 40% at 15% 92%, var(--backdrop-glow-warm-2) 0%, rgba(212,154,46,0) 55%),
+        radial-gradient(42% 34% at 50% 50%, var(--backdrop-glow-cool) 0%, rgba(56,74,120,0) 72%);
+    }
+    .blog-backdrop::after {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(var(--backdrop-dots) 1px, transparent 1px);
+      background-size: 32px 32px;
+      -webkit-mask-image: radial-gradient(120% 120% at 50% 46%, #000 40%, transparent 95%);
+              mask-image: radial-gradient(120% 120% at 50% 46%, #000 40%, transparent 95%);
+      pointer-events: none;
+    }
+
+    /* ══════ TOP NAVIGATION ══════ */
+    .nav-bar {
+      display: flex; align-items: center;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: linear-gradient(to bottom, rgba(10,15,30,0.72), rgba(6,9,18,0.58));
+      backdrop-filter: blur(14px) saturate(1.15);
+      -webkit-backdrop-filter: blur(14px) saturate(1.15);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 0 clamp(20px, 3vw, 40px);
+      height: var(--nav-height);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500; font-size: 24px;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      text-transform: uppercase; text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a {
+      position: relative;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 300; font-size: 13px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-muted); text-decoration: none;
+      padding: 2px 0 4px 0;
+      transition: color var(--transition-fast);
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute; left: 0; right: 0;
+      bottom: -1px;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: center;
+      opacity: 0;
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: scaleX(1); opacity: 1; }
+
+    /* Blog nav item — subtle accent dot (not a CTA/badge) */
+    .nav-links a.nav-blog::before {
+      content: "";
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.7;
+      margin-right: 7px;
+      vertical-align: middle;
+      transition: opacity var(--transition-fast);
+    }
+    .nav-links a.nav-blog:hover::before,
+    .nav-links a.nav-blog.active::before {
+      opacity: 1;
+      box-shadow: 0 0 8px rgba(212,154,46,0.6);
+    }
+
+    /* Hamburger trigger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 3px;
+      width: 44px; height: 44px;
+      margin-left: auto;
+      background: transparent; border: none;
+      cursor: pointer; padding: 0;
+    }
+    .nav-toggle-bar {
+      width: 20px; height: 2px;
+      background: var(--ink-muted);
+      transition: transform var(--transition-med), opacity var(--transition-med), background var(--transition-med);
+    }
+    .nav-toggle:hover .nav-toggle-bar { background: var(--ink); }
+    .nav-toggle.open .nav-toggle-bar { background: var(--accent); }
+    .nav-toggle.open .nav-toggle-bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    .nav-toggle.open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+    .nav-toggle.open .nav-toggle-bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    body.nav-open { overflow: hidden; }
+
+    .page-wrapper {
+      position: relative; z-index: 1;
+      padding-top: var(--nav-height);
+    }
+
+    .site-container {
+      width: 100%; max-width: var(--max-width);
+      padding: 0 clamp(20px, 4vw, 48px);
+      margin: 0 auto;
+    }
+    .header-inner-wrapper {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* ══════ HERO ══════ */
+    .hero-shell {
+      margin-top: clamp(24px, 4vh, 44px);
+      margin-bottom: clamp(18px, 3vh, 30px);
+    }
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400; font-size: var(--fs-label);
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 4.6vw, 52px);
+      line-height: 1.12; letter-spacing: 0.08em;
+      color: #ffffff; text-transform: uppercase;
+      max-width: 780px;
+    }
+    .hero-note {
+      margin-top: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400; font-size: var(--fs-label);
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+
+    /* ══════ GLASS SHELL ══════ */
+    .content-wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px);
+    }
+    .content-shell {
+      background: linear-gradient(165deg, rgba(12,18,35,0.58), rgba(7,10,20,0.50));
+      backdrop-filter: blur(14px) saturate(1.15);
+      -webkit-backdrop-filter: blur(14px) saturate(1.15);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45),
+                  inset 0 1px 0 rgba(255,255,255,0.08);
+      padding: clamp(26px, 4vw, 56px) clamp(22px, 4vw, 56px);
+    }
+    @supports not (backdrop-filter: blur(1px)) {
+      .content-shell, .nav-bar, .footer-bar, .post-card {
+        background: linear-gradient(165deg, rgba(11,16,32,0.94), rgba(7,10,20,0.92));
+      }
+    }
+
+    /* ══════ BLOG TOOLBAR (search + page size) ══════ */
+    .blog-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .blog-search { position: relative; display: flex; align-items: center; flex: 1 1 260px; min-width: 0; }
+    .blog-search-icon {
+      position: absolute; left: 14px; width: 16px; height: 16px;
+      color: var(--ink-muted); pointer-events: none;
+    }
+    .blog-search-input {
+      width: 100%; height: 48px;
+      padding: 0 44px;
+      background: rgba(12,18,35,0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif; font-weight: 300;
+      font-size: var(--fs-body);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .blog-search-input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+    .blog-search-input::placeholder { color: var(--ink-muted); }
+    .blog-search-input:focus {
+      border-color: var(--accent-border);
+      box-shadow: 0 0 0 3px var(--accent-tint);
+      outline: none;
+    }
+    .blog-search-clear {
+      position: absolute; right: 8px;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: none; border-radius: var(--radius-sm);
+      color: var(--ink-muted); font-size: 20px; line-height: 1;
+      cursor: pointer;
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+    .blog-search-clear:hover { color: var(--ink); background: rgba(255,255,255,0.06); }
+
+    .page-size-wrap { display: flex; align-items: center; gap: 10px; }
+    .page-size-label {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+    .page-size-select {
+      height: 40px; padding: 0 12px;
+      background: rgba(12,18,35,0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--ink);
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: 13px;
+    }
+
+    /* ══════ STATUS ══════ */
+    .blog-status {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--ink-muted); margin-bottom: 20px;
+    }
+    .status-clear {
+      background: none; border: none; padding: 0; margin-left: 8px;
+      color: var(--accent); cursor: pointer;
+      font-family: inherit; font-size: inherit; letter-spacing: inherit;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .status-clear:hover { color: var(--accent-soft); }
+    .blog-empty { color: var(--ink-muted); }
+
+    /* ══════ POST GRID + CARD ══════ */
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .post-card {
+      position: relative;
+      display: flex; flex-direction: column;
+      gap: 14px;
+      padding: 24px;
+      background: linear-gradient(165deg, rgba(12,18,35,0.58), rgba(7,10,20,0.50));
+      backdrop-filter: blur(14px) saturate(1.15);
+      -webkit-backdrop-filter: blur(14px) saturate(1.15);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: transform var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med);
+    }
+    .post-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-border);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,154,46,0.18), inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+    .post-card:hover .post-card-title { color: var(--accent-soft); }
+    .post-card:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.35), inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .post-card-title {
+      font-family: 'Rajdhani', sans-serif; font-weight: 500;
+      font-size: var(--fs-item-title);
+      line-height: 1.25;
+      color: #ffffff;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      min-height: calc(1.25em * 2);
+    }
+    .post-card-link { color: inherit; text-decoration: none; }
+    .post-card-link::after {
+      content: ""; position: absolute; inset: 0;
+      border-radius: inherit;
+    }
+    .post-card-excerpt {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 300;
+      font-size: var(--fs-body);
+      color: var(--ink-muted);
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+    }
+    .post-card-meta {
+      display: flex; align-items: baseline; justify-content: space-between; flex-wrap: nowrap; gap: 14px;
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+    }
+    .post-card-date { color: var(--accent); }
+    .post-card-read { color: var(--ink-muted); white-space: nowrap; }
+    .post-card-author {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .post-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .post-card-tag {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      padding: 3px 8px;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-sm);
+    }
+    .post-card-tag.post-card-fixture {
+      color: var(--accent-soft);
+      border-color: var(--accent-border);
+    }
+
+    /* ══════ PAGINATION ══════ */
+    .pagination {
+      display: flex; justify-content: center; align-items: center;
+      gap: 8px; margin-top: 28px;
+    }
+    .pagination-btn {
+      min-width: 36px; height: 36px; padding: 0 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(12,18,35,0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--ink-muted);
+      font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 13px;
+      cursor: pointer;
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .pagination-btn:hover:not(:disabled):not(.is-current) {
+      color: var(--ink); border-color: var(--accent-border);
+    }
+    .pagination-btn.is-current {
+      background: var(--accent-tint);
+      border-color: var(--accent-border);
+      color: var(--accent-soft);
+      cursor: default;
+    }
+    .pagination-btn:disabled { opacity: 0.38; cursor: default; pointer-events: none; }
+    .pagination-ellipsis { color: var(--ink-muted); padding: 0 2px; }
+
+    /* ══════ POST PAGE ══════ */
+    .post-header { margin-bottom: 2em; }
+    .post-header-top {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: nowrap; gap: 12px; margin-bottom: 0.5em; min-width: 0;
+    }
+    .post-back {
+      display: inline-block; flex: 0 0 auto;
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none; white-space: nowrap;
+    }
+    .post-back:hover { color: var(--accent-soft); }
+    .post-date {
+      flex: 0 0 auto;
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--accent); white-space: nowrap;
+    }
+    .post-title {
+      font-family: 'Rajdhani', sans-serif; font-weight: 500;
+      font-size: var(--fs-post-title);
+      line-height: 1.12; letter-spacing: 0.02em;
+      color: #ffffff;
+      margin: 0 0 0.5em;
+    }
+    .post-byline {
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: nowrap; gap: 12px;
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+    .post-read { white-space: nowrap; }
+
+    .fixture-note {
+      margin: 0 0 2em;
+      padding: 12px 16px;
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      background: var(--accent-tint);
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: var(--fs-label); letter-spacing: 0.06em;
+      color: var(--accent-soft);
+    }
+
+    /* ══════ LONG-FORM PROSE ══════ */
+    .post-body {
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 300;
+      font-size: var(--fs-body);
+      line-height: 1.75;
+    }
+    .post-body h2 {
+      font-family: 'Rajdhani', sans-serif; font-weight: 500;
+      font-size: var(--fs-section-title);
+      line-height: 1.15; letter-spacing: 0.04em;
+      color: #ffffff;
+      margin: 2.5em 0 0.6em;
+    }
+    .post-body h3 {
+      font-family: 'Rajdhani', sans-serif; font-weight: 500;
+      font-size: var(--fs-lead);
+      line-height: 1.2; letter-spacing: 0.03em;
+      color: #ffffff;
+      margin: 2em 0 0.55em;
+    }
+    .post-body h4 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+      font-size: var(--fs-item-title);
+      line-height: 1.3; letter-spacing: 0.01em;
+      color: var(--accent-soft);
+      margin: 1.75em 0 0.5em;
+    }
+    .post-body p { margin: 0 0 1.25em; }
+    .post-body p:last-child { margin-bottom: 0; }
+    .post-body ul, .post-body ol { margin: 0 0 1.25em; padding-left: 1.5em; }
+    .post-body li { margin: 0.35em 0; }
+    .post-body li::marker { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .post-body ul { list-style: disc; }
+    .post-body ol { list-style: decimal; }
+    .post-body blockquote {
+      margin: 1.75em 0;
+      padding: 0.25em 0 0.25em 1.5em;
+      border-left: 2px solid var(--accent);
+      color: var(--ink);
+      background: rgba(255,255,255,0.02);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .post-body blockquote p { margin: 0; }
+    .post-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: rgba(212,154,46,0.45);
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: color var(--transition-fast);
+    }
+    .post-body a:hover { color: var(--accent-soft); }
+    .post-body code {
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: 0.85em;
+      color: var(--accent-soft);
+      background: var(--code-inline-bg);
+      padding: 0.15em 0.45em;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--rule);
+    }
+    .post-body pre {
+      margin: 1.5em 0;
+      padding: 1.25em 1.5em;
+      background: var(--code-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      tab-size: 2;
+    }
+    .post-body pre code {
+      display: block;
+      font-family: 'JetBrains Mono', monospace; font-weight: 400;
+      font-size: 0.9em; line-height: 1.6;
+      color: var(--ink);
+      background: none; border: none; padding: 0;
+    }
+    .post-body figure { margin: 2em 0; }
+    .post-body figure img {
+      display: block; width: 100%; height: auto;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+    }
+    .post-body figcaption {
+      margin-top: 0.6em;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 300;
+      font-size: var(--fs-label); line-height: 1.5;
+      color: var(--ink-muted);
+      text-align: center; letter-spacing: 0.04em;
+    }
+    .post-body hr { border: none; border-top: 1px solid var(--rule); margin: 2.5em 0; }
+    /* ══════ COVERAGE TABLES (GFM) ══════ */
+    .table-wrap {
+      margin: 1.75em 0;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      -webkit-overflow-scrolling: touch;
+    }
+    .table-wrap table {
+      border-collapse: collapse;
+      width: max-content;
+      min-width: 100%;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 300;
+      font-size: 0.92em;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .table-wrap th, .table-wrap td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--rule-soft);
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    .table-wrap thead th {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+      font-size: 0.95em;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      background: var(--surface-plus);
+      border-bottom: 1px solid var(--accent-border);
+    }
+    .table-wrap th[scope="row"] {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400;
+      font-size: 0.85em;
+      letter-spacing: 0.02em;
+      color: var(--accent-soft);
+      background: var(--surface);
+      white-space: normal;
+      min-width: 180px;
+    }
+    .table-wrap tbody tr:last-child th,
+    .table-wrap tbody tr:last-child td { border-bottom: none; }
+    .table-wrap tbody tr:hover td, .table-wrap tbody tr:hover th { background: rgba(255,255,255,0.025); }
+
+    /* ══════ FOOTER ══════ */
+    .site-footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: clamp(14px, 2vw, 22px) clamp(20px, 4vw, 48px) clamp(18px, 3vw, 28px);
+    }
+    .footer-bar {
+      background: linear-gradient(165deg, rgba(12,18,35,0.58), rgba(7,10,20,0.50));
+      backdrop-filter: blur(14px) saturate(1.15);
+      -webkit-backdrop-filter: blur(14px) saturate(1.15);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+      padding: 13px 20px;
+      text-align: center;
+    }
+    .footer-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 300; font-size: 11px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(200,210,228,0.8);
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { animation: fade-up 0.3s ease-out both; }
+
+    /* ══════ RESPONSIVE ══════ */
+    @media (max-width: 768px) {
+      .nav-bar { height: var(--nav-height-mobile); }
+      .nav-logo { font-size: 14px; }
+      .nav-toggle { display: inline-flex; }
+      .nav-links {
+        position: fixed; top: var(--nav-height-mobile); left: 0; right: 0; z-index: 49;
+        display: none;
+        flex-direction: column; align-items: stretch; gap: 0;
+        background: #060912;
+        backdrop-filter: blur(14px) saturate(1.15);
+        -webkit-backdrop-filter: blur(14px) saturate(1.15);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 12px 20px 20px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        display: flex; align-items: center;
+        min-height: 48px;
+        font-weight: 400; font-size: 16px;
+        border-top: 1px solid var(--rule-soft);
+        padding: 0;
+      }
+      .nav-links a:first-child { border-top: 0; }
+      .nav-links a.active { color: var(--accent-soft); }
+      .nav-links a::after { display: none; }
+      .page-wrapper { padding-top: var(--nav-height-mobile); }
+    }
+    @media (min-width: 769px) {
+      .nav-toggle { display: none; }
+    }
+
+    /* ══════ REDUCED MOTION ══════ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .post-card:hover { transform: none; }
+      .nav-toggle-bar { transition: none; }
+      .nav-links { transition: none; }
+    }
+
+    /* ══════ THE BACKDROP — nebula field, full page, fixed ══════
+       Same DNA as /services/ and /contact/: identical tile pitch,
+       crystal-facet shader and colour grade. Only the baked art and
+       the motion recipe differ — quiet, edge-weighted, dark centre. */
+    .mosaic-backdrop {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(120% 120% at 50% 50%, #08101f 0%, #060a16 55%, #04060c 100%);
+      pointer-events: none;   /* pointer is read at window level */
+    }
+    .mosaic-backdrop canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    /* reading scrim: the centre lane stays calm under the copy */
+    .mosaic-backdrop::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(60% 70% at 50% 50%, rgba(6,9,18,0.34) 0%, rgba(6,9,18,0.10) 55%, rgba(6,9,18,0) 100%);
+    }
+    @media print { .mosaic-backdrop { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="mosaic-backdrop" aria-hidden="true"><canvas id="mosaic-blog"></canvas></div>
+  <header class="nav-bar" role="banner">
+    <div class="header-inner-wrapper site-container">
+      <a href="/" class="nav-logo" aria-label="Ace Werk home">Ace Werk</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"
+              aria-label="Open menu" type="button">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <nav class="nav-links" id="site-nav" role="navigation" aria-label="Main navigation">
+      <a href="/services/">Services</a>
+      <a href="/our-team/">Our Team</a>
+      <a href="/contact/">Contact</a>
+      <a href="/blog/" class="nav-blog active" aria-current="page">Blog</a>
+      </nav>
+    </div>
+  </header>
+  <div class="page-wrapper">
+    <main>
+      <div class="content-wrap site-container">
+        <div class="content-shell hero-shell reveal">
+          <div class="hero-label">Journal</div>
+          <h1 class="hero-title">Blog</h1>
+        </div>
+      </div>
+      <div class="content-wrap site-container">
+        <div class="content-shell reveal">
+    <div class="blog-toolbar" hidden>
+      <form class="blog-search" role="search" aria-label="Search posts">
+        <label class="visually-hidden" for="blog-search-input">Search posts</label>
+        <span class="blog-search-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="5"></circle><line x1="11" y1="11" x2="14" y2="14"></line></svg></span>
+        <input id="blog-search-input" class="blog-search-input" type="search"
+               autocomplete="off" spellcheck="false" placeholder="Search posts&hellip;"
+               aria-label="Search posts" />
+        <button class="blog-search-clear" type="button" aria-label="Clear search" hidden>&times;</button>
+      </form>
+      <div class="page-size-wrap">
+        <label class="page-size-label" for="page-size">Posts per page</label>
+        <select id="page-size" class="page-size-select">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+          <div class="blog-status" role="status" aria-live="polite">1 post</div>
+    <div class="post-grid" id="post-grid">
+    <article class="post-card">
+      <div class="post-card-meta">
+        <span class="post-card-date"><time datetime="2026-10-13">Oct 13, 2026</time></span>
+        <span class="post-card-read">10 min read</span>
+      </div>
+      <h3 class="post-card-title">
+        <a class="post-card-link" href="/blog/crypto-on-off-ramps-north-america/">Crypto On/Off-Ramps in North America: 16 Providers Compared</a>
+      </h3>
+      <p class="post-card-excerpt">A country-by-country coverage map of crypto on-ramps and off-ramps in Canada, the US and Mexico, built from 16 providers&#x27; own documentation: which local rails exist, which direction each one runs, an…</p>
+      <div class="post-card-author">By Illya Swan</div>
+    
+        <div class="post-card-tags"><span class="post-card-tag">Crypto On/Off-Ramps</span> <span class="post-card-tag">Payment Infrastructure</span> <span class="post-card-tag">North America</span></div>
+    </article>
+    </div>
+          <nav class="pagination" aria-label="Pagination" hidden></nav>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-bar">
+        <p class="footer-text">&copy; Ace Werk 2026. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+  <script type="application/json" id="search-index">[
+  {
+    "title": "Crypto On/Off-Ramps in North America: 16 Providers Compared",
+    "excerpt": "A country-by-country coverage map of crypto on-ramps and off-ramps in Canada, the US and Mexico, built from 16 providers' own documentation: which local rails exist, which direction each one runs, an…",
+    "author": "Illya Swan",
+    "date": "2026-10-13",
+    "slug": "crypto-on-off-ramps-north-america",
+    "body": "Local crypto rails run both ways in Canada (Interac e-Transfer), the United States (ACH and RTP) and Mexico (SPEI). The tables show both directions in each market, often with geographic, amount, fee or receiving-bank conditions, but Banxa alone has a Supported Canadian Interac payout among table providers; Kraken documents one separately as a consumer exchange. One product can serve all three markets, but no single integrable provider documents both directions everywhere; buy and sell coverage must be checked separately. How to read the tables The tables compare 13 product entries from 12 providers; four other providers appear in notes below, for 16 providers checked in all. Cells were checked on 21 October 2026. How to read this table ● Supported The provider's own documentation says this rail works in this direction. ◐ With conditions Supported, with a limit: for example region, amount, account type, invitation-only access, or a bank that must support the rail. ◷ Planned Announced by the provider for a future date. Not live when we checked. ✕ Not offered The provider's documentation says this rail or country isn't available. ○ Not documented We found nothing either way in the provider's documentation. This isn't the same as not supported. Buy is fiat in, Sell is fiat out; a merchant-side row that collects fiat sits in Buy. A dash (–) means the direction does not apply to that rail, so there is nothing to document. Each table lists only providers with at least one Supported, With conditions or Planned rail in that country; the rest are named under the table. 131 records in the dataset, 16 providers checked on 21 October 2026. Canada 6 United States 12 Mexico 10 Canada · 6 providers, 8 rows ● Supported ◐ With conditions ◷ Planned ✕ Not offered ○ Not documented 6 of 13 product entries · How to read this Canada — local rail coverage by provider and direction, checked 21 October 2026 Provider Rail Buy Sell Conditions Banxa Partner widget Interac e-Transfer ↗ Buy ● Supported Sell ● Supported Instant, in CAD Instant, in CAD Card ↗ Buy ● Supported Sell ✕ Not offered buy No prepaid cards sell Card payouts: selected EU countries only Card payouts: selected EU countries only Mercuryo Partner widget Interac e-Transfer ↗ Buy ● Supported Sell ○ Not documented buy Interac e-Transfer buy supported in Canada sell No Interac sell; card payouts only No Interac sell; card payouts only MoonPay Partner widget Interac e-Transfer ↗ Buy ● Supported Sell ✕ Not offered buy Personal bank accounts only sell Interac sell “not yet” available Interac sell “not yet” available Card ↗ Buy ● Supported Sell ✕ Not offered buy Cards, Apple Pay, Google Pay sell Canada not on Visa/Mastercard payout lists Canada not on Visa/Mastercard payout lists Ramp Partner widget Card ↗ Buy ● Supported Sell ◐ With conditions buy No prepaid or gift cards sell Visa payout-to-card outside the US only Visa payout-to-card outside the US only Stripe Merchant-side Pre-authorized debit ↗ Buy ◐ With conditions Sell – not applicable CAD/USD; crypto eligibility not confirmed CAD/USD; crypto eligibility not confirmed Transak Partner widget Card ↗ Buy ● Supported Sell ○ Not documented buy Icons only: Visa, Mastercard, Apple Pay, Google Pay sell Off-ramp column empty for Canada Off-ramp column empty for Canada No documented rail in Canada: Bitso Business, Bridge, Coinbase (CDP), MoonPay Enterprise, Paybis, Simplex, zerohash United States · 12 providers, 26 rows ● Supported ◐ With conditions ◷ Planned ✕ Not offered ○ Not documented 12 of 13 product entries · How to read this United States — local rail coverage by provider and direction, checked 21 October 2026 Provider Rail Buy Sell Conditions Banxa Partner widget ACH ↗ Buy ✕ Not offered Sell ● Supported buy ACH not documented for buying sell 1–3 business days ACH not documented for buying Card ↗ Buy ● Supported Sell – not applicable No prepaid cards No prepaid cards Bridge B2B API ACH ↗ Buy – not applicable Sell ● Supported Next Day or Same Day ACH; 4:45 PM ET cutoff Next Day or Same Day ACH; 4:45 PM ET cutoff RTP / FedNow ↗ Buy – not applicable Sell ◐ With conditions FedNow in 20 s, but beta and by invitation FedNow in 20 s, but beta and by invitation Wire ↗ Buy – not applicable Sell ● Supported USD wire; cutoff 4:45 PM ET USD wire; cutoff 4:45 PM ET Coinbase (CDP) B2B API ACH ↗ CDP Buy ● Supported Sell ● Supported buy CDP Onramp ACH for US businesses sell CDP Offramp ACH payouts to US banks CDP Onramp ACH for US businesses Card ↗ CDP Buy ● Supported Sell – not applicable Debit cards only in the US; no US credit cards Debit cards only in the US; no US credit cards Mercuryo Partner widget Card ↗ Buy ● Supported Sell ✕ Not offered buy Visa, Mastercard, Apple/Google Pay; ACH not offered sell Visa and Mastercard card payouts not offered in US Visa and Mastercard card payouts not offered in US MoonPay Partner widget ACH ↗ Buy – not applicable Sell ◐ With conditions 3–5 days; no TX or USVI; PayPal/Venmo not in NY 3–5 days; no TX or USVI; PayPal/Venmo not in NY Card ↗ Buy ● Supported Sell ◐ With conditions buy Discover, PayPal, Venmo, Revolut, Cash App; ACH not offered sell Card payouts, not in TX or USVI Card payouts, not in TX or USVI MoonPay Enterprise Enterprise (virtual accounts) FedNow ↗ Buy ● Supported Sell ● Supported MoonPay Enterprise (business virtual accounts) MoonPay Enterprise (business virtual accounts) Wire ↗ Buy ● Supported Sell ● Supported MoonPay Enterprise (business virtual accounts) MoonPay Enterprise (business virtual accounts) Paybis Partner widget ACH ↗ Buy ● Supported Sell – not applicable NY not accepted; 11 states restricted NY not accepted; 11 states restricted Ramp Partner widget ACH ↗ Buy ○ Not documented Sell ● Supported buy ACH not documented for buying sell Up to 2 business days; 8 states excluded ACH not documented for buying RTP / FedNow ↗ Buy ○ Not documented Sell ● Supported buy ACH not documented on current pages sell As fast as 2 minutes; 8 states excluded ACH not documented on current pages Card ↗ Buy ● Supported Sell ✕ Not offered buy No prepaid or gift cards; 8 states excluded sell Visa payout-to-card everywhere except the US Visa payout-to-card everywhere except the US Simplex Partner widget ACH ↗ Buy ◐ With conditions Sell – not applicable ACH by location, device and partner; 5 states out ACH by location, device and partner; 5 states out Card ↗ Buy ◐ With conditions Sell – not applicable Visa/Mastercard; Mastercard can fail Visa/Mastercard; Mastercard can fail Stripe Merchant-side ACH ↗ Buy ◐ With conditions Sell – not applicable Crypto eligibility not stated Crypto eligibility not stated Onramp ↗ Partner widget Buy ◐ With conditions Sell – not applicable Public preview; application required Public preview; application required Stablecoin payments ↗ Buy ◐ With conditions Sell – not applicable US businesses; settles in local currency US businesses; settles in local currency Transak Partner widget Wire ↗ Buy ◐ With conditions Sell – not applicable Wire not documented by name; 5 states excluded Wire not documented by name; 5 states excluded Card ↗ Buy ● Supported Sell ● Supported buy Cards only; 5 states excluded from the matrix sell Visa and Mastercard payouts Cards only; 5 states excluded from the matrix zerohash B2B API ACH ↗ Buy ● Supported Sell ● Supported buy 1–3 business days; Plaid account linking sell 1–3 business days 1–3 business days; Plaid account linking RTP / FedNow ↗ Buy – not applicable Sell ● Supported Seconds, 24/7; payouts only Seconds, 24/7; payouts only Wire ↗ Buy ● Supported Sell – not applicable FedWire; same day in banking hours FedWire; same day in banking hours No documented rail in the United States: Bitso Business Mexico · 10 providers, 12 rows ● Supported ◐ With conditions ◷ Planned ✕ Not offered ○ Not documented 10 of 13 product entries · How to read this Mexico — local rail coverage by provider and direction, checked 21 October 2026 Provider Rail Buy Sell Conditions Banxa Partner widget SPEI ↗ Buy ● Supported Sell ✕ Not offered buy Instant, in MXN; hosted checkout sell Sell column marked ✕ Sell column marked ✕ Card ↗ Buy ● Supported Sell – not applicable No prepaid cards No prepaid cards Bitso Business B2B API SPEI ↗ Buy ◐ With conditions Sell ◐ With conditions buy Enterprise/B2B onboarding sell Payout to any Mexican bank account Enterprise/B2B onboarding Bridge B2B API SPEI ↗ Buy ◐ With conditions Sell ◐ With conditions buy SPEI virtual accounts; MXN→stablecoin; B2B sell Up to 30 min, 24/7; B2B API Up to 30 min, 24/7; B2B API Mercuryo Partner widget Card ↗ Buy ● Supported Sell – not applicable Cards, Apple Pay, Google Pay; SPEI not offered Cards, Apple Pay, Google Pay; SPEI not offered MoonPay Partner widget Card ↗ Buy ● Supported Sell ● Supported buy Cards, Apple Pay, Google Pay; SPEI and OXXO not listed sell Visa Direct payout list includes Mexico Cards, Apple Pay, Google Pay; SPEI and OXXO not listed MoonPay Enterprise Enterprise (virtual accounts) SPEI ↗ Buy ◷ Planned Sell ◷ Planned Planned for October 2026, per MoonPay's September 2026 coverage snapshot Planned for October 2026, per MoonPay's September 2026 coverage snapshot Paybis Partner widget SPEI ↗ Buy ● Supported Sell – not applicable SPEI named among local methods SPEI named among local methods Ramp Partner widget SPEI ↗ Buy ○ Not documented Sell ● Supported buy SPEI not documented on current pages sell As fast as 30 s; requires CLABE and tax ID; 2.9% fee SPEI not documented on current pages Card payout ↗ Buy – not applicable Sell ◐ With conditions Visa payout-to-card; Mastercard Europe only Visa payout-to-card; Mastercard Europe only Simplex Partner widget Card ↗ Buy ◐ With conditions Sell – not applicable No local Mexican rail documented No local Mexican rail documented Transak Partner widget Card ↗ Buy ● Supported Sell ● Supported buy Visa, Mastercard, Apple Pay, Google Pay sell Visa payout only Visa, Mastercard, Apple Pay, Google Pay No documented rail in Mexico: Coinbase (CDP), Stripe, zerohash Canada: Interac e-Transfer on the way in, a gap on the way out Three providers in the table document Interac e-Transfer buying: Banxa, MoonPay and Mercuryo. Banxa documents the sell side on the same page; MoonPay's Interac is buy-only, and Mercuryo has no Canadian payout rail. Kraken (a consumer exchange, covered in the notes below) also documents Interac both ways. Coinbase's Interac withdrawals rest on a 2023 launch post rather than a current help page. MoonPay lists cards, Apple Pay and Google Pay for all regions. BitPay's sell flow routes through Ramp; its buy flow uses Ramp among other partners. Neither BitPay post we read mentions Canada. Circle's docs name no Canadian rail — we couldn't confirm either way. Stripe lists Pre-authorized debit (CAD) as a payment method, but its pages don't confirm the rail is open to crypto businesses. What to take from it. For a Canadian wallet, the buy flow is easy to launch; the cash-out flow is where plans stall. If Canadian cash-out matters, ask Coinbase for current Interac withdrawal documentation, and ask Ramp whether a Canadian payout is open to your integration. One MoonPay caveat for partners MoonPay Enterprise's country table rates Canada \"Prohibited\" and says no Virtual Accounts are issued to customers in that tier. The table governs which jurisdictions Enterprise onboards; Japan, India and Malaysia are also marked Prohibited. It doesn't say whether Canadian end users can pay through a partner's MoonPay widget, so ask MoonPay before you assume either way. United States: ACH and RTP, with state-level carve-outs The US has the deepest coverage of the three markets: five providers document an ACH payout and three an RTP one. But most providers exclude states, and their lists differ. BitPay's sell flow routes through Ramp , so for cash-outs check Ramp's state list, not BitPay's. Its buy flow uses Ramp among other partners. Stripe lists ACH Direct Debit as a US payment method and offers a fiat-to-crypto Onramp , but access requires an application, and we couldn't verify its rails or state coverage from the pages we read. What to take from it. RTP is the fastest rail in this sample — Ramp, zerohash and Bridge (in beta) document it; ACH elsewhere means days. Combine the exclusion lists before you promise a US launch. New York is excluded by Ramp and Simplex and missing from Transak's list, so test it separately. Mexico: SPEI cash-outs exist; SPEI buying and cash vouchers don't Ramp pays out by SPEI, and BitPay routes Mexican cash-outs through it. On the buy side, Banxa, Bitso Business, Bridge and Paybis document SPEI on-ramps; MoonPay's is planned for October 2026. Ramp's flat 2.9% SPEI fee was first quoted in its October 2024 announcement and still appears on its current fee page. Stripe's payment-method matrix lists generic \"Bank transfers\" for MXN and Mexico, but we couldn't confirm that's open to crypto businesses. Why Stripe's OXXO isn't the answer OXXO lets customers pay cash at a convenience store against a voucher, and Stripe supports it for Mexican customers. But Stripe's OXXO page lists cryptocurrency exchanges and wallets (MCC 6051) among prohibited business categories. Payments are also single-use, non-refundable, limited to MXN 10-10,000, and settle up to four business days later. Treat OXXO as unavailable for crypto buying unless Stripe confirms an exception. Why local-rail coverage is thin (our read) Under Banxico's rules, regulated Mexican financial institutions can use virtual assets only for internal operations and can't offer virtual-asset services directly to the public, according to Chambers' 2026 Fintech guide . That helps explain why Mexican crypto rails run through specialist fintechs rather than banks. If you want a Mexico-native partner, Bitso Business describes instant SPEI payouts. Its SPEI on-ramp and payout are in the table above, gated on enterprise onboarding. Outside the tables Four more providers were checked and are not rows above. They are worth knowing about, and their records sit in the same dataset. Kraken documents Interac e-Transfer both ways in Canada, ACH, wire and RTP in the US, and SPEI both ways in Mexico — the only live Mexican on-ramp in this sample besides MoonPay's planned one. Mexico needs a CURP or RFC and a CLABE, and the peso balance auto-converts to USD. BitPay 's cash-outs route through Ramp: ACH in the US, SPEI in Mexico. Its buy flow uses Ramp among other partners, and its pages say nothing about Canada. Gemini documents ACH and wire deposits for US customers only — no Canadian or Mexican rail in this sample. Topper sells by card in all three countries and pays back by card in the US only; PayPal and Venmo are US buying methods, and no local bank rail is documented anywhere in the sample. Circle and Onramper are not ramps in the same sense: Circle's CPN moves stablecoins and pays out to local bank accounts, and Onramper is an aggregator that routes to other providers' rails. Both are in the dataset as notes, not as rows. Choosing providers: six rules Check the cash-out before the cash-in. Buy-side coverage is easy to find and easy to overrate. MoonPay accepts Interac but doesn't pay out to it, and Transak lists no Canadian payout at all. Treat \"bank transfer\" as a question. Ramp's API calls its US payout rail AMERICAN\\ BANK\\ TRANSFER; only its help center says ACH or RTP. Transak shows a wire icon without naming a rail. Confirm the rail, its timing and its settlement behaviour in testing: a provider's \"30 seconds\" is its own processing speed, not the receiving bank's finality. Consumer and partner products differ. MoonPay's partner-widget Interac buy and its Enterprise country table answer different questions. BitPay's sell flow routes through Ramp, while its buy flow uses Ramp among other partners. Verify the exact product line you'll integrate, not the brand. Geography is a state-level problem. Combine the exclusion lists before you promise a US launch, and test New York first. Stablecoin rails aren't fiat ramps. Circle's CPN Stablecoin Payments moves USDC and EURC onchain between counterparties and needs account activation. Circle's fiat products are separate: CPN Fiat Payments (local payouts in 60+ countries) and Circle Mint (institutions only). Stripe's stablecoin payments let US businesses accept stablecoins, with a private preview for businesses in the EU, Hong Kong, Mexico and Switzerland; payments settle in local currency in the merchant's Stripe balance. Plan for two providers. Only Coinbase documents local-rail coverage in both Canada and the US in both directions, and its Canadian withdrawals rest on a 2023 launch post. No provider covers Mexico both ways with local rails. Budget for at least two integrations or a card-rail fallback, and read the fallback's fine print: Ramp rejects prepaid cards, and Simplex warns that Mastercard crypto purchases can fail. Where to start — Ace Werk analysis, not provider statements If you need Start with Check first Interac buying for Canadian users MoonPay or Coinbase Whether your partner integration gets Interac; MoonPay's Enterprise terms Fast US cash-out Ramp (RTP, ACH) Its 8 excluded states US cash-out by ACH, days acceptable MoonPay or Coinbase MoonPay has no payouts in Texas; settlement takes 3-5 business days MXN cash-out Ramp SPEI, or BitPay via Ramp 2.9% fee, $1 minimum; Bitso Business as a Mexico-native alternative One integration across all three, cards acceptable MoonPay or Transak Card fees, declines and payout limits Stablecoin movement instead of local fiat rails Circle CPN or Stripe stablecoin payments Account activation; business location Ace Werk analysis, not provider statements. Regulatory clock for stablecoin-based flows If your ramp strategy includes USDC or other stablecoins, three national regimes are moving. Canada: The Stablecoin Act became law with Bill C-15 on 26 March 2026. The Bank of Canada supervises issuers, who must register, hold reserves and offer at-par redemption, and can't pay holders interest. DLA Piper expects the regime to come into force in 2027, once regulations are written. United States: The GENIUS Act takes effect no later than 18 January 2027. Regulators missed the 18 July 2026 deadline for final rules, so issuers are preparing against proposals. Mexico: Stablecoins aren't regulated as a stand-alone asset class, but the authorities treat issuance as deposit-taking, which is reserved to regulated institutions, per Chambers . None of this changes the fiat rails above. It will shape which stablecoins your product can offer in each market, so take legal advice for your own case. FAQ Which crypto on-ramps support Interac e-Transfer? Three providers in the table document Interac e-Transfer buying for Canadians: Banxa, MoonPay and Mercuryo. MoonPay's and Mercuryo's Interac options are buy-only. Simplex doesn't list Canada as unsupported, but documents no Canadian local rail, and Transak lists cards and wallets only. Can I sell crypto to a Canadian bank account? Banxa documents Interac e-Transfer withdrawals. Kraken (a consumer exchange) also documents Interac withdrawals. Coinbase's August 2023 launch post described Interac withdrawals as live, but we found no current help-center page confirming them. MoonPay says Interac selling isn't available yet, and Transak lists no Canadian payout. Confirm with the provider before you build. Which providers pay out by ACH or RTP in the US? Ramp offers ACH (up to 2 business days) and RTP (as fast as 2 minutes). MoonPay and Coinbase offer ACH payouts, and MoonPay quotes 3-5 business days. Ramp isn't available in eight states, and MoonPay has no payouts in Texas. Is there a crypto off-ramp to SPEI in Mexico? Yes. Ramp pays out in Mexican pesos via SPEI, as fast as 30 seconds, and BitPay's cash-outs route through Ramp. Bitso Business also describes instant SPEI payouts. Can I use Stripe's OXXO to fund crypto purchases? Not as documented. Stripe's OXXO page lists cryptocurrency exchanges and wallets as a prohibited business category. Do I need more than one ramp provider for North America? Usually. In our sample only Coinbase documents local-rail coverage in both Canada and the US in both directions, and no provider covers Mexico both ways with local rails. How we verified, and what we couldn't We checked each claim against the provider's own documentation: help centers, developer docs and eligibility pages. We ran the checks on 13 October 2026 and re-verified the key pages on 21 October 2026. Where a page doesn't name a method, we write \"not documented\", which isn't the same as \"not supported\". Where we couldn't settle a point either way, we say so. Four things to know when you use this: Dates matter. Several pages behind current claims are old: Ramp's US bank-transfer post (July 2023), Coinbase's Canada launch (August 2023), BitPay's buy post (June 2023), Ramp's SPEI announcement (October 2024) and MoonPay's withdrawal methods (October 2025). Pages also change: Simplex updated its supported-locations page on 20 October 2026, the day before we re-checked it. Re-check before you contract. Marketing isn't a spec. Where only a blog post names a rail or fee, we say so. Product tiers differ. The Coinbase ACH help pages we cite are for Coinbase Exchange; its developer Onramp docs describe the partner product. For Transak we read the public coverage matrix, because its per-method docs table didn't load. Not exhaustive. Twelve providers in the tables, three markets. We screened out Mogo, Caxa, Utrust and Unlimit and make no claim about them; BitPay, Gemini, Kraken and Topper are covered in the notes above rather than in the tables. Building for all three markets? If you're shortlisting ramp providers for a North American product, Ace Werk can run this same verification against your exact markets, asset set and product type (consumer, embedded or B2B), and design the integration around the gaps. Start a conversation . Sources All pages were opened between 13 and 21 October 2026. Page dates are shown where the page gives one. MoonPay: Interac e-Transfer (27 Jul 2026); Supported payment methods (26 Aug 2026); Withdrawal methods (14 Oct 2025); Enterprise country table Ramp Network: Payout methods (19 Mar 2025); Fees for selling crypto (19 Mar 2025); Buy methods ; Unsupported countries and states ; SPEI announcement (29 Oct 2024); US bank transfers post (12 Jul 2023); REST API v3 Coinbase: Funding your account, North America and LATAM ; Onramp and Offramp docs ; Canada launch (14 Aug 2023); Exchange ACH deposits and ACH withdrawals Stripe: OXXO ; Payment method support ; Stablecoin payments ; Fiat-to-crypto Onramp Simplex: Supported locations (updated 20 Oct 2026); Supported payment methods (updated about 14 Oct 2026); Mastercard Circle: Stablecoin Payments docs ; CPN Fiat Payments ; Circle Mint BitPay: Cash out with Ramp (6 May 2025); Buy with Ramp (27 Jun 2023) Transak: Global coverage Regulation and regional context: DLA Piper on Canada's Stablecoin Act (20 Apr 2026); The Block on the GENIUS Act deadline (18 Jul 2026); Chambers, Fintech 2026: Mexico ; Bitso Business © Ace Werk 2026. All rights reserved. Tier identifies the product, not the entire company: consumer app, partner widget, B2B API or Stripe merchant-side rail. Buy funds with local fiat; Sell pays it out; Catch records the country-specific limitation. Rail names follow the provider's wording, including \"bank transfer\" where no narrower rail is named. — means not applicable. Canada: Interac coverage on the way in, and the cash-out constraint Three of twelve table providers document Interac e-Transfer buys, as do two consumer exchanges. Price and onboarding can decide the buy flow; cash-out is narrower, with only one table provider documenting Interac payouts. What it means Banxa, Mercuryo and MoonPay document Interac buys; Kraken and Coinbase do so for exchange account holders. For Interac cash-out, Banxa documents instant CAD payouts. Kraken's withdrawal has a 15 CAD minimum, 10 CAD fee and a 0–1 business day or instant window. Coinbase claimed Interac withdrawals in its August 2023 Canada launch post, but no current withdrawal page confirms them; treat that claim as conditional, not a current documented cell. Card payout is no bank-rail fallback: MoonPay and Banxa refuse it in Canada; Ramp allows Visa payout outside the US but names no Canadian bank rail, and Transak documents none. This is a product distinction: a Visa card credit does not establish an Interac withdrawal, and merchant collection does not establish a crypto payout. Stripe documents CAD pre-authorized debit for merchants without stating crypto eligibility. A buy-only widget still needs a separately contracted exit path; a provider's silence on selling should trigger a question, not an unsupported label. Simplex's supported-locations page, updated 20 October 2026, removed Canada from the unsupported list without adding it to the supported list: not documented, not confirmed coverage. It also labels Vermont \"VA\", apparently a typo. United States: ACH and RTP coverage, and how fast each one settles The US has the widest coverage: six table providers document something in each direction. ACH settlement ranges from hours to days, while state and territory exclusions differ by provider. Check the product and its rail, not just the country. What it means For fast payouts, zerohash reports RTP and FedNow in seconds, 24/7/365, switching to FedNow when RTP is unavailable. Ramp quotes RTP as fast as 2 minutes at 0.99%; Bridge's invitation-only FedNow beta quotes up to 20 seconds, subject to receiving-bank support. Kraken's consumer RTP withdrawal requires a 20 USD minimum and a supporting bank; Kraken cannot enable RTP on the customer's behalf. ACH windows vary: zerohash and Banxa quote 1–3 business days, Bridge next-day or same-day with a 4:45 PM ET cutoff, Ramp up to 2 days, and Coinbase exchange withdrawals 3–5 days. Ramp charges 0.99%, $1.99 minimum, for ACH and RTP payouts. Specify the contractual window and fee. Transak's wire icon names no US bank rail; it cannot establish an ACH or RTP route. zerohash's higher-value FedWire works during banking hours, unlike its round-the-clock instant payouts. Stripe's merchant-side ACH has no stated crypto eligibility; its Onramp is application-gated. Merchant collection is not a consumer cash-out API. Geography also differs: Paybis rejects New York ACH customers; Simplex excludes NY, LA, AK, WA and VT; Transak lists 45 states plus DC and Puerto Rico but omits AK, LA, MN, NY and ND; Ramp excludes eight states. MoonPay excludes Texas and the USVI from payouts, and New York from PayPal and Venmo. Coinbase CDP and its consumer app have different contracts and rails; neither replaces a Bridge or zerohash orchestration API. Mexico: SPEI coverage in both directions, with OXXO still a blank The previous version understated Mexico's coverage. Five providers document SPEI buys, four document payouts and three do both. The asymmetry is provider-specific, not countrywide: check direction for each vendor. What it means Bitso Business, Bridge and Kraken document SPEI both ways. Bitso requires enterprise onboarding and marks SPEI with an unexplained asterisk; Bridge uses SPEI virtual accounts, a sales contact and SPEI endorsement. Kraken's deposit minimum is 150 MXN, with no fee and up to 20 minutes; MXN converts to USD on arrival because Kraken cannot hold pesos. Its withdrawal minimum is 150 MXN, with a 0.5% fee and near-instant settlement. These are exchange-account rails, not an API. Banxa and Paybis document buys; Banxa refuses SPEI payouts and Paybis names no sell rail. Paybis's methods table gives a 5–3,000 range and a 48-hour window; confirm its units and terms. Ramp documents payouts as fast as 30 seconds at 2.9%, but its 2024 buy announcement is absent from current pages. BitPay's Mexican cash-outs route through Ramp. MoonPay lists SPEI both ways as planned for October 2026, per its September 2026 coverage snapshot. Its Visa Direct payout and Transak's Visa payout are card paths, not SPEI. OXXO remains an evidence gap: Stripe says it prohibits crypto exchanges and wallets under merchant category 6051; Bitso Business, Kraken and Topper say nothing either way. Silence is not refusal. Providers outside the tables Four providers sit outside the country tables. Their local-rail evidence is either not partner-tier or not rail-specific, so a row would imply more than the documentation supports. BitPay — its cash-out flows are fulfilled by Ramp, so its rails are Ramp's rails. Gemini — a consumer exchange; relevant if your users already hold exchange accounts. Kraken — a consumer exchange; relevant on the same basis, and the widest coverage in the sample. Topper — a partner widget exists, but no local rail is documented in any market here: cards only. Onramper and aggregators: routing is not coverage Onramper routes to ramps it does not own, using conversion, price and KYC friction across 30+ ramps and 175+ methods: on-ramps, off-ramps, swaps and peer-to-peer. Six ramps cost US$199/month or US$1,800/year; all cost US$599/month or US$5,750/year. There is no integration fee: ramps fund it through revenue share. Its coverage list names US ACH and Instant ACH, Canadian Interac e-Transfer and Mexican SPEI, but does not itemise rail availability by country. Onramper gets no provider row: its method list does not prove country, direction or conditions. One underlying ramp may handle deposits and another withdrawals, with different onboarding, pricing and settlement; a listed route may fail a bank or location test. Ace Werk analysis, 21 October 2026: use the aggregator above the table, not as a country-level promise. Request provider-by-provider evidence for each direction, receiving bank and market. Choosing a provider: six rules from the tables Ace Werk analysis, 21 October 2026, based on the documented rows above. These are procurement rules, not a provider ranking. Pick by market first, not by brand None of the twelve table providers documents local rails both ways in all three countries. Banxa has two-way Interac in Canada, US ACH payouts only and Mexican SPEI buys only. Bitso Business covers Mexico both ways but does not serve Canada; Bridge covers Mexico both ways and US selling; Coinbase CDP covers the US both ways but names no Canadian or Mexican local rail. Only Kraken spans all three markets and both directions in the wider sample—and it is a consumer exchange account, not an integration API. Separate buy from sell before you sign Buy and sell are separate claims. MoonPay supports Interac buying but refuses Interac selling; Topper handles US card purchases but refuses card selling in Canada and Mexico. Mercuryo and Ramp refuse US card payout. Never contract on assumed symmetry. Ask which speed, then which rail ACH and RTP settlement windows differ by provider, as the US section shows. Ask for the named rail, contractual window and receiving-bank support; \"instant\" alone is not a settlement commitment. Map your users' geography to the provider's carve-outs Paybis bars Quebec buyers. US carve-outs for Paybis, MoonPay, Transak, Simplex and Ramp are detailed above; map those address rules into checkout before a national launch, not into a support queue afterward. Know whether you are buying an API, a widget or an account Bridge, zerohash, Bitso Business and Coinbase CDP are B2B APIs for orchestration and settlement. Banxa, Mercuryo, MoonPay, Paybis, Ramp, Simplex and Transak offer embeddable partner flows with provider KYC and pricing; Topper also has a widget, but documents only cards here. Kraken, Gemini and Coinbase's app are consumer exchange accounts. Stripe's merchant collection rails are another category. Do not mix these contracts in one shortlist. Budget two providers, and keep settlement separate Banxa has no US ACH buying; Ramp no longer documents US ACH or RTP buys, nor Mexican SPEI buys. Coinbase names no Mexican rail, and Bitso Business does not serve Canada. Budget two providers and a card fallback rather than assuming one covers each direction. Test the fallback in the direction that fails: a card buy cannot rescue an absent bank payout, and a bank payout may require an account or eligibility test the buy flow never asks for. Split the commercial and operational checks by country and direction, then confirm which provider owns the customer-facing failure when a route is unavailable. Stablecoin settlement is separate: Circle documents local-bank fiat payouts in 180+ countries and Stripe documents stablecoin payments settling to fiat, but neither names country-level rails. These are treasury products, not Interac replacements. Regulatory note: what the evidence covers Banxa describes SPEI as a real-time transfer system operated by the Bank of Mexico (Banxico), the only regulator named in the checked material. Provider availability claims here are not licensing opinions. Stripe documents stablecoin payments settling to merchants' fiat balances for US businesses, with private preview in the EU, Hong Kong, Mexico and Switzerland. Circle documents local-bank fiat payouts in 180+ countries; its country list includes Canada, Mexico and the US, but names no local rail. Stripe says OXXO bars crypto exchanges and wallets under merchant category 6051. None of these statements establishes a per-country regulatory position. We did not consult primary sources for Canada's Bill C-15 or the US GENIUS Act, so neither is assessed here. That is an evidence limit, not a legal finding. Building for all three markets? If you are scoping a product that needs Interac, ACH or SPEI in more than one direction, we can walk through the gaps that matter for your corridor and your entity structure. Talk to Ace Werk about your ramp coverage FAQ Which providers support Interac e-Transfer for buying crypto in Canada? Banxa, Mercuryo and MoonPay document Interac buys in the tables; Coinbase and Kraken do so through consumer exchange accounts. See the Canada table and its notes for MoonPay's account restriction and Paybis's weaker evidence. Can I sell crypto to a Canadian bank account? Banxa documents instant CAD Interac payouts; Kraken documents Interac withdrawals with a minimum and fee. Coinbase's older launch claim lacks current withdrawal-page confirmation. See Canada's “What it means” for the figures and why card payout is not an Interac substitute. Can you buy crypto with SPEI in Mexico? Five providers document SPEI buys: Banxa, Paybis, Bitso Business, Bridge and Kraken. The two B2B options, Bitso Business and Bridge, have conditions; Kraken is a consumer exchange. MoonPay lists SPEI as planned, not live. See Mexico for terms and minimums. How do you cash out crypto to a Mexican bank account? Ramp, Bitso Business, Bridge and Kraken document SPEI payouts, with different conditions. BitPay routes Mexican cash-outs through Ramp. Banxa offers only SPEI buying; MoonPay and Transak offer card, not SPEI, payouts. The Mexico section gives speed, fees and onboarding requirements. Which crypto ramp pays out by RTP or FedNow in the US? zerohash and Ramp document RTP payouts; zerohash also documents FedNow, while Bridge's FedNow payout is an invitation-only beta. Kraken offers conditional consumer RTP withdrawals. Compare their receiving-bank requirements and settlement windows in the US section. What does \"not documented\" mean in these tables? The checked provider pages make no claim either way; absence of evidence is not an unsupported feature. The status key above defines the term, and Simplex's unresolved Canada listing is the concrete example. Method On 21 October 2026, we checked 16 providers' own pages: 120 provider-rail-direction records plus Circle and Onramper notes, 122 dataset records total. Inclusion required a documented domestic rail in Canada, the US or Mexico in either direction; explicit refusals count as evidence, silence does not. Rows carry source URLs and provider page dates where shown. No checkout or account testing was done; judgments are dated Ace Werk analysis. This is not exhaustive: Robinhood, Webull, Ripple, Nubank and Mercado Pago were not checked. Sources Every page below was opened for this check on 20 or 21 October 2026. Page dates are the providers' own where shown. Grouped by provider, then by country. Banxa Canada, US, Mexico — https://docs.banxa.com/products/hosted-checkout/docs/reference/supported-payment-methods (updated about 14 Oct 2026) BitPay Canada, US — https://www.bitpay.com/blog/bitpay-ramp-new-currencies (27 Jun 2023) US, Mexico — https://www.bitpay.com/blog/cash-out-crypto-with-bitpay-ramp (6 May 2025) Bitso Business Canada, US, Mexico — https://bitso.com/business/solutions/local-payments (no date shown) Mexico — https://bitso.com/business/products/mxnb-stablecoin (no date shown) Bridge US — https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs (no date shown) Mexico — https://apidocs.bridge.xyz/get-started/guides/move-money/mxn-spei-integration-guide (no date shown) Circle (note) Canada, US, Mexico — https://circle.com/cpn/fiat-payments (no date shown) Coinbase Canada, Mexico — https://help.coinbase.com/en/coinbase/trading-and-funding/depositing-or-withdrawing-fiat-money/funding-your-account-namerica-latam (no date shown) Canada — https://www.coinbase.com/pt-pt/blog/coinbase-officially-launches-in-canada (14 Aug 2023) US — https://docs.cdp.coinbase.com/onramp/introduction/welcome (no date shown) US — https://help.coinbase.com/en/exchange/funding/withdrawing-with-ach (no date shown) Gemini US — https://support.gemini.com/hc/en-us/articles/4402719030171-What-payment-methods-are-supported (no date shown) Kraken Canada, US — https://support.kraken.com/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times- (no date shown) Canada — https://support.kraken.com/articles/4412259063444-how-do-i-fund-my-account-with-an-interac-e-transfer- (14 Oct 2026) US — https://support.kraken.com/articles/360000381846-cash-withdrawal-options-fees-minimums-and-processing-times- (no date shown) US — https://support.kraken.com/articles/4408922630676-ach-withdrawals (no date shown) Mexico — https://support.kraken.com/articles/how-to-deposit-mxn (8 Oct 2026) Mexico — https://support.kraken.com/articles/how-to-withdraw-mxn (8 Oct 2026) Mercuryo Canada, US, Mexico — https://help.mercuryo.io/hc/en-gb/articles/14806047888669-Which-payment-methods-does-Mercuryo-support (no date shown) Canada, US — https://help.mercuryo.io/hc/en-gb/articles/39157544835613-In-which-countries-can-I-make-an-off-ramp-sell-transaction (15 Sep 2026) MoonPay Canada, US, Mexico — https://support.moonpay.com/en/articles/380823-moonpay-s-supported-payment-methods (26 Aug 2026) Canada — https://support.moonpay.com/en/articles/396467-buying-crypto-with-interac-e-transfer (27 Jul 2026) US — https://support.moonpay.com/en/articles/384613-supported-withdrawal-methods-for-selling-cryptocurrency (14 Oct 2025) Mexico — https://dev.enterprise.moonpay.com/rails-and-capabilities (coverage snapshot Sep 2026; checked 22 Oct 2026) Onramper (aggregator) Canada, US, Mexico — https://onramper.com/products/onramp (no date shown) Paybis Canada — https://support.paybis.com/hc/en-us/articles/5119025073309-Available-payment-methods-and-their-limits (11 May 2026) US, Mexico — https://docs.payb.is/docs/payment-methods (15 Oct 2026) Mexico — https://docs.payb.is/docs/payout-methods (12 Nov 2025) Ramp Canada, US — https://support.rampnetwork.com/en/articles/12630-what-payment-methods-can-i-use-to-buy-crypto (updated before 6 Oct 2026; a 2023 post dated 12 Jul 2023) Canada, US, Mexico — https://support.rampnetwork.com/en/articles/8992-what-payout-methods-are-available (19 Mar 2025) US — https://rampnetwork.com/blog/complex-world-us-bank-transfers (12 Jul 2023) Mexico — https://rampnetwork.com/blog/ramp-network-spei (29 Oct 2024) Simplex Canada, Mexico — https://www.simplex.com/kb/what-are-your-supported-locations-countries-states-and-territories (20 Oct 2026) US — https://www.simplex.com/kb/what-are-your-supported-payment-methods (updated about 14 Oct 2026) Stripe Canada — https://docs.stripe.com/payments/payment-methods/payment-method-support (no date shown) US — https://docs.stripe.com/crypto/onramp (no date shown; marked public preview) US — https://docs.stripe.com/payments/stablecoin-payments (no date shown) US — https://support.stripe.com/questions/crypto-supportability-and-availability-by-region (16 Sep 2026) Mexico — https://docs.stripe.com/payments/oxxo (no date shown) Topper Canada, US, Mexico — https://support.topperpay.com/hc/en-us/articles/8926549139612-What-payment-methods-are-accepted (2 Oct 2026) Canada, Mexico — https://support.topperpay.com/hc/en-us/articles/8926552924572-Where-is-Topper-available (about 15 Oct 2026) US — https://support.topperpay.com/hc/en-us/articles/8926549324444-Topper-costs-and-fees (29 Jun 2026) Transak Canada, US, Mexico — https://transak.com/global-coverage (no date shown) zerohash US — https://docs.zerohash.com/docs/fiat (updated about Aug 2026)"
+  }
+]</script>
+
+<script>
+(function(){
+  "use strict";
+  var toolbar = document.querySelector('.blog-toolbar');
+  var pagination = document.querySelector('.pagination');
+  var pageSizeWrap = document.querySelector('.page-size-wrap');
+  var searchForm = document.querySelector('.blog-search');
+  var searchInput = document.getElementById('blog-search-input');
+  var searchClear = document.querySelector('.blog-search-clear');
+  var pageSize = document.getElementById('page-size');
+  var statusEl = document.querySelector('.blog-status');
+  var grid = document.getElementById('post-grid');
+  var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.post-card')) : [];
+
+  if (toolbar) toolbar.hidden = false;          // toolbar stays visible (search lives here)
+  var showControls = cards.length > 5;
+  if (pageSizeWrap) { pageSizeWrap.hidden = !showControls; pageSizeWrap.style.display = showControls ? '' : 'none'; }
+  if (pagination) { pagination.hidden = !showControls; pagination.style.display = showControls ? '' : 'none'; }
+
+  // ---- search index: inline when small, lazy on first focus when large ----
+  var INDEX = [];
+  var NORM = null;
+  var inlineEl = document.getElementById('search-index');
+  function normalize(list) {
+    return list.map(function(p){
+      return [p.title, p.excerpt, p.author, String(p.date), p.slug, p.body]
+        .map(function(s){ return String(s == null ? '' : s).toLowerCase(); });
+    });
+  }
+  function loadIndex() {
+    fetch('/blog/search-index.json', { credentials: 'same-origin' })
+      .then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(data){ INDEX = data; NORM = normalize(data); applyState(); })
+      .catch(function(){ INDEX = []; NORM = []; applyState(); });
+  }
+  if (inlineEl) {
+    try { INDEX = JSON.parse(inlineEl.textContent); } catch(e) { INDEX = []; }
+    NORM = normalize(INDEX);
+  } else if (searchInput) {
+    searchInput.addEventListener('focus', loadIndex, { once: true });
+  }
+
+  // ---- URL state ----
+  function readState() {
+    var p = new URLSearchParams(location.search);
+    var q = (p.get('q') || '').trim();
+    var size = parseInt(p.get('size') || '5', 10);
+    if ([5, 10, 20].indexOf(size) < 0) size = 5;
+    var page = parseInt(p.get('page') || '1', 10);
+    if (!(page >= 1)) page = 1;
+    return { q: q, size: size, page: page };
+  }
+  function writeState(s) {
+    var p = new URLSearchParams();
+    if (s.q) p.set('q', s.q);
+    if (s.size !== 5) p.set('size', String(s.size));
+    if (s.page > 1) p.set('page', String(s.page));
+    var qs = p.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+  }
+
+  // ---- matching: every token (>=2 chars) is a substring of some field ----
+  function tokenize(q) {
+    return q.toLowerCase().split(/\s+/).filter(function(t){ return t.length >= 2; });
+  }
+  function matchesPost(idx, tokens) {
+    if (!tokens.length) return true;
+    var fields = NORM[idx];
+    for (var i = 0; i < tokens.length; i++) {
+      var found = false;
+      for (var j = 0; j < fields.length; j++) {
+        if (fields[j].indexOf(tokens[i]) !== -1) { found = true; break; }
+      }
+      if (!found) return false;
+    }
+    return true;
+  }
+
+  // ---- render ----
+  function applyState() {
+    var s = readState();
+    var tokens = tokenize(s.q);
+    var filtered = [];
+    for (var i = 0; i < cards.length; i++) {
+      var show = NORM === null ? true : matchesPost(i, tokens);
+      if (show) filtered.push(cards[i]);
+    }
+    var total = filtered.length;
+    var pageCount = Math.max(1, Math.ceil(total / s.size));
+    if (s.page > pageCount) s.page = pageCount;
+    var start = (s.page - 1) * s.size;
+    var end = start + s.size;
+    for (var i = 0; i < cards.length; i++) {
+      var visible = false;
+      for (var k = start; k < end && k < filtered.length; k++) {
+        if (filtered[k] === cards[i]) { visible = true; break; }
+      }
+      cards[i].style.display = visible ? '' : 'none';
+    }
+    if (searchInput && searchInput.value !== s.q) searchInput.value = s.q;
+    if (searchClear) searchClear.hidden = !s.q;
+    if (pageSize) pageSize.value = String(s.size);
+    writeState(s);
+    renderStatus(total, s.q);
+    renderPagination(pageCount, s.page);
+  }
+
+  function renderStatus(total, q) {
+    if (cards.length === 0) { statusEl.textContent = 'No posts yet.'; return; }
+    if (total === 0) {
+      statusEl.textContent = '';
+      statusEl.appendChild(document.createTextNode('No posts match \u201c' + q + '\u201d. '));
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'status-clear';
+      btn.textContent = 'Clear search';
+      btn.addEventListener('click', clearSearch);
+      statusEl.appendChild(btn);
+      return;
+    }
+    statusEl.textContent = total + (total === 1 ? ' post' : ' posts');
+  }
+
+  function renderPagination(count, current) {
+    if (!pagination) return;
+    pagination.innerHTML = '';
+    if (count <= 1) return;
+    function btn(label, page, opts) {
+      opts = opts || {};
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pagination-btn' + (opts.current ? ' is-current' : '');
+      b.textContent = label;
+      if (opts.current) b.setAttribute('aria-current', 'page');
+      if (opts.disabled) b.disabled = true;
+      if (opts.ariaLabel) b.setAttribute('aria-label', opts.ariaLabel);
+      if (!opts.disabled && !opts.current) b.addEventListener('click', function(){ setPage(page); });
+      return b;
+    }
+    function ellipsis() {
+      var s = document.createElement('span');
+      s.className = 'pagination-ellipsis';
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = '\u2026';
+      return s;
+    }
+    pagination.appendChild(btn('\u2190', current - 1, { disabled: current === 1, ariaLabel: 'Previous page' }));
+    pageList(count, current).forEach(function(p){
+      if (p === '...') pagination.appendChild(ellipsis());
+      else pagination.appendChild(btn(String(p), p, { current: p === current }));
+    });
+    pagination.appendChild(btn('\u2192', current + 1, { disabled: current === count, ariaLabel: 'Next page' }));
+  }
+
+  function pageList(count, current) {
+    if (count <= 7) {
+      var a = []; for (var i = 1; i <= count; i++) a.push(i); return a;
+    }
+    var pages = [1];
+    var lo = Math.max(2, current - 1);
+    var hi = Math.min(count - 1, current + 1);
+    if (lo > 2) pages.push('...');
+    for (var i = lo; i <= hi; i++) pages.push(i);
+    if (hi < count - 1) pages.push('...');
+    pages.push(count);
+    return pages;
+  }
+
+  // ---- events ----
+  function setPage(p) { var s = readState(); s.page = p; writeState(s); applyState(); }
+  function setSize(v) { var s = readState(); s.size = v; s.page = 1; writeState(s); applyState(); }
+  function clearSearch() {
+    if (searchInput) searchInput.value = '';
+    var s = readState(); s.q = ''; s.page = 1; writeState(s); applyState();
+    if (searchInput) searchInput.focus();
+  }
+
+  var debounceTimer = null;
+  if (searchInput) {
+    searchInput.addEventListener('input', function(){
+      searchClear.hidden = !searchInput.value;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function(){
+        var s = readState(); s.q = searchInput.value.trim(); s.page = 1; writeState(s); applyState();
+      }, 200);
+    });
+    searchInput.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && searchInput.value) { e.preventDefault(); clearSearch(); }
+    });
+  }
+  if (searchClear) searchClear.addEventListener('click', clearSearch);
+  if (pageSize) pageSize.addEventListener('change', function(){ setSize(parseInt(pageSize.value, 10)); });
+  if (searchForm) searchForm.addEventListener('submit', function(e){ e.preventDefault(); });
+
+  window.addEventListener('popstate', function(){ applyState(); });
+
+  applyState();
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('site-nav');
+  if (!toggle || !nav) return;
+  var links = nav.querySelectorAll('a');
+  var first = links[0];
+  var last = links[links.length - 1];
+  var logo = document.querySelector('.nav-logo');
+
+  function isOpen(){ return toggle.classList.contains('open'); }
+  function openMenu(){
+    toggle.classList.add('open');
+    nav.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+    document.body.classList.add('nav-open');
+    if (logo) logo.setAttribute('tabindex', '-1');
+    if (first) first.focus();
+  }
+  function closeMenu(){
+    toggle.classList.remove('open');
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    document.body.classList.remove('nav-open');
+    if (logo) logo.removeAttribute('tabindex');
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', function(){ isOpen() ? closeMenu() : openMenu(); });
+
+  document.addEventListener('keydown', function(e){
+    if (!isOpen()) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeMenu(); return; }
+    if (e.key === 'Tab') {
+      if (e.shiftKey && (document.activeElement === toggle || document.activeElement === first)) {
+        e.preventDefault(); if (last) last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); toggle.focus();
+      }
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (!isOpen()) return;
+    if (nav.contains(e.target) || toggle.contains(e.target)) return;
+    closeMenu();
+  });
+
+  nav.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('a')) closeMenu();
+  });
+})();
+</script>
+<script src="/blog/assets/tessera-blog.js"></script>
+</body>
+</html>

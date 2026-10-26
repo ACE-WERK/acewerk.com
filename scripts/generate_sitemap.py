@@ -36,6 +36,9 @@ PAGES: list[dict[str, str]] = [
     {"path": "/services/",  "source": "services/index.html"},
     {"path": "/our-team/",  "source": "our-team/index.html"},
     {"path": "/contact/",   "source": "contact/index.html"},
+    {"path": "/blog/",      "source": "blog/index.html"},
+    {"path": "/blog/crypto-on-off-ramps-north-america/",
+     "source": "content/posts/crypto-on-off-ramps-north-america.md"},
 ]
 
 # ---------------------------------------------------------------------------

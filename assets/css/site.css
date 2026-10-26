@@ -17,6 +17,8 @@
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.3s ease-out;
       --max-width: 1100px;
+      --fs-min: 11px;
+      --fs-footnote: 10px;
       --breakpoint-nav: 768px;
       --nav-height: 52px;
       --nav-height-mobile: 44px;

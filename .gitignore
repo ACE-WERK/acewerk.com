@@ -17,3 +17,6 @@ build/
 Thumbs.db
 *:Zone.Identifier
 .vscode/
+
+# Pages artifact (built in CI from .pagesignore)
+_site/

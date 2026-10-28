@@ -1,6 +1,8 @@
 import re, base64, os
 
-with open('/home/illya/projects/acewerk.com/index.html', 'r') as f:
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+with open(os.path.join(ROOT, 'index.html'), 'r') as f:
     content = f.read()
 
 m = re.search(r'const TILE_B64="([^"]+)"', content)
@@ -12,8 +14,8 @@ if m:
     side = int(pixels ** 0.5)
     print(f'Pixels: {pixels} ({side}x{side})')
     
-    os.makedirs('/home/illya/projects/acewerk.com/data', exist_ok=True)
-    with open('/home/illya/projects/acewerk.com/data/tile-data.b64', 'w') as f:
+    os.makedirs(os.path.join(ROOT, 'data'), exist_ok=True)
+    with open(os.path.join(ROOT, 'data', 'tile-data.b64'), 'w') as f:
         f.write(b64)
     print('Written to data/tile-data.b64')
 else:

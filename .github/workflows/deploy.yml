@@ -54,10 +54,14 @@ jobs:
           echo "Validating ${SITEMAP}..."
           xmllint --noout --schema "${XSD_FILE}" "${SITEMAP}"
 
+      - name: Copy site without internal files (block list)
+        # Publishes the repo minus every path matched in .pagesignore.
+        run: rsync -a --exclude-from=.pagesignore ./ _site/
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
   deploy:
     needs: build

@@ -54,10 +54,9 @@ jobs:
           echo "Validating ${SITEMAP}..."
           xmllint --noout --schema "${XSD_FILE}" "${SITEMAP}"
 
-      - name: Assemble public site (allowlist + link check)
-        # Only the public pages and their assets go into _site/; docs, specs,
-        # scripts and tests stay unpublished. See scripts/assemble_site.py.
-        run: python scripts/assemble_site.py
+      - name: Copy site without internal files (block list)
+        # Publishes the repo minus every path matched in .pagesignore.
+        run: rsync -a --exclude-from=.pagesignore ./ _site/
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

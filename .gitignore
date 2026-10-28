@@ -18,5 +18,5 @@ Thumbs.db
 *:Zone.Identifier
 .vscode/
 
-# Pages artifact (scripts/assemble_site.py)
+# Pages artifact (built in CI from .pagesignore)
 _site/

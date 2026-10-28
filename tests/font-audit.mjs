@@ -94,7 +94,7 @@ async function auditPage(pagePath) {
 }
 
 async function auditFontsCss() {
-  const cssPath = path.resolve('/home/illya/projects/acewerk.com/assets/fonts/fonts.css');
+  const cssPath = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../assets/fonts/fonts.css');
   const css = fs.readFileSync(cssPath, 'utf8');
   const r = { page: 'assets/fonts/fonts.css', ok: true, issues: [] };
 

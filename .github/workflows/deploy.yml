@@ -54,10 +54,15 @@ jobs:
           echo "Validating ${SITEMAP}..."
           xmllint --noout --schema "${XSD_FILE}" "${SITEMAP}"
 
+      - name: Assemble public site (allowlist + link check)
+        # Only the public pages and their assets go into _site/; docs, specs,
+        # scripts and tests stay unpublished. See scripts/assemble_site.py.
+        run: python scripts/assemble_site.py
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
   deploy:
     needs: build

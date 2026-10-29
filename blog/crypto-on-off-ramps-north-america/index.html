@@ -4,11 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <script defer src="https://x.acewerk.com/tessera.js" data-website-id="15435e6c-c2e0-4995-bd8e-db662d4474f3"></script>
-  <title>Crypto On/Off-Ramps in North America: 16 Providers Compared — Blog | Ace Werk</title>
-  <meta name="description" content="We checked 16 providers&#x27; own documentation for Interac, ACH, RTP and SPEI coverage in Canada, the US and Mexico — both directions, conditions included.">
+  <title>Crypto On/Off-Ramp Integrations in North America: 14 Providers Compared — Blog | Ace Werk</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/icons/acewerk-logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="description" content="Which crypto on/off-ramp widgets and APIs support Interac, ACH, RTP and SPEI in Canada, the US and Mexico, and how integrating platforms earn from them.">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Crypto On/Off-Ramps in North America: 16 Providers Compared — Blog | Ace Werk">
-  <meta property="og:description" content="We checked 16 providers&#x27; own documentation for Interac, ACH, RTP and SPEI coverage in Canada, the US and Mexico — both directions, conditions included.">
+  <meta property="og:title" content="Crypto On/Off-Ramp Integrations in North America: 14 Providers Compared — Blog | Ace Werk">
+  <meta property="og:description" content="Which crypto on/off-ramp widgets and APIs support Interac, ACH, RTP and SPEI in Canada, the US and Mexico, and how integrating platforms earn from them.">
   <link rel="canonical" href="https://acewerk.com/blog/crypto-on-off-ramps-north-america/">
   <link rel="preload" href="/assets/fonts/orbitron-500-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -719,7 +722,7 @@
     @media print { .mosaic-backdrop { display: none; } }
   </style>
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Crypto On/Off-Ramps in North America: 16 Providers Compared", "description": "We checked 16 providers' own documentation for Interac, ACH, RTP and SPEI coverage in Canada, the US and Mexico — both directions, conditions included.", "mainEntityOfPage": "https://acewerk.com/blog/crypto-on-off-ramps-north-america/", "datePublished": "2026-10-13", "dateModified": "2026-10-21", "author": {"@type": "Person", "name": "Illya Swan"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://acewerk.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://acewerk.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Crypto On/Off-Ramps in North America: 16 Providers Compared", "item": "https://acewerk.com/blog/crypto-on-off-ramps-north-america/"}]}]}
+  {"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Crypto On/Off-Ramp Integrations in North America: 14 Providers Compared", "description": "Which crypto on/off-ramp widgets and APIs support Interac, ACH, RTP and SPEI in Canada, the US and Mexico, and how integrating platforms earn from them.", "mainEntityOfPage": "https://acewerk.com/blog/crypto-on-off-ramps-north-america/", "datePublished": "2026-10-28", "dateModified": "2026-10-28", "author": {"@type": "Person", "name": "Illya Swan"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://acewerk.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://acewerk.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Crypto On/Off-Ramp Integrations in North America: 14 Providers Compared", "item": "https://acewerk.com/blog/crypto-on-off-ramps-north-america/"}]}]}
   </script>
 </head>
 <body>
@@ -749,19 +752,20 @@
             <header class="post-header">
               <div class="post-header-top">
                 <a class="post-back" href="/blog/">&larr; Blog</a>
-                <time class="post-date" datetime="2026-10-13">Oct 13, 2026</time>
+                <time class="post-date" datetime="2026-10-28">Oct 28, 2026</time>
               </div>
-              <h1 class="post-title">Crypto On/Off-Ramps in North America: 16 Providers Compared</h1>
+              <h1 class="post-title">Crypto On/Off-Ramp Integrations in North America: 14 Providers Compared</h1>
               <div class="post-byline">
                 <span>By Illya Swan</span>
-                <span class="post-read">10 min read</span>
+                <span class="post-read">14 min read</span>
               </div>
             </header>
             <div class="post-body">
-              <p class="post-updated">Last updated <time datetime="2026-10-21">Oct 21, 2026</time></p>
-<p>Local crypto rails run both ways in Canada (Interac e-Transfer), the United States (ACH and RTP) and Mexico (SPEI). The tables show both directions in each market, often with geographic, amount, fee or receiving-bank conditions, but Banxa alone has a Supported Canadian Interac payout among table providers; Kraken documents one separately as a consumer exchange. One product can serve all three markets, but no single integrable provider documents both directions everywhere; buy and sell coverage must be checked separately.</p>
+              <p class="post-updated">Last updated <time datetime="2026-10-28">Oct 28, 2026</time></p>
+<p>This guide is for wallets, exchanges, fintechs and other platforms that want to embed a crypto on-ramp or off-ramp, either so users can fund and cash out without leaving the product, or to earn a fee on every transaction. It covers only providers that document an integration for businesses (a widget, SDK or API) and maps which local rails each one supports in Canada (Interac e-Transfer), the United States (ACH, RTP and FedNow) and Mexico (SPEI), in which direction. In short, buying is well covered and cashing out is not, and no single integrable provider documents both directions in all three markets.</p>
 <h2>How to read the tables</h2>
-<p>The tables compare 13 product entries from 12 providers; four other providers appear in notes below, for 16 providers checked in all. Cells were checked on 21 October 2026.</p>
+<p>The tables compare 12 product entries from 11 providers; three more integrable providers, Kraken, Stripe and Topper, appear in notes below, for 14 in all. We excluded providers and products that serve only their own consumers. Rails were checked on 21 October 2026 and integration terms on 26 October 2026.</p>
+<p><strong>Tier</strong> identifies the product you would integrate, not the whole company: a <strong>partner widget</strong> (the provider&#x27;s hosted or embedded checkout, with its own KYC and pricing) or a <strong>B2B API</strong> (you build the flow; the provider converts and settles); MoonPay Enterprise&#x27;s business virtual accounts count as an API. <strong>Buy</strong> funds with local fiat; <strong>Sell</strong> pays it out; <strong>Conditions</strong> records the country-specific limitation. Rail names follow the provider&#x27;s wording, including &quot;bank transfer&quot; where no narrower rail is named. <strong>—</strong> means not applicable.</p>
 <style id="rampx-css">/* ══════════════════════════════════════════════════════════════════════════
    ACE-34 · rampx-* — country coverage component  (rev 2)
    Article: /blog/crypto-on-off-ramps-north-america/
@@ -1112,8 +1116,8 @@
 }
 
 /* column measure: fixed layout, so the widths are the layout */
-.rampx-col-prov { width: 18%; }
-.rampx-col-rail { width: 19%; }
+.rampx-col-prov { width: 19%; } /* fits a two-line tag, e.g. ENTERPRISE / (VIRTUAL ACCOUNTS) */
+.rampx-col-rail { width: 18%; }
 .rampx-col-buy,
 .rampx-col-sell { width: 15%; }
 .rampx-col-cond { width: 33%; }
@@ -1187,8 +1191,16 @@
   letter-spacing: 0.08em;
   line-height: 1.5;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
   color: var(--rampx-muted);
+}
+/* A parenthetical qualifier wraps as one unit: the tag breaks before "(" when the
+   whole label is wider than the cell, and only inside the qualifier if that alone
+   is still too wide. */
+.rampx-tag-qual {
+  display: inline-block;
+  max-width: 100%;
 }
 
 .rampx-rail {
@@ -1333,13 +1345,46 @@
 }
 .rampx-howto-note strong { color: var(--rampx-ink); font-weight: 500; }
 
+/* ── PAYMENT RAILS EXPLAINED — one collapsed panel per country section,
+      same shell as How to read this table ── */
+.rampx--rails { margin: 1.25em 0 1.5em; }
+.rampx-rails-lede {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--rampx-ink);
+}
+.rampx-rails-label {
+  font-family: var(--rampx-font-mono);
+  font-size: 11px; /* --fs-min */
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.55;
+  text-transform: uppercase;
+  color: var(--rampx-head-ink);
+}
+.rampx-rails-label small {
+  display: block;
+  font-size: 11px; /* --fs-min */
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.8;
+}
+.rampx-howto-note a {
+  color: var(--rampx-accent-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--rampx-accent-border);
+  text-underline-offset: 2px;
+}
+.rampx-howto-note a:focus-visible { outline: 2px solid var(--rampx-focus); outline-offset: 2px; }
+
 /* ══════════════════════════════════════════════════════════════════════════
    COMPACT TABLE — 701-900px of column: narrower cells, smaller chips, more
    room for the two direction columns so no label is ever clipped.
    ══════════════════════════════════════════════════════════════════════════ */
 @container rampx (max-width: 900px) {
-  .rampx-col-prov { width: 17%; }
-  .rampx-col-rail { width: 18%; }
+  .rampx-col-prov { width: 19%; }
+  .rampx-col-rail { width: 16%; }
   .rampx-col-buy,
   .rampx-col-sell { width: 16%; }
   .rampx-col-cond { width: 33%; }
@@ -1641,14 +1686,14 @@
       <dt><span class="rampx-st" data-status="not-documented"><span class="rampx-st-glyph" aria-hidden="true">○</span>Not documented</span></dt>
       <dd>We found nothing either way in the provider's documentation. This isn't the same as not supported.</dd>
     </dl>
-    <p class="rampx-howto-note"><strong>Buy</strong> is fiat in, <strong>Sell</strong> is fiat out; a merchant-side row that collects fiat sits in Buy. A dash (–) means the direction does not apply to that rail, so there is nothing to document. Each table lists only providers with at least one Supported, With conditions or Planned rail in that country; the rest are named under the table. 131 records in the dataset, 16 providers checked on 21 October 2026.</p>
+    <p class="rampx-howto-note"><strong>Buy</strong> is fiat in, <strong>Sell</strong> is fiat out. A dash (–) means the direction does not apply to that rail, so there is nothing to document. Each table lists only providers with at least one Supported, With conditions or Planned rail in that country; the rest are named under the table. 45 provider-rail rows across three countries, checked on 21 October 2026.</p>
   </div>
 </details>
 </div>
 <div class="rampx" data-rampx="coverage">
   <div class="rampx-tabs" role="tablist" aria-label="Country">
     <button class="rampx-tab" type="button" role="tab" id="rampx-tab-ca" aria-controls="rampx-panel-ca" aria-selected="true" tabindex="0" aria-label="Canada, 6 providers">Canada<span class="rampx-tab-count">6</span></button>
-    <button class="rampx-tab" type="button" role="tab" id="rampx-tab-us" aria-controls="rampx-panel-us" aria-selected="false" tabindex="-1" aria-label="United States, 12 providers">United States<span class="rampx-tab-count">12</span></button>
+    <button class="rampx-tab" type="button" role="tab" id="rampx-tab-us" aria-controls="rampx-panel-us" aria-selected="false" tabindex="-1" aria-label="United States, 11 providers">United States<span class="rampx-tab-count">11</span></button>
     <button class="rampx-tab" type="button" role="tab" id="rampx-tab-mx" aria-controls="rampx-panel-mx" aria-selected="false" tabindex="-1" aria-label="Mexico, 10 providers">Mexico<span class="rampx-tab-count">10</span></button>
   </div>
   <div class="rampx-panel" role="tabpanel" id="rampx-panel-ca" aria-labelledby="rampx-tab-ca" tabindex="0">
@@ -1657,7 +1702,7 @@
   <ul class="rampx-key" aria-label="Status key">
     <li><button type="button" class="rampx-keychip" data-status="documented" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</button></li><li><button type="button" class="rampx-keychip" data-status="conditional" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</button></li><li><button type="button" class="rampx-keychip" data-status="planned" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">◷</span>Planned</button></li><li><button type="button" class="rampx-keychip" data-status="not-offered" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">✕</span>Not offered</button></li><li><button type="button" class="rampx-keychip" data-status="not-documented" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">○</span>Not documented</button></li>
   </ul>
-  <p class="rampx-meta">6 of 13 product entries · <a href="#rampx-howto">How to read this</a></p>
+  <p class="rampx-meta">6 of 12 product entries · <a href="#rampx-howto">How to read this</a></p>
 </div>
 <div class="rampx-tablewrap">
   <table class="rampx-table">
@@ -1715,6 +1760,15 @@
         <td class="rampx-cond"><ul class="rampx-conds"><li><span class="rampx-cond-dir">buy</span>Cards, Apple Pay, Google Pay</li><li><span class="rampx-cond-dir">sell</span>Canada not on Visa/Mastercard payout lists</li></ul><p class="rampx-cond-short">Canada not on Visa/Mastercard payout lists</p></td>
       </tr>
     </tbody>
+    <tbody class="rampx-tbody" data-provider="Paybis">
+      <tr class="rampx-tr">
+        <th class="rampx-prov" scope="rowgroup" rowspan="1">Paybis<span class="rampx-tag">Partner widget</span></th>
+        <th class="rampx-rail" scope="row">Card<a class="rampx-src" href="https://docs.payb.is/docs/payment-methods" aria-label="Source: Paybis, Card, Canada" title="Source: Paybis, Card, Canada">↗</a></th>
+        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
+        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="not-documented"><span class="rampx-st-glyph" aria-hidden="true">○</span>Not documented</span></td>
+        <td class="rampx-cond"><ul class="rampx-conds"><li><span class="rampx-cond-dir">buy</span>Cards, Apple Pay, Google Pay; not in Quebec; no stablecoins</li><li><span class="rampx-cond-dir">sell</span>CAD not on Visa or Mastercard payout lists</li></ul><p class="rampx-cond-short">Not in Quebec; no stablecoins</p></td>
+      </tr>
+    </tbody>
     <tbody class="rampx-tbody" data-provider="Ramp">
       <tr class="rampx-tr">
         <th class="rampx-prov" scope="rowgroup" rowspan="1">Ramp<span class="rampx-tag">Partner widget</span></th>
@@ -1722,15 +1776,6 @@
         <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
         <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
         <td class="rampx-cond"><ul class="rampx-conds"><li><span class="rampx-cond-dir">buy</span>No prepaid or gift cards</li><li><span class="rampx-cond-dir">sell</span>Visa payout-to-card outside the US only</li></ul><p class="rampx-cond-short">Visa payout-to-card outside the US only</p></td>
-      </tr>
-    </tbody>
-    <tbody class="rampx-tbody" data-provider="Stripe">
-      <tr class="rampx-tr">
-        <th class="rampx-prov" scope="rowgroup" rowspan="1">Stripe<span class="rampx-tag">Merchant-side</span></th>
-        <th class="rampx-rail" scope="row">Pre-authorized debit<a class="rampx-src" href="https://docs.stripe.com/payments/payment-methods/payment-method-support" aria-label="Source: Stripe, Pre-authorized debit, Canada" title="Source: Stripe, Pre-authorized debit, Canada">↗</a></th>
-        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
-        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
-        <td class="rampx-cond"><ul class="rampx-conds"><li>CAD/USD; crypto eligibility not confirmed</li></ul><p class="rampx-cond-short">CAD/USD; crypto eligibility not confirmed</p></td>
       </tr>
     </tbody>
     <tbody class="rampx-tbody" data-provider="Transak">
@@ -1744,15 +1789,15 @@
     </tbody>
   </table>
 </div>
-<p class="rampx-excluded"><span class="rampx-excluded-label">No documented rail in Canada:</span><span class="rampx-excluded-names"> Bitso Business, Bridge, Coinbase (CDP), MoonPay Enterprise, Paybis, Simplex, zerohash</span></p>
+<p class="rampx-excluded"><span class="rampx-excluded-label">No documented rail in Canada:</span><span class="rampx-excluded-names"> Bitso Business, Bridge, Coinbase (CDP), MoonPay Enterprise, Simplex, zerohash</span></p>
   </div>
   <div class="rampx-panel" role="tabpanel" id="rampx-panel-us" aria-labelledby="rampx-tab-us" tabindex="0">
-    <h3 class="rampx-panel-title">United States <span>· 12 providers, 26 rows</span></h3>
+    <h3 class="rampx-panel-title">United States <span>· 11 providers, 24 rows</span></h3>
 <div class="rampx-keybar">
   <ul class="rampx-key" aria-label="Status key">
     <li><button type="button" class="rampx-keychip" data-status="documented" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</button></li><li><button type="button" class="rampx-keychip" data-status="conditional" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</button></li><li><button type="button" class="rampx-keychip" data-status="planned" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">◷</span>Planned</button></li><li><button type="button" class="rampx-keychip" data-status="not-offered" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">✕</span>Not offered</button></li><li><button type="button" class="rampx-keychip" data-status="not-documented" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">○</span>Not documented</button></li>
   </ul>
-  <p class="rampx-meta">12 of 13 product entries · <a href="#rampx-howto">How to read this</a></p>
+  <p class="rampx-meta">11 of 12 product entries · <a href="#rampx-howto">How to read this</a></p>
 </div>
 <div class="rampx-tablewrap">
   <table class="rampx-table">
@@ -1848,7 +1893,7 @@
     </tbody>
     <tbody class="rampx-tbody" data-provider="MoonPay Enterprise">
       <tr class="rampx-tr">
-        <th class="rampx-prov" scope="rowgroup" rowspan="2">MoonPay Enterprise<span class="rampx-tag">Enterprise (virtual accounts)</span></th>
+        <th class="rampx-prov" scope="rowgroup" rowspan="2">MoonPay Enterprise<span class="rampx-tag">Enterprise <span class="rampx-tag-qual">(virtual accounts)</span></span></th>
         <th class="rampx-rail" scope="row">FedNow<a class="rampx-src" href="https://dev.enterprise.moonpay.com/rails-and-capabilities" aria-label="Source: MoonPay Enterprise, FedNow, United States" title="Source: MoonPay Enterprise, FedNow, United States">↗</a></th>
         <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
         <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
@@ -1863,11 +1908,17 @@
     </tbody>
     <tbody class="rampx-tbody" data-provider="Paybis">
       <tr class="rampx-tr">
-        <th class="rampx-prov" scope="rowgroup" rowspan="1">Paybis<span class="rampx-tag">Partner widget</span></th>
+        <th class="rampx-prov" scope="rowgroup" rowspan="2">Paybis<span class="rampx-tag">Partner widget</span></th>
         <th class="rampx-rail" scope="row">ACH<a class="rampx-src" href="https://docs.payb.is/docs/payment-methods" aria-label="Source: Paybis, ACH, United States" title="Source: Paybis, ACH, United States">↗</a></th>
         <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
         <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
         <td class="rampx-cond"><ul class="rampx-conds"><li>NY not accepted; 11 states restricted</li></ul><p class="rampx-cond-short">NY not accepted; 11 states restricted</p></td>
+      </tr>
+      <tr class="rampx-tr">
+        <th class="rampx-rail" scope="row">Card<a class="rampx-src" href="https://docs.payb.is/docs/payout-methods" aria-label="Source: Paybis, Card, United States" title="Source: Paybis, Card, United States">↗</a></th>
+        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
+        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
+        <td class="rampx-cond"><ul class="rampx-conds"><li><span class="rampx-cond-dir">buy</span>Cards, Apple Pay, Google Pay; NY not accepted</li><li><span class="rampx-cond-dir">sell</span>Visa and Mastercard payouts</li></ul><p class="rampx-cond-short">NY not accepted</p></td>
       </tr>
     </tbody>
     <tbody class="rampx-tbody" data-provider="Ramp">
@@ -1904,27 +1955,6 @@
         <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
         <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
         <td class="rampx-cond"><ul class="rampx-conds"><li>Visa/Mastercard; Mastercard can fail</li></ul><p class="rampx-cond-short">Visa/Mastercard; Mastercard can fail</p></td>
-      </tr>
-    </tbody>
-    <tbody class="rampx-tbody" data-provider="Stripe">
-      <tr class="rampx-tr">
-        <th class="rampx-prov" scope="rowgroup" rowspan="3">Stripe<span class="rampx-tag">Merchant-side</span></th>
-        <th class="rampx-rail" scope="row">ACH<a class="rampx-src" href="https://support.stripe.com/questions/crypto-supportability-and-availability-by-region" aria-label="Source: Stripe, ACH, United States" title="Source: Stripe, ACH, United States">↗</a></th>
-        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
-        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
-        <td class="rampx-cond"><ul class="rampx-conds"><li>Crypto eligibility not stated</li></ul><p class="rampx-cond-short">Crypto eligibility not stated</p></td>
-      </tr>
-      <tr class="rampx-tr">
-        <th class="rampx-rail" scope="row">Onramp<a class="rampx-src" href="https://docs.stripe.com/crypto/onramp" aria-label="Source: Stripe, Onramp, United States" title="Source: Stripe, Onramp, United States">↗</a><span class="rampx-rail-sub">Partner widget</span></th>
-        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
-        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
-        <td class="rampx-cond"><ul class="rampx-conds"><li>Public preview; application required</li></ul><p class="rampx-cond-short">Public preview; application required</p></td>
-      </tr>
-      <tr class="rampx-tr">
-        <th class="rampx-rail" scope="row">Stablecoin payments<a class="rampx-src" href="https://docs.stripe.com/payments/stablecoin-payments" aria-label="Source: Stripe, Stablecoin payments, United States" title="Source: Stripe, Stablecoin payments, United States">↗</a></th>
-        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
-        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
-        <td class="rampx-cond"><ul class="rampx-conds"><li>US businesses; settles in local currency</li></ul><p class="rampx-cond-short">US businesses; settles in local currency</p></td>
       </tr>
     </tbody>
     <tbody class="rampx-tbody" data-provider="Transak">
@@ -1968,12 +1998,12 @@
 <p class="rampx-excluded"><span class="rampx-excluded-label">No documented rail in the United States:</span><span class="rampx-excluded-names"> Bitso Business</span></p>
   </div>
   <div class="rampx-panel" role="tabpanel" id="rampx-panel-mx" aria-labelledby="rampx-tab-mx" tabindex="0">
-    <h3 class="rampx-panel-title">Mexico <span>· 10 providers, 12 rows</span></h3>
+    <h3 class="rampx-panel-title">Mexico <span>· 10 providers, 13 rows</span></h3>
 <div class="rampx-keybar">
   <ul class="rampx-key" aria-label="Status key">
     <li><button type="button" class="rampx-keychip" data-status="documented" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</button></li><li><button type="button" class="rampx-keychip" data-status="conditional" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</button></li><li><button type="button" class="rampx-keychip" data-status="planned" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">◷</span>Planned</button></li><li><button type="button" class="rampx-keychip" data-status="not-offered" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">✕</span>Not offered</button></li><li><button type="button" class="rampx-keychip" data-status="not-documented" aria-expanded="false"><span class="rampx-st-glyph" aria-hidden="true">○</span>Not documented</button></li>
   </ul>
-  <p class="rampx-meta">10 of 13 product entries · <a href="#rampx-howto">How to read this</a></p>
+  <p class="rampx-meta">10 of 12 product entries · <a href="#rampx-howto">How to read this</a></p>
 </div>
 <div class="rampx-tablewrap">
   <table class="rampx-table">
@@ -2045,7 +2075,7 @@
     </tbody>
     <tbody class="rampx-tbody" data-provider="MoonPay Enterprise">
       <tr class="rampx-tr">
-        <th class="rampx-prov" scope="rowgroup" rowspan="1">MoonPay Enterprise<span class="rampx-tag">Enterprise (virtual accounts)</span></th>
+        <th class="rampx-prov" scope="rowgroup" rowspan="1">MoonPay Enterprise<span class="rampx-tag">Enterprise <span class="rampx-tag-qual">(virtual accounts)</span></span></th>
         <th class="rampx-rail" scope="row">SPEI<a class="rampx-src" href="https://dev.enterprise.moonpay.com/rails-and-capabilities" aria-label="Source: MoonPay Enterprise, SPEI, Mexico" title="Source: MoonPay Enterprise, SPEI, Mexico">↗</a></th>
         <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="planned"><span class="rampx-st-glyph" aria-hidden="true">◷</span>Planned</span></td>
         <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="planned"><span class="rampx-st-glyph" aria-hidden="true">◷</span>Planned</span></td>
@@ -2054,11 +2084,17 @@
     </tbody>
     <tbody class="rampx-tbody" data-provider="Paybis">
       <tr class="rampx-tr">
-        <th class="rampx-prov" scope="rowgroup" rowspan="1">Paybis<span class="rampx-tag">Partner widget</span></th>
+        <th class="rampx-prov" scope="rowgroup" rowspan="2">Paybis<span class="rampx-tag">Partner widget</span></th>
         <th class="rampx-rail" scope="row">SPEI<a class="rampx-src" href="https://docs.payb.is/docs/payment-methods" aria-label="Source: Paybis, SPEI, Mexico" title="Source: Paybis, SPEI, Mexico">↗</a></th>
         <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
         <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-na">–<span class="rampx-na-label">not applicable</span></span></td>
         <td class="rampx-cond"><ul class="rampx-conds"><li>SPEI named among local methods</li></ul><p class="rampx-cond-short">SPEI named among local methods</p></td>
+      </tr>
+      <tr class="rampx-tr">
+        <th class="rampx-rail" scope="row">Card<a class="rampx-src" href="https://docs.payb.is/docs/payout-methods" aria-label="Source: Paybis, Card, Mexico" title="Source: Paybis, Card, Mexico">↗</a></th>
+        <td class="rampx-td rampx-buy"><span class="rampx-dir">Buy</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="documented"><span class="rampx-st-glyph" aria-hidden="true">●</span>Supported</span></td>
+        <td class="rampx-td rampx-sell"><span class="rampx-dir">Sell</span><span class="rampx-st" role="button" tabindex="0" aria-expanded="false" data-status="conditional"><span class="rampx-st-glyph" aria-hidden="true">◐</span>With conditions</span></td>
+        <td class="rampx-cond"><ul class="rampx-conds"><li><span class="rampx-cond-dir">buy</span>Cards, Apple Pay, Google Pay</li><li><span class="rampx-cond-dir">sell</span>Visa payout only; Mastercard payouts EU and US only</li></ul><p class="rampx-cond-short">Visa payout only</p></td>
       </tr>
     </tbody>
     <tbody class="rampx-tbody" data-provider="Ramp">
@@ -2096,39 +2132,125 @@
     </tbody>
   </table>
 </div>
-<p class="rampx-excluded"><span class="rampx-excluded-label">No documented rail in Mexico:</span><span class="rampx-excluded-names"> Coinbase (CDP), Stripe, zerohash</span></p>
+<p class="rampx-excluded"><span class="rampx-excluded-label">No documented rail in Mexico:</span><span class="rampx-excluded-names"> Coinbase (CDP), zerohash</span></p>
   </div>
 </div>
-<h2>Canada: Interac e-Transfer on the way in, a gap on the way out</h2>
-<p>Three providers in the table document Interac e-Transfer buying: Banxa, MoonPay and Mercuryo. Banxa documents the sell side on the same page; MoonPay&#x27;s Interac is buy-only, and Mercuryo has no Canadian payout rail. Kraken (a consumer exchange, covered in the notes below) also documents Interac both ways. Coinbase&#x27;s Interac withdrawals rest on a 2023 launch post rather than a current help page.</p>
-<p><a href="https://support.moonpay.com/en/articles/380823-moonpay-s-supported-payment-methods">MoonPay</a> lists cards, Apple Pay and Google Pay for all regions. BitPay&#x27;s sell flow routes through Ramp; its buy flow uses Ramp among other partners. Neither BitPay post we read mentions Canada. Circle&#x27;s docs name no Canadian rail — we couldn&#x27;t confirm either way. Stripe lists <a href="https://docs.stripe.com/payments/payment-methods/payment-method-support">Pre-authorized debit (CAD)</a> as a payment method, but its pages don&#x27;t confirm the rail is open to crypto businesses.</p>
-<p><strong>What to take from it.</strong> For a Canadian wallet, the buy flow is easy to launch; the cash-out flow is where plans stall. If Canadian cash-out matters, ask Coinbase for current Interac withdrawal documentation, and ask Ramp whether a Canadian payout is open to your integration.</p>
-<h3>One MoonPay caveat for partners</h3>
-<p>MoonPay Enterprise&#x27;s country table rates Canada &quot;Prohibited&quot; and says no Virtual Accounts are issued to customers in that tier. The table governs which jurisdictions Enterprise onboards; Japan, India and Malaysia are also marked Prohibited. It doesn&#x27;t say whether Canadian end users can pay through a partner&#x27;s MoonPay widget, so <a href="https://dev.enterprise.moonpay.com/country">ask MoonPay</a> before you assume either way.</p>
-<h2>United States: ACH and RTP, with state-level carve-outs</h2>
-<p>The US has the deepest coverage of the three markets: five providers document an ACH payout and three an RTP one. But most providers exclude states, and their lists differ.</p>
-<p>BitPay&#x27;s sell flow <a href="https://www.bitpay.com/blog/cash-out-crypto-with-bitpay-ramp">routes through Ramp</a>, so for cash-outs check Ramp&#x27;s state list, not BitPay&#x27;s. Its buy flow uses Ramp among other partners. Stripe lists <a href="https://docs.stripe.com/payments/payment-methods/payment-method-support">ACH Direct Debit</a> as a US payment method and offers a <a href="https://docs.stripe.com/crypto/onramp">fiat-to-crypto Onramp</a>, but access requires an application, and we couldn&#x27;t verify its rails or state coverage from the pages we read.</p>
-<p><strong>What to take from it.</strong> RTP is the fastest rail in this sample — Ramp, zerohash and Bridge (in beta) document it; ACH elsewhere means days. Combine the exclusion lists before you promise a US launch. New York is excluded by Ramp and Simplex and missing from Transak&#x27;s list, so test it separately.</p>
-<h2>Mexico: SPEI cash-outs exist; SPEI buying and cash vouchers don&#x27;t</h2>
-<p>Ramp pays out by SPEI, and BitPay routes Mexican cash-outs through it. On the buy side, Banxa, Bitso Business, Bridge and Paybis document SPEI on-ramps; MoonPay&#x27;s is planned for October 2026.</p>
-<p>Ramp&#x27;s flat 2.9% SPEI fee was first quoted in its October 2024 announcement and still appears on its current fee page. Stripe&#x27;s payment-method matrix lists generic &quot;Bank transfers&quot; for MXN and Mexico, but we couldn&#x27;t confirm that&#x27;s open to crypto businesses.</p>
-<h3>Why Stripe&#x27;s OXXO isn&#x27;t the answer</h3>
-<p>OXXO lets customers pay cash at a convenience store against a voucher, and Stripe supports it for Mexican customers. But <a href="https://docs.stripe.com/payments/oxxo">Stripe&#x27;s OXXO page</a> lists cryptocurrency exchanges and wallets (MCC 6051) among prohibited business categories. Payments are also single-use, non-refundable, limited to MXN 10-10,000, and settle up to four business days later. Treat OXXO as unavailable for crypto buying unless Stripe confirms an exception.</p>
-<h3>Why local-rail coverage is thin (our read)</h3>
-<p>Under Banxico&#x27;s rules, regulated Mexican financial institutions can use virtual assets only for internal operations and can&#x27;t offer virtual-asset services directly to the public, according to <a href="https://gpg-pdf.chambers.com/fintech-2026/550/">Chambers&#x27; 2026 Fintech guide</a>. That helps explain why Mexican crypto rails run through specialist fintechs rather than banks.</p>
-<p>If you want a Mexico-native partner, <a href="https://business.bitso.com/en/fx-as-a-service">Bitso Business</a> describes instant SPEI payouts. Its SPEI on-ramp and payout are in the table above, gated on enterprise onboarding.</p>
-<h2>Outside the tables</h2>
-<p>Four more providers were checked and are not rows above. They are worth knowing about, and their records sit in the same dataset.</p>
-<ul>
-<li><strong>Kraken</strong> documents Interac e-Transfer both ways in Canada, ACH, wire and RTP in the US, and SPEI both ways in Mexico — the only live Mexican on-ramp in this sample besides MoonPay's planned one. Mexico needs a CURP or RFC and a CLABE, and the peso balance auto-converts to USD.</li>
-<li><strong>BitPay</strong>'s cash-outs route through Ramp: ACH in the US, SPEI in Mexico. Its buy flow uses Ramp among other partners, and its pages say nothing about Canada.</li>
-<li><strong>Gemini</strong> documents ACH and wire deposits for US customers only — no Canadian or Mexican rail in this sample.</li>
-<li><strong>Topper</strong> sells by card in all three countries and pays back by card in the US only; PayPal and Venmo are US buying methods, and no local bank rail is documented anywhere in the sample.</li>
-</ul>
-<p>Circle and Onramper are not ramps in the same sense: Circle's CPN moves stablecoins and pays out to local bank accounts, and Onramper is an aggregator that routes to other providers' rails. Both are in the dataset as notes, not as rows.</p>
-<h2>Choosing providers: six rules</h2>
-<ol><li><strong>Check the cash-out before the cash-in.</strong> Buy-side coverage is easy to find and easy to overrate. MoonPay accepts Interac but doesn&#x27;t pay out to it, and Transak lists no Canadian payout at all.</li><li><strong>Treat &quot;bank transfer&quot; as a question.</strong> Ramp&#x27;s API calls its US payout rail AMERICAN\<em>BANK\</em>TRANSFER; only its help center says ACH or RTP. Transak shows a wire icon without naming a rail. Confirm the rail, its timing and its settlement behaviour in testing: a provider&#x27;s &quot;30 seconds&quot; is its own processing speed, not the receiving bank&#x27;s finality.</li><li><strong>Consumer and partner products differ.</strong> MoonPay&#x27;s partner-widget Interac buy and its Enterprise country table answer different questions. BitPay&#x27;s sell flow routes through Ramp, while its buy flow uses Ramp among other partners. Verify the exact product line you&#x27;ll integrate, not the brand.</li><li><strong>Geography is a state-level problem.</strong> Combine the exclusion lists before you promise a US launch, and test New York first.</li><li><strong>Stablecoin rails aren&#x27;t fiat ramps.</strong> <a href="https://developers.circle.com/cpn/stablecoin-payments">Circle&#x27;s CPN Stablecoin Payments</a> moves USDC and EURC onchain between counterparties and needs account activation. Circle&#x27;s fiat products are separate: <a href="https://www.circle.com/cpn/fiat-payments">CPN Fiat Payments</a> (local payouts in 60+ countries) and <a href="https://www.circle.com/circle-mint">Circle Mint</a> (institutions only). <a href="https://docs.stripe.com/payments/stablecoin-payments">Stripe&#x27;s stablecoin payments</a> let US businesses accept stablecoins, with a private preview for businesses in the EU, Hong Kong, Mexico and Switzerland; payments settle in local currency in the merchant&#x27;s Stripe balance.</li><li><strong>Plan for two providers.</strong> Only Coinbase documents local-rail coverage in both Canada and the US in both directions, and its Canadian withdrawals rest on a 2023 launch post. No provider covers Mexico both ways with local rails. Budget for at least two integrations or a card-rail fallback, and read the fallback&#x27;s fine print: Ramp rejects prepaid cards, and Simplex warns that Mastercard crypto purchases can fail.</li></ol>
-<h3>Where to start <span style="font-weight:400;font-size:.85em;opacity:.7">— Ace Werk analysis, not provider statements</span></h3>
+<h2>Canada: Interac coverage on the way in, and the cash-out constraint</h2>
+<p>Three of the eleven table providers document Interac e-Transfer buys. Price and onboarding can decide the buy flow; cash-out is narrower, with only one table provider documenting Interac payouts.</p>
+<div class="rampx rampx--howto rampx--rails">
+<details class="rampx-howto rampx-rails">
+  <summary>Payment rails explained: Canada</summary>
+  <div class="rampx-howto-body">
+    <p class="rampx-rails-lede">Interac e-Transfer moves Canadian dollars between bank accounts using only the recipient's email address or mobile number, sent from inside the customer's own banking app. It is how Canadians pay each other, which is why ramps lead with it for CAD buys.</p>
+    <dl class="rampx-defs">
+      <dt class="rampx-rails-label">Operator</dt>
+      <dd>Interac Corp., overseen by the Bank of Canada as a prominent payment system since August 2020.</dd>
+      <dt class="rampx-rails-label">Reach</dt>
+      <dd>Offered by more than 250 Canadian financial institutions: banks, credit unions and fintechs.</dd>
+      <dt class="rampx-rails-label">Volume</dt>
+      <dd>Interac reports more than 8.7 billion transactions in 2025 across Interac Debit, e-Transfer and Interac Verified combined; that total is not broken out by product.</dd>
+      <dt class="rampx-rails-label">Speed</dt>
+      <dd>Interac describes sending as instant. Without Autodeposit, the funds wait until the recipient accepts the transfer.</dd>
+      <dt class="rampx-rails-label">Limits</dt>
+      <dd>Each institution sets its own per-transfer and daily caps, so a user's bank can cap a CAD buy below the ramp's own limit.</dd>
+      <dt class="rampx-rails-label">Cost</dt>
+      <dd>Interac charges institutions a wholesale fee per transfer, flat since 1 November 2025. What the end user pays, if anything, is up to their bank.</dd>
+    </dl>
+    <p class="rampx-howto-note"><strong>Sources:</strong> <a href="https://www.interac.ca/en/interac-e-transfer-disclosure/" rel="noopener">Interac e-Transfer disclosure</a>, <a href="https://www.interac.ca/en/content/business/building-digital-prosperity-for-canadians-by-canadians/" rel="noopener">Interac, Building digital prosperity (23 Mar 2026)</a>, <a href="https://www.canada.ca/en/competition-bureau/news/2025/07/competition-bureau-monitoring-interacs-commitment-on-e-transfer-pricing.html" rel="noopener">Competition Bureau (Jul 2025)</a>.</p>
+  </div>
+</details>
+</div>
+<h3>What it means</h3>
+<p>Banxa, Mercuryo and MoonPay document Interac buys through their partner widgets; MoonPay limits them to personal bank accounts. For Interac cash-out, Banxa documents instant CAD payouts and is the only integrable option in the tables. Coinbase&#x27;s developer Onramp names no Canadian bank rail.</p>
+<p>Card payout is no bank-rail fallback: MoonPay and Banxa refuse it in Canada; Ramp allows Visa payout outside the US but names no Canadian bank rail, and Transak documents none. A Visa card credit is not an Interac withdrawal. If you integrate a buy-only widget, your users still need a separately contracted exit path; a provider&#x27;s silence on selling should trigger a question, not an unsupported label.</p>
+<p>Stablecoin flows need their own check. Canadian securities rules limit which stablecoins platforms may sell to Canadians, and Paybis refuses stablecoin orders from Canada outright; see the regulatory note below.</p>
+<p>Simplex&#x27;s supported-locations page, updated 20 October 2026, removed Canada from the unsupported list without adding it to the supported list: not documented, not confirmed coverage. It also labels Vermont &quot;VA&quot;, apparently a typo.</p>
+<h2>United States: ACH and RTP coverage, and how fast each one settles</h2>
+<p>The US has the widest coverage: seven table providers document something in each direction. ACH settlement ranges from hours to days, while state and territory exclusions differ by provider. Check the product and its rail, not just the country.</p>
+<div class="rampx rampx--howto rampx--rails">
+<details class="rampx-howto rampx-rails">
+  <summary>Payment rails explained: United States</summary>
+  <div class="rampx-howto-body">
+    <p class="rampx-rails-lede">US ramps pay in and out over three domestic rails. ACH is the batch network almost every US bank account can reach; RTP and FedNow are the instant networks, live around the clock but reaching fewer accounts. The rail a provider uses decides whether a cash-out lands in seconds or days.</p>
+    <dl class="rampx-defs">
+      <dt class="rampx-rails-label">ACH<small>Nacha</small></dt>
+      <dd>Batch transfers between US bank and credit union accounts: 35.2 billion payments worth $93 trillion in 2025. Standard ACH settles in one to two business days.</dd>
+      <dt class="rampx-rails-label">Same Day ACH<small>Nacha</small></dt>
+      <dd>1.4 billion payments worth $3.9 trillion in 2025, up 16.7% on 2024. Settles the same business day in fixed windows, up to $1 million per payment.</dd>
+      <dt class="rampx-rails-label">RTP<small>The Clearing House</small></dt>
+      <dd>Instant, final credit transfers, 24/7/365. Reached about 70% of US demand deposit accounts through some 850 institutions in February 2025. Up to $10 million per payment.</dd>
+      <dt class="rampx-rails-label">FedNow<small>Federal Reserve</small></dt>
+      <dd>Instant credit transfers, 24/7/365, since July 2023. More than 1,400 participating organizations in September 2025, many of them receive-only. Network limit $10 million since November 2025; banks can set lower ones.</dd>
+      <dt class="rampx-rails-label">Why it matters</dt>
+      <dd>An instant payout only works if the user's bank can receive on RTP or FedNow. That's why zerohash falls back from RTP to FedNow, and why ACH remains the catch-all.</dd>
+    </dl>
+    <p class="rampx-howto-note"><strong>Sources:</strong> <a href="https://www.nacha.org/news/same-day-ach-and-business-business-payments-propel-ach-network-volume-growth-2025" rel="noopener">Nacha (29 Jan 2026)</a>, <a href="https://bankingjournal.aba.com/2025/02/rtp-network-surpasses-one-billion-transactions/" rel="noopener">ABA Banking Journal on RTP (3 Feb 2025)</a>, <a href="https://www.paymentsjournal.com/fednow-transaction-limit-will-match-rtp-at-10-million/" rel="noopener">PaymentsJournal on FedNow (10 Sep 2025)</a>.</p>
+  </div>
+</details>
+</div>
+<h3>What it means</h3>
+<p>For fast payouts, zerohash reports RTP and FedNow in seconds, 24/7/365, switching to FedNow when RTP is unavailable. Ramp quotes RTP as fast as 2 minutes at 0.99%; Bridge&#x27;s invitation-only FedNow beta quotes up to 20 seconds, subject to receiving-bank support.</p>
+<p>ACH windows vary: zerohash and Banxa quote 1–3 business days, Bridge next-day or same-day with a 4:45 PM ET cutoff, Ramp up to 2 days and MoonPay 3–5 days. Ramp charges 0.99%, $1.99 minimum, for ACH and RTP payouts. Specify the contractual window and fee.</p>
+<p>Transak&#x27;s wire icon names no US bank rail; it cannot establish an ACH or RTP route. zerohash&#x27;s higher-value FedWire works during banking hours, unlike its round-the-clock instant payouts. Stripe&#x27;s Onramp, covered in the notes below, is buy-only, in public preview and application-gated; you embed it, and Stripe acts as merchant of record and runs KYC.</p>
+<p>Geography also differs: Paybis accepts no purchases from New York residents; Simplex excludes NY, LA, AK, WA and VT; Transak lists 45 states plus DC and Puerto Rico but omits AK, LA, MN, NY and ND; Ramp excludes eight states. MoonPay excludes Texas and the USVI from payouts, and New York from PayPal and Venmo. Coinbase&#x27;s developer Onramp and Offramp are Coinbase-hosted flows (with a headless Onramp option), and Offramp users need a Coinbase account; neither replaces a Bridge or zerohash orchestration API.</p>
+<h2>Mexico: SPEI coverage in both directions</h2>
+<p>Four integrable providers document SPEI buys, three document payouts and two do both. The asymmetry is provider-specific, not countrywide, so check each provider&#x27;s direction.</p>
+<div class="rampx rampx--howto rampx--rails">
+<details class="rampx-howto rampx-rails">
+  <summary>Payment rails explained: Mexico</summary>
+  <div class="rampx-howto-body">
+    <p class="rampx-rails-lede">SPEI is Mexico's interbank transfer system, built and run by the central bank, Banco de México. It is how Mexicans pay each other, pay bills and get paid, which makes SPEI coverage the first thing to check for a ramp in Mexico.</p>
+    <dl class="rampx-defs">
+      <dt class="rampx-rails-label">Operator</dt>
+      <dd>Banco de México (Banxico).</dd>
+      <dt class="rampx-rails-label">Reach</dt>
+      <dd>82.9 million people took part in at least one SPEI transfer in Q4 2025, about 81% of people over 15. Non-bank institutions handled 19.8% of operations.</dd>
+      <dt class="rampx-rails-label">Volume</dt>
+      <dd>7,308.1 million transfers worth MXN 591.8 trillion in 2025, up 37.3% on 2024.</dd>
+      <dt class="rampx-rails-label">Speed</dt>
+      <dd>Runs 24/7. Banxico says a transfer should take no more than 30 seconds once approved.</dd>
+      <dt class="rampx-rails-label">Addressing</dt>
+      <dd>An 18-digit CLABE, a 16-digit debit card number or a 10-digit mobile number.</dd>
+      <dt class="rampx-rails-label">Limits</dt>
+      <dd>Set by each bank; some let users set their own. Mobile payments above 250 UDIS need the recipient account registered first.</dd>
+      <dt class="rampx-rails-label">Cost</dt>
+      <dd>Set by each bank. Banxico notes the service generally has a cost, monthly or per transfer.</dd>
+    </dl>
+    <p class="rampx-howto-note"><strong>Sources:</strong> <a href="https://www.banxico.org.mx/services/interbanking-electronic-payme.html" rel="noopener">Banxico, SPEI information</a>, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/informe-anual-sobre-las-infraestructuras-de-los-me/%7BDF8FE964-F97C-1B2D-777B-B026EF74C9CF%7D.pdf" rel="noopener">Banxico, Informe Anual sobre las Infraestructuras de los Mercados Financieros 2025 (Sep 2026)</a>.</p>
+  </div>
+</details>
+</div>
+<h3>What it means</h3>
+<p>Bitso Business and Bridge document SPEI both ways, both as B2B APIs. Bitso requires enterprise onboarding and marks SPEI with an unexplained asterisk; Bridge uses SPEI virtual accounts, a sales contact and SPEI endorsement.</p>
+<p>Banxa and Paybis document buys; Banxa refuses SPEI payouts, and Paybis lists Visa card payouts and an unnamed &quot;Mexico Bank&quot; payout but does not name SPEI. Paybis&#x27;s methods table gives a 5–3,000 range and a 48-hour window; confirm its units and terms. Ramp documents payouts as fast as 30 seconds at 2.9%, but its 2024 buy announcement is absent from current pages.</p>
+<p>MoonPay lists SPEI both ways as planned for October 2026, per its September 2026 coverage snapshot. Its Visa Direct payout and Transak&#x27;s Visa payout are card paths, not SPEI. No integrable provider in the sample documents OXXO cash vouchers, so treat cash funding as unavailable until a provider confirms it in writing.</p>
+<h2>Providers outside the tables</h2>
+<p>Three more integrable providers sit outside the country tables because their business documentation names no local rail by country, and a row would imply more than they publish.</p>
+<ul><li><strong>Kraken:</strong> its business arm, Payward Services, offers other businesses a Ramp API and a hosted checkout, and Kraken&#x27;s Ramp page promises &quot;instant crypto buy and sell for your clients&quot; with &quot;24+ payment methods supported, including cards, ACH, PIX, SEPA, Apple Pay, Google Pay, and more&quot;. Neither names which rails work in which country or direction, and the Ramp API docs describe only buying. The Interac, ACH, RTP and SPEI rails Kraken documents elsewhere belong to consumer Kraken accounts, so they&#x27;re not in the tables.</li><li><strong>Stripe:</strong> its fiat-to-crypto Onramp is a hosted, embedded or mobile-SDK widget in public preview, by application, with Stripe as merchant of record running KYC. Its docs limit buyers to the US (excluding Hawaii for the embedded onramp) and the EU, and name no funding method. Stripe&#x27;s merchant payment methods, such as ACH Direct Debit and pre-authorized debit, are not a ramp.</li><li><strong>Topper:</strong> a partner widget exists, but no local rail is documented in any market here: cards only.</li></ul>
+<p>We also dropped BitPay and Gemini. BitPay uses Ramp and other providers inside its own wallet but doesn&#x27;t offer a ramp to other businesses, and Gemini&#x27;s offering for fintechs covers exchange access, custody and OTC, not an end-user fiat ramp.</p>
+<h2>Onramper and aggregators: routing is not coverage</h2>
+<p>Onramper routes to ramps it does not own, using conversion, price and KYC friction across 30+ ramps and 175+ methods: on-ramps, off-ramps, swaps and peer-to-peer. Six ramps cost US$199/month or US$1,800/year; all cost US$599/month or US$5,750/year. There is no integration fee: ramps fund it through revenue share. Integrators can also add their own per-transaction fee. Its coverage list names US ACH and Instant ACH, Canadian Interac e-Transfer and Mexican SPEI, but does not itemise rail availability by country.</p>
+<p>Onramper gets no provider row: its method list does not prove country, direction or conditions. One underlying ramp may handle deposits and another withdrawals, with different onboarding, pricing and settlement; a listed route may fail a bank or location test. Ace Werk analysis, 21 October 2026: use the aggregator above the table, not as a country-level promise. Request provider-by-provider evidence for each direction, receiving bank and market.</p>
+<h2>How integrating platforms earn</h2>
+<p>Most integrable ramps let the platform earn from the flow, but the mechanism differs and few publish it. This is what each provider&#x27;s own documentation says, checked 26 October 2026.</p>
+<ul><li><strong>Transak:</strong> partner fee set in the Partner Dashboard, up to 5% above Transak&#x27;s baseline; paid monthly in USDC or USDT.</li><li><strong>MoonPay:</strong> partner fee per transaction on top of MoonPay&#x27;s fees, set under On-ramp or Off-ramp → Fees in the Partner Dashboard.</li><li><strong>Mercuryo:</strong> &quot;Upper commission&quot; the partner sets above Mercuryo&#x27;s commission, paid on withdrawal request; a separate affiliate commission paid in crypto from 1,000 USDC. Partners also pay Mercuryo a subscription fee.</li><li><strong>Ramp:</strong> partner commission on top of each transaction, for partners whose monthly volume meets Ramp&#x27;s criteria; Ramp recommends staying below 1%. Paid monthly once commissions reach €5,000 in a month, otherwise quarterly, in fiat or crypto.</li><li><strong>Bridge:</strong> developer fee on transfers (fixed or percentage), virtual accounts and liquidation addresses; paid monthly in USD.</li><li><strong>zerohash:</strong> platforms may charge their own processing fees, shown on the end customer&#x27;s receipt.</li><li><strong>Kraken (Payward):</strong> optional affiliate fee in basis points on Ramp API quotes and checkouts, added to the user&#x27;s fee; your share is shown on each quote.</li><li><strong>Topper:</strong> partner fees are added to Topper&#x27;s fee in the order total; Topper doesn&#x27;t control or share them.</li><li><strong>Paybis:</strong> Partner Portal sets widget transaction fees and reports partner profits, then they pay out your share of revenue weekly, bi-weekly or monthly in a stablecoin of your choice.</li><li><strong>Onramper:</strong> integrator per-transaction fee, on a monthly or yearly subscription.</li><li><strong>Coinbase (CDP):</strong> free for developers; no partner fee or revenue share documented.</li><li><strong>Banxa:</strong> Transaction fees and the integrator&#x27;s mark-up are negotiable on a per-partnership basis depending on the expected volume.</li><li><strong>Simplex, Stripe, Bitso Business, MoonPay Enterprise:</strong> no integrator revenue terms published; ask during sales.</li></ul>
+<p>That gives two business cases. As a user feature, a ramp lets users fund and cash out without leaving your product, and price and conversion matter most. As a revenue line, your fee stacks on top of the provider&#x27;s, and every point you add costs conversion; Ramp advises partners to stay below 1% for that reason.</p>
+<h2>Choosing a provider: six rules from the tables</h2>
+<p>Ace Werk analysis, 21 October 2026, based on the documented rows above. These are procurement rules, not a provider ranking.</p>
+<h3>1. Pick by market first, not by brand</h3>
+<p>None of the eleven table providers documents local rails both ways in all three countries. Banxa has two-way Interac in Canada, US ACH payouts only and Mexican SPEI buys only. Bitso Business covers Mexico both ways but does not serve Canada; Bridge covers Mexico both ways and US selling; Coinbase CDP covers the US both ways but names no Canadian or Mexican local rail. No integrable provider in the sample spans all three markets in both directions.</p>
+<h3>2. Separate buy from sell before you sign</h3>
+<p>Buy and sell are separate claims. MoonPay supports Interac buying but refuses Interac selling; Topper handles US card purchases but refuses card selling in Canada and Mexico. Mercuryo and Ramp refuse US card payout. Never contract on assumed symmetry.</p>
+<h3>3. Ask which speed, then which rail</h3>
+<p>ACH and RTP settlement windows differ by provider, as the US section shows. Ask for the named rail, contractual window and receiving-bank support; &quot;instant&quot; alone is not a settlement commitment.</p>
+<h3>4. Map your users&#x27; geography to the provider&#x27;s carve-outs</h3>
+<p>Paybis bars Quebec buyers. US carve-outs for Paybis, MoonPay, Transak, Simplex and Ramp are detailed above; map those address rules into checkout before a national launch, not into a support queue afterward.</p>
+<h3>5. Decide between a widget and an API</h3>
+<p>Banxa, Mercuryo, MoonPay, Paybis, Ramp, Simplex, Transak, Topper and Stripe&#x27;s Onramp are partner widgets. The provider runs KYC, pricing and checkout, so you ship faster and carry less compliance work. Bridge, zerohash, Bitso Business and MoonPay Enterprise are APIs: you own more of the experience, at the cost of a longer build and heavier onboarding. Coinbase&#x27;s developer platform sits in between, with Coinbase-hosted flows and a headless Onramp API. Compare like with like, because a widget&#x27;s price and an API&#x27;s price cover different work.</p>
+<h3>6. Budget two providers and a fallback</h3>
+<p>Banxa has no US ACH buying; Ramp no longer documents US ACH or RTP buys, nor Mexican SPEI buys. Coinbase names no Mexican rail, and Bitso Business does not serve Canada. Budget two providers and a card fallback rather than assuming one covers each direction. Test the fallback in the direction that fails: a card buy cannot rescue an absent bank payout, and a bank payout may require an account or eligibility test the buy flow never asks for. Split the commercial and operational checks by country and direction, then confirm which provider owns the customer-facing failure when a route is unavailable.</p>
+<h3>Where to start</h3>
+<p>Ace Werk analysis, based on the tables above, not provider statements.</p>
 <div class="table-wrap" style="overflow-x:auto;">
 <table>
   <thead>
@@ -2140,76 +2262,162 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Interac buying for Canadian users</th>
-      <td>MoonPay or Coinbase</td>
-      <td>Whether your partner integration gets Interac; MoonPay&#x27;s Enterprise terms</td>
+      <th scope="row">Interac buys for Canadian users</th>
+      <td>Banxa, Mercuryo or MoonPay (widgets)</td>
+      <td>MoonPay: personal bank accounts only</td>
+    </tr>
+    <tr>
+      <th scope="row">Interac cash-out</th>
+      <td>Banxa</td>
+      <td>It&#x27;s the only table provider that documents one</td>
     </tr>
     <tr>
       <th scope="row">Fast US cash-out</th>
-      <td>Ramp (RTP, ACH)</td>
-      <td>Its 8 excluded states</td>
+      <td>zerohash (API) or Ramp (widget), both RTP</td>
+      <td>Ramp excludes 8 states; zerohash is a build</td>
     </tr>
     <tr>
-      <th scope="row">US cash-out by ACH, days acceptable</th>
-      <td>MoonPay or Coinbase</td>
-      <td>MoonPay has no payouts in Texas; settlement takes 3-5 business days</td>
+      <th scope="row">US ACH both ways, one integration</th>
+      <td>zerohash or Coinbase CDP</td>
+      <td>CDP Offramp users need a Coinbase account</td>
     </tr>
     <tr>
-      <th scope="row">MXN cash-out</th>
-      <td>Ramp SPEI, or BitPay via Ramp</td>
-      <td>2.9% fee, $1 minimum; Bitso Business as a Mexico-native alternative</td>
+      <th scope="row">SPEI both ways in Mexico</th>
+      <td>Bitso Business or Bridge (APIs)</td>
+      <td>Enterprise onboarding; SPEI endorsement at Bridge</td>
     </tr>
     <tr>
-      <th scope="row">One integration across all three, cards acceptable</th>
-      <td>MoonPay or Transak</td>
-      <td>Card fees, declines and payout limits</td>
-    </tr>
-    <tr>
-      <th scope="row">Stablecoin movement instead of local fiat rails</th>
-      <td>Circle CPN or Stripe stablecoin payments</td>
-      <td>Account activation; business location</td>
+      <th scope="row">Revenue on every transaction</th>
+      <td>Transak, MoonPay, Mercuryo or Bridge</td>
+      <td>Your fee stacks on theirs; test conversion</td>
     </tr>
   </tbody>
 </table>
 </div>
-<p><em>Ace Werk analysis, not provider statements.</em></p>
-<h2>Regulatory clock for stablecoin-based flows</h2>
-<p>If your ramp strategy includes USDC or other stablecoins, three national regimes are moving.</p>
-<ul><li><strong>Canada:</strong> The Stablecoin Act became law with Bill C-15 on 26 March 2026. The Bank of Canada supervises issuers, who must register, hold reserves and offer at-par redemption, and can&#x27;t pay holders interest. <a href="https://www.dlapiper.com/en/insights/publications/2026/04/canada-enacts-framework-to-regulate-stablecoin-in-bill-c15">DLA Piper</a> expects the regime to come into force in 2027, once regulations are written.</li><li><strong>United States:</strong> The GENIUS Act takes effect no later than 18 January 2027. Regulators <a href="https://www.theblock.co/news/regulation/2026-07-18-us-regulators-miss-genius-acts-one-year-deadline-for-final-stablecoin-rules-408843">missed the 18 July 2026 deadline</a> for final rules, so issuers are preparing against proposals.</li><li><strong>Mexico:</strong> Stablecoins aren&#x27;t regulated as a stand-alone asset class, but the authorities treat issuance as deposit-taking, which is reserved to regulated institutions, per <a href="https://gpg-pdf.chambers.com/fintech-2026/550/">Chambers</a>.</li></ul>
-<p>None of this changes the fiat rails above. It will shape which stablecoins your product can offer in each market, so take legal advice for your own case.</p>
-<h2>FAQ</h2>
-<h3>Which crypto on-ramps support Interac e-Transfer?</h3>
-<p>Three providers in the table document Interac e-Transfer buying for Canadians: Banxa, MoonPay and Mercuryo. MoonPay&#x27;s and Mercuryo&#x27;s Interac options are buy-only. Simplex doesn&#x27;t list Canada as unsupported, but documents no Canadian local rail, and Transak lists cards and wallets only.</p>
-<h3>Can I sell crypto to a Canadian bank account?</h3>
-<p>Banxa documents Interac e-Transfer withdrawals. Kraken (a consumer exchange) also documents Interac withdrawals. Coinbase&#x27;s August 2023 launch post described Interac withdrawals as live, but we found no current help-center page confirming them. MoonPay says Interac selling isn&#x27;t available yet, and Transak lists no Canadian payout. Confirm with the provider before you build.</p>
-<h3>Which providers pay out by ACH or RTP in the US?</h3>
-<p>Ramp offers ACH (up to 2 business days) and RTP (as fast as 2 minutes). MoonPay and Coinbase offer ACH payouts, and MoonPay quotes 3-5 business days. Ramp isn&#x27;t available in eight states, and MoonPay has no payouts in Texas.</p>
-<h3>Is there a crypto off-ramp to SPEI in Mexico?</h3>
-<p>Yes. Ramp pays out in Mexican pesos via SPEI, as fast as 30 seconds, and BitPay&#x27;s cash-outs route through Ramp. Bitso Business also describes instant SPEI payouts.</p>
-<h3>Can I use Stripe&#x27;s OXXO to fund crypto purchases?</h3>
-<p>Not as documented. Stripe&#x27;s OXXO page lists cryptocurrency exchanges and wallets as a prohibited business category.</p>
-<h3>Do I need more than one ramp provider for North America?</h3>
-<p>Usually. In our sample only Coinbase documents local-rail coverage in both Canada and the US in both directions, and no provider covers Mexico both ways with local rails.</p>
-<h2>How we verified, and what we couldn&#x27;t</h2>
-<p>We checked each claim against the provider&#x27;s own documentation: help centers, developer docs and eligibility pages. We ran the checks on 13 October 2026 and re-verified the key pages on 21 October 2026. Where a page doesn&#x27;t name a method, we write &quot;not documented&quot;, which isn&#x27;t the same as &quot;not supported&quot;. Where we couldn&#x27;t settle a point either way, we say so.</p>
-<p>Four things to know when you use this:</p>
-<ul><li><strong>Dates matter.</strong> Several pages behind current claims are old: Ramp&#x27;s US bank-transfer post (July 2023), Coinbase&#x27;s Canada launch (August 2023), BitPay&#x27;s buy post (June 2023), Ramp&#x27;s SPEI announcement (October 2024) and MoonPay&#x27;s withdrawal methods (October 2025). Pages also change: Simplex updated its supported-locations page on 20 October 2026, the day before we re-checked it. Re-check before you contract.</li><li><strong>Marketing isn&#x27;t a spec.</strong> Where only a blog post names a rail or fee, we say so.</li><li><strong>Product tiers differ.</strong> The Coinbase ACH help pages we cite are for Coinbase Exchange; its developer Onramp docs describe the partner product. For Transak we read the public coverage matrix, because its per-method docs table didn&#x27;t load.</li><li><strong>Not exhaustive.</strong> Twelve providers in the tables, three markets. We screened out Mogo, Caxa, Utrust and Unlimit and make no claim about them; BitPay, Gemini, Kraken and Topper are covered in the notes above rather than in the tables.</li></ul>
+
+<h2>Regulatory note: what the evidence covers</h2>
+<p>Banxa describes SPEI as a real-time transfer system operated by the Bank of Mexico (Banxico). Provider availability claims here are not licensing opinions.</p>
+<p>Canada restricts which stablecoins platforms may sell to Canadians; it does not ban them. Under CSA Staff Notice 21-333 (5 October 2023), crypto trading platforms that are registered, or have signed a pre-registration undertaking, may let Canadian clients buy or deposit only fiat-backed stablecoins that meet the Canadian Securities Administrators&#x27; terms on reserves, disclosure and redemption. Stablecoins not backed by a single fiat currency have been off-limits since 29 December 2023, and non-compliant fiat-backed ones since 31 December 2024, after two extensions. Providers apply this differently: Paybis takes no stablecoin orders from Canadian customers at all.</p>
+<p>The federal Stablecoin Act, which received royal assent in March 2026, will require stablecoin issuers to register with the Bank of Canada, but it is not yet in force; draft regulations were published for comment on 24 October 2026.</p>
+<p>Ask each provider which entity is the regulated counterparty for your users in each country, and take legal advice on your own structure.</p>
 <h2>Building for all three markets?</h2>
-<p>If you&#x27;re shortlisting ramp providers for a North American product, Ace Werk can run this same verification against your exact markets, asset set and product type (consumer, embedded or B2B), and design the integration around the gaps. <a href="https://dev.acewerk.com/contact/">Start a conversation</a>.</p>
+<p>If you&#x27;re adding on- and off-ramps to a wallet, exchange or fintech product, we can shortlist providers for your markets and directions, model what you can earn per transaction, and design the integration around the gaps.</p>
+<p><a href="https://acewerk.com/contact/">Talk to Ace Werk about your ramp integration</a></p>
+<h2>FAQ</h2>
+<h3>Which crypto ramps can I integrate for Interac e-Transfer buys?</h3>
+<p>Banxa, Mercuryo and MoonPay document Interac buys through their partner widgets. See the Canada table for MoonPay&#x27;s personal-account restriction.</p>
+<h3>Which integrable ramp pays out to Canadian bank accounts?</h3>
+<p>Banxa documents instant CAD Interac payouts. No other integrable provider in the tables documents a Canadian bank payout, and card payouts don&#x27;t substitute for Interac, as the Canada section explains.</p>
+<h3>Which ramps support SPEI buys in Mexico?</h3>
+<p>Four integrable providers document SPEI buys: Banxa, Paybis, Bitso Business and Bridge. Bitso Business and Bridge are B2B APIs with onboarding conditions. MoonPay lists SPEI as planned, not live.</p>
+<h3>Which ramps pay out to Mexican bank accounts by SPEI?</h3>
+<p>Ramp, Bitso Business and Bridge document SPEI payouts, with different conditions. Banxa offers only SPEI buying; MoonPay and Transak offer card payouts, not SPEI. The Mexico section gives speed, fees and onboarding requirements.</p>
+<h3>Which crypto ramp pays out by RTP or FedNow in the US?</h3>
+<p>zerohash and Ramp document RTP payouts. zerohash also documents FedNow, MoonPay Enterprise lists FedNow for business virtual accounts, and Bridge&#x27;s FedNow payout is an invitation-only beta. Compare their receiving-bank requirements and settlement windows in the US section.</p>
+<h3>What does &quot;not documented&quot; mean in these tables?</h3>
+<p>The checked provider pages make no claim either way; absence of evidence is not an unsupported feature. The status key above defines the term, and Simplex&#x27;s unresolved Canada listing is the concrete example.</p>
+<h3>Can my platform earn revenue from an integrated ramp?</h3>
+<p>Often, yes. Transak, MoonPay and Mercuryo document a partner fee you set on top of theirs. Bridge documents a developer fee per transfer. Ramp documents a partner commission for partners whose monthly volume meets its criteria. Kraken&#x27;s Payward Ramp API takes an optional affiliate fee added to the user&#x27;s fee. Topper and zerohash let you add your own fee. Coinbase&#x27;s developer Onramp is free to integrate and documents no partner fee. See &quot;How integrating platforms earn&quot; for details.</p>
+<script type="application/ld+json" id="rampx-faq-ld">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Which crypto ramps can I integrate for Interac e-Transfer buys?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Banxa, Mercuryo and MoonPay document Interac buys through their partner widgets. See the Canada table for MoonPay's personal-account restriction."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which integrable ramp pays out to Canadian bank accounts?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Banxa documents instant CAD Interac payouts. No other integrable provider in the tables documents a Canadian bank payout, and card payouts don't substitute for Interac, as the Canada section explains."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which ramps support SPEI buys in Mexico?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Four integrable providers document SPEI buys: Banxa, Paybis, Bitso Business and Bridge. Bitso Business and Bridge are B2B APIs with onboarding conditions. MoonPay lists SPEI as planned, not live."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which ramps pay out to Mexican bank accounts by SPEI?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ramp, Bitso Business and Bridge document SPEI payouts, with different conditions. Banxa offers only SPEI buying; MoonPay and Transak offer card payouts, not SPEI. The Mexico section gives speed, fees and onboarding requirements."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which crypto ramp pays out by RTP or FedNow in the US?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "zerohash and Ramp document RTP payouts. zerohash also documents FedNow, MoonPay Enterprise lists FedNow for business virtual accounts, and Bridge's FedNow payout is an invitation-only beta. Compare their receiving-bank requirements and settlement windows in the US section."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does \"not documented\" mean in these tables?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The checked provider pages make no claim either way; absence of evidence is not an unsupported feature. The status key above defines the term, and Simplex's unresolved Canada listing is the concrete example."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can my platform earn revenue from an integrated ramp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Often, yes. Transak, MoonPay and Mercuryo document a partner fee you set on top of theirs. Bridge documents a developer fee per transfer. Ramp documents a partner commission for partners whose monthly volume meets its criteria. Kraken's Payward Ramp API takes an optional affiliate fee added to the user's fee. Topper and zerohash let you add your own fee. Coinbase's developer Onramp is free to integrate and documents no partner fee. See \"How integrating platforms earn\" for details."
+   }
+  }
+ ]
+}
+</script>
+<h2>Method</h2>
+<p>On 21 October 2026, we checked providers&#x27; own pages for local-rail coverage, and on 26 October 2026 we checked which of them document an integration for businesses. Inclusion required both a documented widget, SDK or API that another business can integrate and a documented domestic rail in Canada, the US or Mexico in either direction. That excluded BitPay and Gemini, plus Coinbase&#x27;s and Kraken&#x27;s consumer-account rails and Stripe&#x27;s merchant payment methods, leaving 45 provider-rail rows across three countries, notes on Kraken, Stripe and Topper, and an Onramper note. Explicit refusals count as evidence; silence does not. Rows carry source URLs and provider page dates where shown. On 27 October 2026, we rechecked Paybis&#x27;s card methods and Canada&#x27;s stablecoin rules. No checkout or account testing was done; judgments are dated Ace Werk analysis. This is not exhaustive: integrable ramps we did not check include Robinhood Connect, Alchemy Pay, Guardarian and Onramp.money.</p>
 <h2>Sources</h2>
-<p>All pages were opened between 13 and 21 October 2026. Page dates are shown where the page gives one.</p>
-<ul><li><strong>MoonPay:</strong> <a href="https://support.moonpay.com/en/articles/396467-buying-crypto-with-interac-e-transfer">Interac e-Transfer</a> (27 Jul 2026); <a href="https://support.moonpay.com/en/articles/380823-moonpay-s-supported-payment-methods">Supported payment methods</a> (26 Aug 2026); <a href="https://support.moonpay.com/en/articles/384613-supported-withdrawal-methods-for-selling-cryptocurrency">Withdrawal methods</a> (14 Oct 2025); <a href="https://dev.enterprise.moonpay.com/country">Enterprise country table</a></li><li><strong>Ramp Network:</strong> <a href="https://support.rampnetwork.com/en/articles/8992-what-payout-methods-are-available">Payout methods</a> (19 Mar 2025); <a href="https://support.rampnetwork.com/en/articles/8957-what-are-the-fees-for-selling-crypto">Fees for selling crypto</a> (19 Mar 2025); <a href="https://support.rampnetwork.com/en/articles/12630-what-payment-methods-can-i-use-to-buy-crypto">Buy methods</a>; <a href="https://support.rampnetwork.com/en/articles/433-which-countries-and-us-states-are-unsupported-for-buying-and-selling-crypto">Unsupported countries and states</a>; <a href="https://rampnetwork.com/blog/ramp-network-spei">SPEI announcement</a> (29 Oct 2024); <a href="https://rampnetwork.com/blog/complex-world-us-bank-transfers">US bank transfers post</a> (12 Jul 2023); <a href="https://docs.rampnetwork.com/rest-api-v3-reference">REST API v3</a></li><li><strong>Coinbase:</strong> <a href="https://help.coinbase.com/en/coinbase/trading-and-funding/depositing-or-withdrawing-fiat-money/funding-your-account-namerica-latam">Funding your account, North America and LATAM</a>; <a href="https://docs.cdp.coinbase.com/onramp/introduction/welcome">Onramp and Offramp docs</a>; <a href="https://www.coinbase.com/pt-pt/blog/coinbase-officially-launches-in-canada">Canada launch</a> (14 Aug 2023); Exchange <a href="https://help.coinbase.com/en/exchange/funding/depositing-with-ach">ACH deposits</a> and <a href="https://help.coinbase.com/en/exchange/funding/withdrawing-with-ach">ACH withdrawals</a></li><li><strong>Stripe:</strong> <a href="https://docs.stripe.com/payments/oxxo">OXXO</a>; <a href="https://docs.stripe.com/payments/payment-methods/payment-method-support">Payment method support</a>; <a href="https://docs.stripe.com/payments/stablecoin-payments">Stablecoin payments</a>; <a href="https://docs.stripe.com/crypto/onramp">Fiat-to-crypto Onramp</a></li><li><strong>Simplex:</strong> <a href="https://www.simplex.com/kb/what-are-your-supported-locations-countries-states-and-territories">Supported locations</a> (updated 20 Oct 2026); <a href="https://www.simplex.com/kb/what-are-your-supported-payment-methods">Supported payment methods</a> (updated about 14 Oct 2026); <a href="https://www.simplex.com/kb/why-is-my-mastercard-not-supported">Mastercard</a></li><li><strong>Circle:</strong> <a href="https://developers.circle.com/cpn/stablecoin-payments">Stablecoin Payments docs</a>; <a href="https://www.circle.com/cpn/fiat-payments">CPN Fiat Payments</a>; <a href="https://www.circle.com/circle-mint">Circle Mint</a></li><li><strong>BitPay:</strong> <a href="https://www.bitpay.com/blog/cash-out-crypto-with-bitpay-ramp">Cash out with Ramp</a> (6 May 2025); <a href="https://www.bitpay.com/blog/bitpay-ramp-new-currencies">Buy with Ramp</a> (27 Jun 2023)</li><li><strong>Transak:</strong> <a href="https://transak.com/global-coverage">Global coverage</a></li><li><strong>Regulation and regional context:</strong> <a href="https://www.dlapiper.com/en/insights/publications/2026/04/canada-enacts-framework-to-regulate-stablecoin-in-bill-c15">DLA Piper on Canada&#x27;s Stablecoin Act</a> (20 Apr 2026); <a href="https://www.theblock.co/news/regulation/2026-07-18-us-regulators-miss-genius-acts-one-year-deadline-for-final-stablecoin-rules-408843">The Block on the GENIUS Act deadline</a> (18 Jul 2026); <a href="https://gpg-pdf.chambers.com/fintech-2026/550/">Chambers, Fintech 2026: Mexico</a>; <a href="https://business.bitso.com/en/fx-as-a-service">Bitso Business</a></li></ul>
-          </div>
-        </article>
-      </div>
-    </div>
-  </main>
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-bar">
-      <p class="footer-text">&copy; Ace Werk 2026. All rights reserved.</p>
-    </div>
-  </footer>
-</div>
+<p>Rail pages were opened on 20 or 21 October 2026, integration and revenue pages on 26 October 2026, and Paybis and regulatory pages on 27 October 2026. Page dates are the publishers&#x27; own where shown. Grouped by provider, then by country, with regulators last.</p>
+<p><strong>Banxa</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://docs.banxa.com/products/hosted-checkout/docs/reference/supported-payment-methods">Supported payment methods</a> (updated about 14 Oct 2026)</li><li>Integration — <a href="https://docs.banxa.com/products/hosted-checkout/docs/checkout-experience/redirect/redirect-overview">Redirect checkout integration overview</a></li></ul>
+<p><strong>Bitso Business</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://bitso.com/business/solutions/local-payments">Local payments</a> (no date shown)</li><li>Mexico — <a href="https://bitso.com/business/products/mxnb-stablecoin">MXNB stablecoin</a> (no date shown)</li></ul>
+<p><strong>Bridge</strong></p>
+<ul><li>US — <a href="https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs">Processing windows and cutoff times</a> (no date shown)</li><li>Mexico — <a href="https://apidocs.bridge.xyz/get-started/guides/move-money/mxn-spei-integration-guide">MXN integration guide</a> (no date shown)</li><li>Revenue — <a href="https://apidocs.bridge.xyz/platform/orchestration/fees-and-mins/devfees">Developer fees</a></li></ul>
+<p><strong>Coinbase</strong></p>
+<ul><li>US — <a href="https://docs.cdp.coinbase.com/onramp/introduction/welcome">Onramp and Offramp overview</a> (no date shown)</li><li>Integration, revenue — <a href="https://docs.cdp.coinbase.com/onramp/additional-resources/faq">Onramp FAQ</a></li></ul>
+<p><strong>Kraken</strong></p>
+<ul><li>Integration — <a href="https://www.kraken.com/institutions/ramp">Kraken Ramp for institutions</a></li><li>Integration — <a href="https://services.payward.com/on-off-ramps">Payward Services: on/off-ramps</a></li><li>Integration, revenue — <a href="https://docs.services.payward.com/tabs/developer-documentation/payments/ramp">Payward Ramp API docs</a></li></ul>
+<p><strong>Mercuryo</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://help.mercuryo.io/hc/en-gb/articles/14806047888669-Which-payment-methods-does-Mercuryo-support">Which payment methods does Mercuryo support?</a> (no date shown)</li><li>Canada, US — <a href="https://help.mercuryo.io/hc/en-gb/articles/39157544835613-In-which-countries-can-I-make-an-off-ramp-sell-transaction">In which countries can I make an off-ramp transaction?</a> (15 Sep 2026)</li><li>Integration — <a href="https://b2bhelp.mercuryo.io/hc/en-gb/articles/31558140886557-Mercuryo-Frequently-Asked-Questions">B2B FAQ</a></li><li>Revenue — <a href="https://mercuryo.io/legal/terms-business/">Business terms of service</a></li></ul>
+<p><strong>MoonPay</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://support.moonpay.com/en/articles/380823-moonpay-s-supported-payment-methods">Supported payment methods</a> (26 Aug 2026)</li><li>Canada — <a href="https://support.moonpay.com/en/articles/396467-buying-crypto-with-interac-e-transfer">Buying crypto with Interac e-Transfer</a> (27 Jul 2026)</li><li>US — <a href="https://support.moonpay.com/en/articles/384613-supported-withdrawal-methods-for-selling-cryptocurrency">Supported withdrawal methods for selling</a> (14 Oct 2025)</li><li>Mexico — <a href="https://dev.enterprise.moonpay.com/rails-and-capabilities">MoonPay Enterprise rails and capabilities</a> (coverage snapshot Sep 2026; checked 22 Oct 2026)</li><li>Integration — <a href="https://www.moonpay.com/en-ca/enterprise/pay-in">MoonPay Enterprise Pay In</a></li><li>Revenue — <a href="https://support.moonpay.com/en/articles/694907-partner-pricing-fees-and-the-removed-paywall">Partner pricing and fees</a></li></ul>
+<p><strong>Onramper (aggregator)</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://onramper.com/products/onramp">Onramp aggregator</a> (no date shown)</li><li>Revenue — <a href="https://knowledge.onramper.com/pricing">Onramper&#x27;s business model</a></li></ul>
+<p><strong>Paybis</strong></p>
+<ul><li>Canada — <a href="https://support.paybis.com/hc/en-us/articles/5119025073309-Available-payment-methods-and-their-limits">Available payment methods and their limits</a> (11 May 2026)</li><li>Canada, US, Mexico — <a href="https://docs.payb.is/docs/payment-methods">Payment methods</a> (updated about 23 Oct 2026)</li><li>US, Mexico — <a href="https://docs.payb.is/docs/payout-methods">Payout methods</a> (12 Nov 2025)</li><li>Canada, US — <a href="https://docs.payb.is/docs/supported-countries">Supported countries</a> (updated about Aug 2026)</li><li>Integration — <a href="https://docs.payb.is/docs/integration-process-1">Integration process</a></li><li>Revenue — <a href="https://docs.payb.is/docs/partner-portal-product-overview">Partner Portal overview</a></li></ul>
+<p><strong>Ramp</strong></p>
+<ul><li>Canada, US — <a href="https://support.rampnetwork.com/en/articles/12630-what-payment-methods-can-i-use-to-buy-crypto">Payment methods for buying crypto</a> (updated before 6 Oct 2026; a 2023 post dated 12 Jul 2023)</li><li>Canada, US, Mexico — <a href="https://support.rampnetwork.com/en/articles/8992-what-payout-methods-are-available">Payout methods for selling crypto</a> (19 Mar 2025)</li><li>US — <a href="https://rampnetwork.com/blog/complex-world-us-bank-transfers">ACH, RTP, FedNow: US bank transfers</a> (12 Jul 2023)</li><li>Mexico — <a href="https://rampnetwork.com/blog/ramp-network-spei">SPEI announcement</a> (29 Oct 2024)</li><li>Revenue — <a href="https://support.rampnetwork.com/en/articles/31326-what-are-the-baseline-fees-for-integration-partners">Baseline fees for integration partners</a> (27 Feb 2025)</li><li>Revenue — <a href="https://support.rampnetwork.com/en/articles/61154-how-can-i-earn-from-my-ramp-network-integration">How can I earn from my Ramp Network integration?</a> (19 Sep 2024)</li></ul>
+<p><strong>Simplex</strong></p>
+<ul><li>Canada, Mexico — <a href="https://www.simplex.com/kb/what-are-your-supported-locations-countries-states-and-territories">Supported locations</a> (20 Oct 2026)</li><li>US — <a href="https://www.simplex.com/kb/what-are-your-supported-payment-methods">Supported payment methods</a> (updated about 14 Oct 2026)</li><li>Integration — <a href="https://www.simplex.com/integrate-fiat-to-crypto-solution-into-platform">Integrate a fiat-to-crypto solution</a></li></ul>
+<p><strong>Stripe</strong></p>
+<ul><li>US — <a href="https://docs.stripe.com/crypto/onramp">Fiat-to-crypto onramp</a> (no date shown; marked public preview)</li><li>US — <a href="https://docs.stripe.com/crypto/onramp/embedded">Embedded onramp integration</a> (no date shown)</li><li>US — <a href="https://docs.stripe.com/stablecoins/availability">Supported assets and networks</a> (no date shown)</li></ul>
+<p><strong>Topper</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://support.topperpay.com/hc/en-us/articles/8926549139612-What-payment-methods-are-accepted">What payment methods are accepted?</a> (2 Oct 2026)</li><li>Canada, Mexico — <a href="https://support.topperpay.com/hc/en-us/articles/8926552924572-Where-is-Topper-available">Where is Topper available?</a> (about 15 Oct 2026)</li><li>US — <a href="https://support.topperpay.com/hc/en-us/articles/8926549324444-Topper-costs-and-fees">Topper costs and fees</a> (29 Jun 2026)</li><li>Integration, revenue — <a href="https://www.topperpay.com/business">Topper for business</a></li></ul>
+<p><strong>Transak</strong></p>
+<ul><li>Canada, US, Mexico — <a href="https://transak.com/global-coverage">Supported countries</a> (no date shown)</li><li>Revenue — <a href="https://transak.com/blog/how-on-ramps-make-wallets-money">How on-ramps make wallets money</a></li></ul>
+<p><strong>zerohash</strong></p>
+<ul><li>US — <a href="https://docs.zerohash.com/docs/fiat">Fiat payments</a> (updated about Aug 2026)</li><li>Integration, revenue — <a href="https://docs.zerohash.com/docs/on-ramp-integration-guide">On-ramp integration guide</a></li></ul>
+<p><strong>Regulators</strong></p>
+<ul><li>Canada — <a href="https://www.osc.ca/en/securities-law/instruments-rules-policies/2/21-333">CSA Staff Notice 21-333: Terms and Conditions for Trading Value-Referenced Crypto Assets with Clients</a> (5 Oct 2023)</li><li>Canada — <a href="https://www.securities-administrators.ca/news/csa-provides-update-to-crypto-asset-trading-platforms-about-value-referenced-crypto-assets/">CSA provides update to crypto asset trading platforms about value-referenced crypto assets</a> (26 Sep 2024)</li><li>Canada — <a href="https://gazette.gc.ca/rp-pr/p1/2026/2026-10-24/html/reg1-eng.html">Stablecoin Regulations, Canada Gazette, Part I</a> (24 Oct 2026)</li></ul>
 <script id="rampx-js">
 (function () {
   "use strict";
@@ -2425,107 +2633,6 @@
 
 })();
 </script>
-<p><strong>Tier</strong> identifies the product, not the entire company: consumer app, partner widget, B2B API or Stripe merchant-side rail. <strong>Buy</strong> funds with local fiat; <strong>Sell</strong> pays it out; <strong>Catch</strong> records the country-specific limitation. Rail names follow the provider&#x27;s wording, including &quot;bank transfer&quot; where no narrower rail is named. <strong>—</strong> means not applicable.</p>
-<h2>Canada: Interac coverage on the way in, and the cash-out constraint</h2>
-<p>Three of twelve table providers document Interac e-Transfer buys, as do two consumer exchanges. Price and onboarding can decide the buy flow; cash-out is narrower, with only one table provider documenting Interac payouts.</p>
-<h3>What it means</h3>
-<p>Banxa, Mercuryo and MoonPay document Interac buys; Kraken and Coinbase do so for exchange account holders. For Interac cash-out, Banxa documents instant CAD payouts. Kraken&#x27;s withdrawal has a 15 CAD minimum, 10 CAD fee and a 0–1 business day or instant window. Coinbase claimed Interac withdrawals in its August 2023 Canada launch post, but no current withdrawal page confirms them; treat that claim as conditional, not a current documented cell.</p>
-<p>Card payout is no bank-rail fallback: MoonPay and Banxa refuse it in Canada; Ramp allows Visa payout outside the US but names no Canadian bank rail, and Transak documents none. This is a product distinction: a Visa card credit does not establish an Interac withdrawal, and merchant collection does not establish a crypto payout. Stripe documents CAD pre-authorized debit for merchants without stating crypto eligibility. A buy-only widget still needs a separately contracted exit path; a provider&#x27;s silence on selling should trigger a question, not an unsupported label.</p>
-<p>Simplex&#x27;s supported-locations page, updated 20 October 2026, removed Canada from the unsupported list without adding it to the supported list: not documented, not confirmed coverage. It also labels Vermont &quot;VA&quot;, apparently a typo.</p>
-<h2>United States: ACH and RTP coverage, and how fast each one settles</h2>
-<p>The US has the widest coverage: six table providers document something in each direction. ACH settlement ranges from hours to days, while state and territory exclusions differ by provider. Check the product and its rail, not just the country.</p>
-<h3>What it means</h3>
-<p>For fast payouts, zerohash reports RTP and FedNow in seconds, 24/7/365, switching to FedNow when RTP is unavailable. Ramp quotes RTP as fast as 2 minutes at 0.99%; Bridge&#x27;s invitation-only FedNow beta quotes up to 20 seconds, subject to receiving-bank support. Kraken&#x27;s consumer RTP withdrawal requires a 20 USD minimum and a supporting bank; Kraken cannot enable RTP on the customer&#x27;s behalf.</p>
-<p>ACH windows vary: zerohash and Banxa quote 1–3 business days, Bridge next-day or same-day with a 4:45 PM ET cutoff, Ramp up to 2 days, and Coinbase exchange withdrawals 3–5 days. Ramp charges 0.99%, $1.99 minimum, for ACH and RTP payouts. Specify the contractual window and fee.</p>
-<p>Transak&#x27;s wire icon names no US bank rail; it cannot establish an ACH or RTP route. zerohash&#x27;s higher-value FedWire works during banking hours, unlike its round-the-clock instant payouts. Stripe&#x27;s merchant-side ACH has no stated crypto eligibility; its Onramp is application-gated. Merchant collection is not a consumer cash-out API.</p>
-<p>Geography also differs: Paybis rejects New York ACH customers; Simplex excludes NY, LA, AK, WA and VT; Transak lists 45 states plus DC and Puerto Rico but omits AK, LA, MN, NY and ND; Ramp excludes eight states. MoonPay excludes Texas and the USVI from payouts, and New York from PayPal and Venmo. Coinbase CDP and its consumer app have different contracts and rails; neither replaces a Bridge or zerohash orchestration API.</p>
-<h2>Mexico: SPEI coverage in both directions, with OXXO still a blank</h2>
-<p>The previous version understated Mexico&#x27;s coverage. Five providers document SPEI buys, four document payouts and three do both. The asymmetry is provider-specific, not countrywide: check direction for each vendor.</p>
-<h3>What it means</h3>
-<p>Bitso Business, Bridge and Kraken document SPEI both ways. Bitso requires enterprise onboarding and marks SPEI with an unexplained asterisk; Bridge uses SPEI virtual accounts, a sales contact and SPEI endorsement. Kraken&#x27;s deposit minimum is 150 MXN, with no fee and up to 20 minutes; MXN converts to USD on arrival because Kraken cannot hold pesos. Its withdrawal minimum is 150 MXN, with a 0.5% fee and near-instant settlement. These are exchange-account rails, not an API.</p>
-<p>Banxa and Paybis document buys; Banxa refuses SPEI payouts and Paybis names no sell rail. Paybis&#x27;s methods table gives a 5–3,000 range and a 48-hour window; confirm its units and terms. Ramp documents payouts as fast as 30 seconds at 2.9%, but its 2024 buy announcement is absent from current pages. BitPay&#x27;s Mexican cash-outs route through Ramp.</p>
-<p>MoonPay lists SPEI both ways as planned for October 2026, per its September 2026 coverage snapshot. Its Visa Direct payout and Transak&#x27;s Visa payout are card paths, not SPEI. OXXO remains an evidence gap: Stripe says it prohibits crypto exchanges and wallets under merchant category 6051; Bitso Business, Kraken and Topper say nothing either way. Silence is not refusal.</p>
-<h2>Providers outside the tables</h2>
-<p>Four providers sit outside the country tables. Their local-rail evidence is either not partner-tier or not rail-specific, so a row would imply more than the documentation supports.</p>
-<ul><li><strong>BitPay</strong> — its cash-out flows are fulfilled by Ramp, so its rails are Ramp&#x27;s rails.</li><li><strong>Gemini</strong> — a consumer exchange; relevant if your users already hold exchange accounts.</li><li><strong>Kraken</strong> — a consumer exchange; relevant on the same basis, and the widest coverage in the sample.</li><li><strong>Topper</strong> — a partner widget exists, but no local rail is documented in any market here: cards only.</li></ul>
-<h2>Onramper and aggregators: routing is not coverage</h2>
-<p>Onramper routes to ramps it does not own, using conversion, price and KYC friction across 30+ ramps and 175+ methods: on-ramps, off-ramps, swaps and peer-to-peer. Six ramps cost US$199/month or US$1,800/year; all cost US$599/month or US$5,750/year. There is no integration fee: ramps fund it through revenue share. Its coverage list names US ACH and Instant ACH, Canadian Interac e-Transfer and Mexican SPEI, but does not itemise rail availability by country.</p>
-<p>Onramper gets no provider row: its method list does not prove country, direction or conditions. One underlying ramp may handle deposits and another withdrawals, with different onboarding, pricing and settlement; a listed route may fail a bank or location test. Ace Werk analysis, 21 October 2026: use the aggregator above the table, not as a country-level promise. Request provider-by-provider evidence for each direction, receiving bank and market.</p>
-<h2>Choosing a provider: six rules from the tables</h2>
-<p>Ace Werk analysis, 21 October 2026, based on the documented rows above. These are procurement rules, not a provider ranking.</p>
-<h3>1. Pick by market first, not by brand</h3>
-<p>None of the twelve table providers documents local rails both ways in all three countries. Banxa has two-way Interac in Canada, US ACH payouts only and Mexican SPEI buys only. Bitso Business covers Mexico both ways but does not serve Canada; Bridge covers Mexico both ways and US selling; Coinbase CDP covers the US both ways but names no Canadian or Mexican local rail. Only Kraken spans all three markets and both directions in the wider sample—and it is a consumer exchange account, not an integration API.</p>
-<h3>2. Separate buy from sell before you sign</h3>
-<p>Buy and sell are separate claims. MoonPay supports Interac buying but refuses Interac selling; Topper handles US card purchases but refuses card selling in Canada and Mexico. Mercuryo and Ramp refuse US card payout. Never contract on assumed symmetry.</p>
-<h3>3. Ask which speed, then which rail</h3>
-<p>ACH and RTP settlement windows differ by provider, as the US section shows. Ask for the named rail, contractual window and receiving-bank support; &quot;instant&quot; alone is not a settlement commitment.</p>
-<h3>4. Map your users&#x27; geography to the provider&#x27;s carve-outs</h3>
-<p>Paybis bars Quebec buyers. US carve-outs for Paybis, MoonPay, Transak, Simplex and Ramp are detailed above; map those address rules into checkout before a national launch, not into a support queue afterward.</p>
-<h3>5. Know whether you are buying an API, a widget or an account</h3>
-<p>Bridge, zerohash, Bitso Business and Coinbase CDP are B2B APIs for orchestration and settlement. Banxa, Mercuryo, MoonPay, Paybis, Ramp, Simplex and Transak offer embeddable partner flows with provider KYC and pricing; Topper also has a widget, but documents only cards here. Kraken, Gemini and Coinbase&#x27;s app are consumer exchange accounts. Stripe&#x27;s merchant collection rails are another category. Do not mix these contracts in one shortlist.</p>
-<h3>6. Budget two providers, and keep settlement separate</h3>
-<p>Banxa has no US ACH buying; Ramp no longer documents US ACH or RTP buys, nor Mexican SPEI buys. Coinbase names no Mexican rail, and Bitso Business does not serve Canada. Budget two providers and a card fallback rather than assuming one covers each direction. Test the fallback in the direction that fails: a card buy cannot rescue an absent bank payout, and a bank payout may require an account or eligibility test the buy flow never asks for. Split the commercial and operational checks by country and direction, then confirm which provider owns the customer-facing failure when a route is unavailable.</p>
-<p>Stablecoin settlement is separate: Circle documents local-bank fiat payouts in 180+ countries and Stripe documents stablecoin payments settling to fiat, but neither names country-level rails. These are treasury products, not Interac replacements.</p>
-<h2>Regulatory note: what the evidence covers</h2>
-<p>Banxa describes SPEI as a real-time transfer system operated by the Bank of Mexico (Banxico), the only regulator named in the checked material. Provider availability claims here are not licensing opinions.</p>
-<p>Stripe documents stablecoin payments settling to merchants&#x27; fiat balances for US businesses, with private preview in the EU, Hong Kong, Mexico and Switzerland. Circle documents local-bank fiat payouts in 180+ countries; its country list includes Canada, Mexico and the US, but names no local rail. Stripe says OXXO bars crypto exchanges and wallets under merchant category 6051. None of these statements establishes a per-country regulatory position.</p>
-<p>We did not consult primary sources for Canada&#x27;s Bill C-15 or the US GENIUS Act, so neither is assessed here. That is an evidence limit, not a legal finding.</p>
-<h2>Building for all three markets?</h2>
-<p>If you are scoping a product that needs Interac, ACH or SPEI in more than one direction, we can walk through the gaps that matter for your corridor and your entity structure.</p>
-<p><a href="https://acewerk.com/contact/">Talk to Ace Werk about your ramp coverage</a></p>
-<h2>FAQ</h2>
-<h3>Which providers support Interac e-Transfer for buying crypto in Canada?</h3>
-<p>Banxa, Mercuryo and MoonPay document Interac buys in the tables; Coinbase and Kraken do so through consumer exchange accounts. See the Canada table and its notes for MoonPay&#x27;s account restriction and Paybis&#x27;s weaker evidence.</p>
-<h3>Can I sell crypto to a Canadian bank account?</h3>
-<p>Banxa documents instant CAD Interac payouts; Kraken documents Interac withdrawals with a minimum and fee. Coinbase&#x27;s older launch claim lacks current withdrawal-page confirmation. See Canada&#x27;s “What it means” for the figures and why card payout is not an Interac substitute.</p>
-<h3>Can you buy crypto with SPEI in Mexico?</h3>
-<p>Five providers document SPEI buys: Banxa, Paybis, Bitso Business, Bridge and Kraken. The two B2B options, Bitso Business and Bridge, have conditions; Kraken is a consumer exchange. MoonPay lists SPEI as planned, not live. See Mexico for terms and minimums.</p>
-<h3>How do you cash out crypto to a Mexican bank account?</h3>
-<p>Ramp, Bitso Business, Bridge and Kraken document SPEI payouts, with different conditions. BitPay routes Mexican cash-outs through Ramp. Banxa offers only SPEI buying; MoonPay and Transak offer card, not SPEI, payouts. The Mexico section gives speed, fees and onboarding requirements.</p>
-<h3>Which crypto ramp pays out by RTP or FedNow in the US?</h3>
-<p>zerohash and Ramp document RTP payouts; zerohash also documents FedNow, while Bridge&#x27;s FedNow payout is an invitation-only beta. Kraken offers conditional consumer RTP withdrawals. Compare their receiving-bank requirements and settlement windows in the US section.</p>
-<h3>What does &quot;not documented&quot; mean in these tables?</h3>
-<p>The checked provider pages make no claim either way; absence of evidence is not an unsupported feature. The status key above defines the term, and Simplex&#x27;s unresolved Canada listing is the concrete example.</p>
-<h2>Method</h2>
-<p>On 21 October 2026, we checked 16 providers&#x27; own pages: 120 provider-rail-direction records plus Circle and Onramper notes, 122 dataset records total. Inclusion required a documented domestic rail in Canada, the US or Mexico in either direction; explicit refusals count as evidence, silence does not. Rows carry source URLs and provider page dates where shown. No checkout or account testing was done; judgments are dated Ace Werk analysis. This is not exhaustive: Robinhood, Webull, Ripple, Nubank and Mercado Pago were not checked.</p>
-<h2>Sources</h2>
-<p>Every page below was opened for this check on 20 or 21 October 2026. Page dates are the providers&#x27; own where shown. Grouped by provider, then by country.</p>
-<p><strong>Banxa</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://docs.banxa.com/products/hosted-checkout/docs/reference/supported-payment-methods">https://docs.banxa.com/products/hosted-checkout/docs/reference/supported-payment-methods</a> (updated about 14 Oct 2026)</li></ul>
-<p><strong>BitPay</strong></p>
-<ul><li>Canada, US — <a href="https://www.bitpay.com/blog/bitpay-ramp-new-currencies">https://www.bitpay.com/blog/bitpay-ramp-new-currencies</a> (27 Jun 2023)</li><li>US, Mexico — <a href="https://www.bitpay.com/blog/cash-out-crypto-with-bitpay-ramp">https://www.bitpay.com/blog/cash-out-crypto-with-bitpay-ramp</a> (6 May 2025)</li></ul>
-<p><strong>Bitso Business</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://bitso.com/business/solutions/local-payments">https://bitso.com/business/solutions/local-payments</a> (no date shown)</li><li>Mexico — <a href="https://bitso.com/business/products/mxnb-stablecoin">https://bitso.com/business/products/mxnb-stablecoin</a> (no date shown)</li></ul>
-<p><strong>Bridge</strong></p>
-<ul><li>US — <a href="https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs">https://apidocs.bridge.xyz/platform/orchestration/more/cutoffs</a> (no date shown)</li><li>Mexico — <a href="https://apidocs.bridge.xyz/get-started/guides/move-money/mxn-spei-integration-guide">https://apidocs.bridge.xyz/get-started/guides/move-money/mxn-spei-integration-guide</a> (no date shown)</li></ul>
-<p><strong>Circle (note)</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://circle.com/cpn/fiat-payments">https://circle.com/cpn/fiat-payments</a> (no date shown)</li></ul>
-<p><strong>Coinbase</strong></p>
-<ul><li>Canada, Mexico — <a href="https://help.coinbase.com/en/coinbase/trading-and-funding/depositing-or-withdrawing-fiat-money/funding-your-account-namerica-latam">https://help.coinbase.com/en/coinbase/trading-and-funding/depositing-or-withdrawing-fiat-money/funding-your-account-namerica-latam</a> (no date shown)</li><li>Canada — <a href="https://www.coinbase.com/pt-pt/blog/coinbase-officially-launches-in-canada">https://www.coinbase.com/pt-pt/blog/coinbase-officially-launches-in-canada</a> (14 Aug 2023)</li><li>US — <a href="https://docs.cdp.coinbase.com/onramp/introduction/welcome">https://docs.cdp.coinbase.com/onramp/introduction/welcome</a> (no date shown)</li><li>US — <a href="https://help.coinbase.com/en/exchange/funding/withdrawing-with-ach">https://help.coinbase.com/en/exchange/funding/withdrawing-with-ach</a> (no date shown)</li></ul>
-<p><strong>Gemini</strong></p>
-<ul><li>US — <a href="https://support.gemini.com/hc/en-us/articles/4402719030171-What-payment-methods-are-supported">https://support.gemini.com/hc/en-us/articles/4402719030171-What-payment-methods-are-supported</a> (no date shown)</li></ul>
-<p><strong>Kraken</strong></p>
-<ul><li>Canada, US — <a href="https://support.kraken.com/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times-">https://support.kraken.com/articles/360000423043-cash-withdrawal-options-fees-minimums-and-processing-times-</a> (no date shown)</li><li>Canada — <a href="https://support.kraken.com/articles/4412259063444-how-do-i-fund-my-account-with-an-interac-e-transfer-">https://support.kraken.com/articles/4412259063444-how-do-i-fund-my-account-with-an-interac-e-transfer-</a> (14 Oct 2026)</li><li>US — <a href="https://support.kraken.com/articles/360000381846-cash-withdrawal-options-fees-minimums-and-processing-times-">https://support.kraken.com/articles/360000381846-cash-withdrawal-options-fees-minimums-and-processing-times-</a> (no date shown)</li><li>US — <a href="https://support.kraken.com/articles/4408922630676-ach-withdrawals">https://support.kraken.com/articles/4408922630676-ach-withdrawals</a> (no date shown)</li><li>Mexico — <a href="https://support.kraken.com/articles/how-to-deposit-mxn">https://support.kraken.com/articles/how-to-deposit-mxn</a> (8 Oct 2026)</li><li>Mexico — <a href="https://support.kraken.com/articles/how-to-withdraw-mxn">https://support.kraken.com/articles/how-to-withdraw-mxn</a> (8 Oct 2026)</li></ul>
-<p><strong>Mercuryo</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://help.mercuryo.io/hc/en-gb/articles/14806047888669-Which-payment-methods-does-Mercuryo-support">https://help.mercuryo.io/hc/en-gb/articles/14806047888669-Which-payment-methods-does-Mercuryo-support</a> (no date shown)</li><li>Canada, US — <a href="https://help.mercuryo.io/hc/en-gb/articles/39157544835613-In-which-countries-can-I-make-an-off-ramp-sell-transaction">https://help.mercuryo.io/hc/en-gb/articles/39157544835613-In-which-countries-can-I-make-an-off-ramp-sell-transaction</a> (15 Sep 2026)</li></ul>
-<p><strong>MoonPay</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://support.moonpay.com/en/articles/380823-moonpay-s-supported-payment-methods">https://support.moonpay.com/en/articles/380823-moonpay-s-supported-payment-methods</a> (26 Aug 2026)</li><li>Canada — <a href="https://support.moonpay.com/en/articles/396467-buying-crypto-with-interac-e-transfer">https://support.moonpay.com/en/articles/396467-buying-crypto-with-interac-e-transfer</a> (27 Jul 2026)</li><li>US — <a href="https://support.moonpay.com/en/articles/384613-supported-withdrawal-methods-for-selling-cryptocurrency">https://support.moonpay.com/en/articles/384613-supported-withdrawal-methods-for-selling-cryptocurrency</a> (14 Oct 2025)</li><li>Mexico — <a href="https://dev.enterprise.moonpay.com/rails-and-capabilities">https://dev.enterprise.moonpay.com/rails-and-capabilities</a> (coverage snapshot Sep 2026; checked 22 Oct 2026)</li></ul>
-<p><strong>Onramper (aggregator)</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://onramper.com/products/onramp">https://onramper.com/products/onramp</a> (no date shown)</li></ul>
-<p><strong>Paybis</strong></p>
-<ul><li>Canada — <a href="https://support.paybis.com/hc/en-us/articles/5119025073309-Available-payment-methods-and-their-limits">https://support.paybis.com/hc/en-us/articles/5119025073309-Available-payment-methods-and-their-limits</a> (11 May 2026)</li><li>US, Mexico — <a href="https://docs.payb.is/docs/payment-methods">https://docs.payb.is/docs/payment-methods</a> (15 Oct 2026)</li><li>Mexico — <a href="https://docs.payb.is/docs/payout-methods">https://docs.payb.is/docs/payout-methods</a> (12 Nov 2025)</li></ul>
-<p><strong>Ramp</strong></p>
-<ul><li>Canada, US — <a href="https://support.rampnetwork.com/en/articles/12630-what-payment-methods-can-i-use-to-buy-crypto">https://support.rampnetwork.com/en/articles/12630-what-payment-methods-can-i-use-to-buy-crypto</a> (updated before 6 Oct 2026; a 2023 post dated 12 Jul 2023)</li><li>Canada, US, Mexico — <a href="https://support.rampnetwork.com/en/articles/8992-what-payout-methods-are-available">https://support.rampnetwork.com/en/articles/8992-what-payout-methods-are-available</a> (19 Mar 2025)</li><li>US — <a href="https://rampnetwork.com/blog/complex-world-us-bank-transfers">https://rampnetwork.com/blog/complex-world-us-bank-transfers</a> (12 Jul 2023)</li><li>Mexico — <a href="https://rampnetwork.com/blog/ramp-network-spei">https://rampnetwork.com/blog/ramp-network-spei</a> (29 Oct 2024)</li></ul>
-<p><strong>Simplex</strong></p>
-<ul><li>Canada, Mexico — <a href="https://www.simplex.com/kb/what-are-your-supported-locations-countries-states-and-territories">https://www.simplex.com/kb/what-are-your-supported-locations-countries-states-and-territories</a> (20 Oct 2026)</li><li>US — <a href="https://www.simplex.com/kb/what-are-your-supported-payment-methods">https://www.simplex.com/kb/what-are-your-supported-payment-methods</a> (updated about 14 Oct 2026)</li></ul>
-<p><strong>Stripe</strong></p>
-<ul><li>Canada — <a href="https://docs.stripe.com/payments/payment-methods/payment-method-support">https://docs.stripe.com/payments/payment-methods/payment-method-support</a> (no date shown)</li><li>US — <a href="https://docs.stripe.com/crypto/onramp">https://docs.stripe.com/crypto/onramp</a> (no date shown; marked public preview)</li><li>US — <a href="https://docs.stripe.com/payments/stablecoin-payments">https://docs.stripe.com/payments/stablecoin-payments</a> (no date shown)</li><li>US — <a href="https://support.stripe.com/questions/crypto-supportability-and-availability-by-region">https://support.stripe.com/questions/crypto-supportability-and-availability-by-region</a> (16 Sep 2026)</li><li>Mexico — <a href="https://docs.stripe.com/payments/oxxo">https://docs.stripe.com/payments/oxxo</a> (no date shown)</li></ul>
-<p><strong>Topper</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://support.topperpay.com/hc/en-us/articles/8926549139612-What-payment-methods-are-accepted">https://support.topperpay.com/hc/en-us/articles/8926549139612-What-payment-methods-are-accepted</a> (2 Oct 2026)</li><li>Canada, Mexico — <a href="https://support.topperpay.com/hc/en-us/articles/8926552924572-Where-is-Topper-available">https://support.topperpay.com/hc/en-us/articles/8926552924572-Where-is-Topper-available</a> (about 15 Oct 2026)</li><li>US — <a href="https://support.topperpay.com/hc/en-us/articles/8926549324444-Topper-costs-and-fees">https://support.topperpay.com/hc/en-us/articles/8926549324444-Topper-costs-and-fees</a> (29 Jun 2026)</li></ul>
-<p><strong>Transak</strong></p>
-<ul><li>Canada, US, Mexico — <a href="https://transak.com/global-coverage">https://transak.com/global-coverage</a> (no date shown)</li></ul>
-<p><strong>zerohash</strong></p>
-<ul><li>US — <a href="https://docs.zerohash.com/docs/fiat">https://docs.zerohash.com/docs/fiat</a> (updated about Aug 2026)</li></ul>
             </div>
           </article>
         </div>

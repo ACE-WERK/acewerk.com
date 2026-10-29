@@ -358,6 +358,24 @@ def parse_frontmatter(text):
     return meta, body
 
 
+# Page chrome that build_post_page() already emits. Pasting any of it into a
+# raw-HTML fence closes the article early and leaves the rest of the post
+# outside .page-wrapper with a second footer, so it fails the build instead.
+_FENCE_FORBIDDEN_RE = re.compile(r"</article>|</main>|<footer|page-wrapper", re.I)
+
+
+def _check_raw_html_fences(name, body):
+    for block in parse_blocks(body, raw_html=True):
+        if block[0] != "rawhtml":
+            continue
+        m = _FENCE_FORBIDDEN_RE.search(block[1])
+        if m:
+            sys.exit(
+                "ERROR: %s has page chrome (%s) inside a raw-HTML fence; "
+                "the builder adds the page template itself" % (name, m.group(0))
+            )
+
+
 def load_posts():
     posts = []
     if not POSTS_DIR.is_dir():
@@ -380,6 +398,8 @@ def load_posts():
             print("SKIP: %s is a fixture (set ACEWERK_DEV=1 to include)" % path.name, file=sys.stderr)
             continue
         meta["raw_html"] = str(meta.get("raw_html", "")).lower() in ("true", "1", "yes")
+        if meta["raw_html"]:
+            _check_raw_html_fences(path.name, body)
         meta["updated"] = (meta.get("updated") or "").strip() or None
         meta["_source"] = path.name
         posts.append(meta)
@@ -1173,6 +1193,9 @@ def render_head(title, canonical=None, description=None, jsonld=""):
         '  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n',
         PROD_ANALYTICS if PROD else '  <meta name="robots" content="noindex, nofollow">\n',
         "  <title>" + html.escape(title) + "</title>\n",
+        '  <link rel="icon" href="/favicon.ico" sizes="any">\n',
+        '  <link rel="icon" href="/assets/icons/acewerk-logo.svg" type="image/svg+xml">\n',
+        '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">\n',
     ]
     if description:
         parts.append(
